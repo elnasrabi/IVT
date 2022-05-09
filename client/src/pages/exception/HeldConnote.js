@@ -66,9 +66,11 @@ return(
   </> )
 };
 HeldConnote.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+ 
+  <authenticatedTemplate>
+  {page}
+</authenticatedTemplate>
+ 
 );
 
 export default withRouter(HeldConnote);

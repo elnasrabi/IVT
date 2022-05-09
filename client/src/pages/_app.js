@@ -7,23 +7,45 @@ import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
 import store from '../components/store/store'
+//import {AdminLogin} from '../components/auth/getlogin'
 import {Provider} from 'react-redux';
 import Router from "next/router";
-import {LoadingIcon} from '../icons/loading'
+
 import {useState,useEffect} from 'react'
 import NProgress from "NProgress"
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from '@azure/msal-react';
+import axios from 'axios';
+import { AMDashboardLayout } from '../components/AM-dashboard-layout';
+import { GlobalDashboardLayout } from '../components/Global-dashboard-layout';
+import { DashboardLayout } from '../components/dashboard-layout';
+import { useIsAuthenticated } from "@azure/msal-react";
+
+import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
+import { msalConfig } from "../authConfig";
+//import {GlobalRef} from '../../src/helper'
+const msalInstance = new PublicClientApplication(msalConfig);
 
 const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
+
+
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
   const [loading, setLoading] = useState(false);
    useEffect(() => {
     const start = () => {
-      console.log("start");
+     // console.log("start");
       setLoading(true);
       NProgress.start();
     };
@@ -53,7 +75,7 @@ const App = (props) => {
   }, []);
 
   return (
-    <Provider store={store}>
+   
     <CacheProvider value={emotionCache}>
       <Head>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -68,12 +90,19 @@ const App = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {loading?<>Loading... </>  :getLayout(<Component {...pageProps} />)}
+          {loading?<>Loading... </>  :getLayout(<MsalProvider instance={msalInstance}>
+          <DashboardLayout>
+                <Component {...pageProps} />
+            </DashboardLayout>)
+            {/* <Component {...pageProps} /> */}
+            
+              </MsalProvider>)}
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
-    </Provider>
+
   );
 };
+
 
 export default App;

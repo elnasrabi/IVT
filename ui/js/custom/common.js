@@ -1,11 +1,11 @@
 // Define your api here
-var RuleListApiUrl = 'http://127.0.0.1:4545/getRules';
-var DeleteRuleApiUrl = 'http://127.0.0.1:4545/deleteRule';
-var EditRuleApiUrl = 'http://127.0.0.1:4545/editRule';
-var ruleSaveApiUrl = 'http://127.0.0.1:4545/saveRule';
-var productDeleteApiUrl = 'http://127.0.0.1:5000/deleteProduct';
-var orderListApiUrl = 'http://127.0.0.1:5000/getAllOrders';
-var orderSaveApiUrl = 'http://127.0.0.1:5000/insertOrder';
+var RuleListApiUrl = 'http://afs-web01:4545/getRules';
+var DeleteRuleApiUrl = 'http://afs-web01:4545/deleteRule';
+var EditRuleApiUrl = 'http://afs-web01:4545/editRule';
+var ruleSaveApiUrl = 'http://afs-web01:4545/saveRule';
+var productDeleteApiUrl = 'http://afs-web01:5000/deleteProduct';
+var orderListApiUrl = 'http://afs-web01:5000/getAllOrders';
+var orderSaveApiUrl = 'http://afs-web01:5000/insertOrder';
 
 // For product drop in order
 var productsApiUrl = 'https://fakestoreapi.com/products';

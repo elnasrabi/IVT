@@ -8,7 +8,7 @@ export default class APIService {
 
         
  
-const res =  axios.post('http://127.0.0.1:4545/deleteRule', rule_id).then(response => print(response));;
+const res =  axios.post('http://afs-web01:4545/deleteRule', rule_id).then(response => print(response));;
 //setstate({ Message: response.data }
 
  

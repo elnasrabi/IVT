@@ -41,9 +41,13 @@ return(
   </> )
 };
 Prefixes.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+  
+
+  <div>
+  {page}
+</div>
+
+
 );
 
 
@@ -54,7 +58,7 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   try {
-    const result = await axios.get('http://127.0.0.1:4545/rules/getPrefixes');
+    const result = await axios.get('http://afs-web01:4545/rules/getPrefixes');
     const data = result.data;
     return {
         props: {

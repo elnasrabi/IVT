@@ -66,9 +66,9 @@ return(
   </> )
 };
 HeldBulkConnote.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+  <authenticatedTemplate>
+  {page}
+</authenticatedTemplate>
 );
 
 export default withRouter(HeldBulkConnote);

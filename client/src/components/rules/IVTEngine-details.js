@@ -40,25 +40,35 @@ export const IVTEngineDetails = (props) => {
   const [task, setTask] = useState('All');
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-
+  function resetDashboard(){
+    localStorage.setItem('CommonMeasure', '');
+    localStorage.setItem('Top10excpetion', '');
+    localStorage.setItem('TotalMeasure', '');
+    localStorage.setItem('LastIVTInvoiceWeek', '');
+    localStorage.setItem('FocusedCustomer', '');
+  }
+  
   const handleChange = (event) => {
     setTask(event.target.value);
   };
   function runIVT(task){
+    setIsLoading(true)
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         
         setAlertContent('IVT Engine Tasks Started...');
         setAlert(3);
 
-           const res =  axios.post('http://127.0.0.1:4545/rules/runIVT',{ task: task } ).then(response => {
+           const res =  axios.post('http://afs-web01:4545/rules/runIVT',{ task: task } ).then(response => {
              
             
              if(response.data.Msg)
                {
                  setAlertContent(response.data.Msg);
                  setAlert(1);
+                 resetDashboard()
                }
              else
                {
@@ -163,6 +173,7 @@ export const IVTEngineDetails = (props) => {
             color="primary"
             variant="contained"
             onClick={()=>{runIVT(task)}}
+            disabled={isLoading}
           >
             Run 
           </Button>

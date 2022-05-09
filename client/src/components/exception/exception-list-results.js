@@ -30,14 +30,21 @@ import { getInitials } from '../../utils/get-initials';
 import MaterialTable , { MTableAction } from "material-table";
 import { useNavigate } from "react-router-dom";
 import Link from 'next/link'
+import {
+
+  useMsal,
+} from '@azure/msal-react';
 
 
 
 
 
+export const ExceptionListResults = ({props,exceptions, ...rest }) => {
+  
+  const [dataForTable, setDataForTable] = useState();
 
-export const ExceptionListResults = ({ exceptions, ...rest }) => {
-
+ 
+  const { accounts } = useMsal();
   const useStyles = makeStyles(theme => ({
     root: {
       display: "flex",
@@ -101,11 +108,12 @@ export const ExceptionListResults = ({ exceptions, ...rest }) => {
     rowData.tableData.checked = true
 };
 
+
 function DeleteExceptionApi(Exception_id){
 
    
  
-  const res =  axios.post('http://127.0.0.1:4545/deleteException', Exception_id).then(response => {
+  const res =  axios.post('http://afs-web01:4545/deleteException', Exception_id).then(response => {
     
   console.log('response.data.success',response.data);
     if(response.data.Msg)
@@ -184,6 +192,7 @@ const handleSubmit=(event)=>{
 
   return (
     <Card>
+     
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
         <div className="App">
@@ -194,13 +203,13 @@ const handleSubmit=(event)=>{
         
         // icons={{ Filter: () => <FiltersMenu /> }}
         columns={[
-          { title: "Exception", field: "ErrDesc" },
-          { title: "Customer", field: "FinanceGroup" },
-          { title: "Connote", field: "con_note" },
-          { title: "Week", field: "CurrentWeek" },
-          { title: "Carrier", field: "carrier" },
-          { title: "From", field: "from_loc" },
-          { title: "To", field: "to_loc" },
+          { title: "Exception", field: "ErrDesc",editable:'never'},
+          { title: "Customer", field: "FinanceGroup",editable:'never' },
+          { title: "Connote", field: "con_note",editable:'never' },
+          { title: "Week", field: "CurrentWeek",editable:'never' },
+          { title: "Carrier", field: "carrier",editable:'never' },
+          { title: "Account Manager", field: "AccountManager",editable:'never'},
+         
           {
             title: "Actions",
             render: rowData => {
@@ -276,6 +285,32 @@ const handleSubmit=(event)=>{
       //   onSelectionChange={(evt, rowData) => {
       //     handleCheckboxClick(rowData);
       // }}
+      editable={{
+        onBulkUpdate: (changes) => {
+          return new Promise((resolve, reject) => {
+            const rows=Object.values(changes);
+            let updatedrows = [...data];
+              //setData(getNewDataBulkEdit(changes, copyData));
+              let index;
+              rows.map(HeldConnote=>{
+                console.log('HeldConnote.oldData.Id',HeldConnote.oldData.tableData.id)
+                index=HeldConnote.oldData.tableData.id
+                console.log('HeldConnote.newData',HeldConnote.newData)
+                updatedrows[index]=HeldConnote.newData
+
+              })
+              console.log('updatedrows',updatedrows)
+            setTimeout(() => {
+              for(var i=0;i<rows.length;i++){
+                updateSingleHeldConnote(rows[i].newData) 
+               }
+            
+             setData(updatedrows)
+              resolve();
+            }, 2000);
+          })
+        },
+      }}
 
       actions={[
       

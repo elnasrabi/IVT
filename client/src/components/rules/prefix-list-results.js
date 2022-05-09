@@ -66,7 +66,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function newPrefix(prefix){
 
-    const res =  axios.post('http://127.0.0.1:4545/rules/newPrefix', prefix).then(response => {
+    const res =  axios.post('http://afs-web01:4545/rules/newPrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function updateSinglePrefix(prefix){
 
-    const res =  axios.post('http://127.0.0.1:4545/rules/updatePrefix', prefix).then(response => {
+    const res =  axios.post('http://afs-web01:4545/rules/updatePrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
     function deleteSinglePrefix(prefix){
 
-      const res =  axios.post('http://127.0.0.1:4545/rules/deletePrefix', prefix).then(response => {
+      const res =  axios.post('http://afs-web01:4545/rules/deletePrefix', prefix).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -150,7 +150,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
           component="a"
           startIcon={<ArrowBackIcon fontSize="small" />}
         >
-          Rules Settings
+          IVT Admin Panel
         </Button>
       </NextLink>
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }

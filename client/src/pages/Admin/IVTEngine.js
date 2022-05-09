@@ -45,9 +45,12 @@ const IVTEngine = () => (
 );
 
 IVTEngine.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
+  
+  <div>
+  {page}
+</div>
+
+
 );
 
 export default IVTEngine;

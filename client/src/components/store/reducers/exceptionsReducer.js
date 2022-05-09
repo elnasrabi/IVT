@@ -1,11 +1,12 @@
 import {GET_EXCEPTIONS} from '../types'
+import {SET_CURRENT_EXCEPTIONS} from '../types'
 
-const initialState = {
+const currentexceptions = {
     exceptions:[],
     loading:true
 }
 
-export default function(state = initialState, action){
+export default function(state = currentexceptions, action){
 
     switch(action.type){
 
@@ -16,7 +17,14 @@ export default function(state = initialState, action){
             loading:false
 
         }
-        default: return state
+        case SET_CURRENT_EXCEPTIONS:
+        return { 
+            ...state,currentexceptions:{
+            exceptions:action.payload,
+            loading:false
+
+        }}
+        default: return {...state}
     }
 
 }

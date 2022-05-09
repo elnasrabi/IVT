@@ -26,6 +26,10 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import {
+
+  useMsal,
+} from '@azure/msal-react';
 
 
 export const HoldBulkConnote = ({connotesToHold}) => {
@@ -39,7 +43,7 @@ export const HoldBulkConnote = ({connotesToHold}) => {
   let list=[];
  
 
-
+  const { accounts } = useMsal();
 
 
   const [submit,setSubmitting]= useState(false);
@@ -47,54 +51,58 @@ export const HoldBulkConnote = ({connotesToHold}) => {
   const [alertContent, setAlertContent] = useState('');
 
   const registerHandler = async (values) => {
+    let loginname=accounts[0].username.substring(0, accounts[0].username.indexOf("@"));
     for(var j in connotesToHold)
      list.push([j, connotesToHold [j]]);
     
     console.log('list test',list[0]  )
     let i = 0;
   for (i = 0; i < list.length; i++) {
- 
-      connotesToHoldParam.push({
-        Connote: connotesToHold[i].con_note,
-        Reason: formik.values.Reason,
-        HeldBy:'Test Bulk'
-      });
+    const payload = {
+      // make payload here using values
+      Connote: connotesToHold[i].con_note,
+      Reason: formik.values.Reason,
+      HeldBy:loginname
+    }
+    
+      console.log('JSON.stringify(connotesToHoldParam)',payload )
+      try {
+        const response = await axios.post('http://afs-web01:4545/exception/heldConnote', payload ).then(response => {
+          console.log('response.data.success',response.data);
+  
+          if(response.data.Msg)
+            {
+              setAlertContent(response.data.Msg);
+              setAlert(1);
+            }
+          else
+            {
+              setAlertContent( error.message);
+              setAlert(2);
+            }
+         }).catch(error=>{
+          setAlertContent('Error in Holding the Connote - '+ error.message);
+          setAlert(2);
+         })
+  
+      
+      } catch (e) {
+        setAlertContent( e.message);
+        setAlert(2);
+      } finally {
+       ;
+      }
     
   }
  
-    try {
-      const response = await axios.post('http://127.0.0.1:4545/exception/heldBulkConnote', connotesToHoldParam).then(response => {
-        console.log('response.data.success',response.data);
-
-        if(response.data.Msg)
-          {
-            setAlertContent(response.data.Msg);
-            setAlert(1);
-          }
-        else
-          {
-            setAlertContent( error.message);
-            setAlert(2);
-          }
-       }).catch(error=>{
-        setAlertContent('Error in Holding the Connote - '+ error.message);
-        setAlert(2);
-       })
-
-    
-    } catch (e) {
-      setAlertContent( e.message);
-      setAlert(2);
-    } finally {
-     ;
-    }
+   
   }
 
   function HoldConnote(connote){
 
 
  
-    const res =  axios.post('http://127.0.0.1:4545/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('http://afs-web01:4545/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 
@@ -267,7 +275,6 @@ export const HoldBulkConnote = ({connotesToHold}) => {
         
        
         <TextField
-          error={Boolean(formik.touched.Reason )}
           required
           fullWidth
           helperText={formik.touched.Reason }

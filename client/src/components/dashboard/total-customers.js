@@ -2,14 +2,44 @@ import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import TransportIcon from '@mui/icons-material/EmojiTransportation';
 import { useState } from 'react';
 
-export const TotalCustomers = ({ param }) => {
+export const TotalCustomers = (props) => {
   const [isUp, setIsUp] = useState(true);
   const [amt, setAmt] = useState(15);
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function nFormatter(num, digits) {
+    var si = [
+      { value: 1, symbol: "" },
+      { value: 1E3, symbol: "k" },
+      { value: 1E6, symbol: "M" },
+      { value: 1E9, symbol: "G" },
+      { value: 1E12, symbol: "T" },
+      { value: 1E15, symbol: "P" },
+      { value: 1E18, symbol: "E" }
+    ];
+    var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    var i;
+    for (i = si.length - 1; i > 0; i--) {
+      if (num >= si[i].value) {
+        break;
+      }
+    }
+    return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+  }
+
+  const totalcustomer=numberWithCommas(props.total)
 
   return(
-  <Card >
+    
+    <Card
+    sx={{ height: '100%' }}
+    {...props}
+  >
     <CardContent>
       <Grid
         container
@@ -28,7 +58,7 @@ export const TotalCustomers = ({ param }) => {
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+           {totalcustomer}
           </Typography>
         </Grid>
         <Grid item>
@@ -52,7 +82,7 @@ export const TotalCustomers = ({ param }) => {
       >
        
    
-       {isUp? 
+       {/* {isUp? 
        <><ArrowUpwardIcon color="success" /><Typography
             variant="body2"
             sx={{
@@ -70,14 +100,14 @@ export const TotalCustomers = ({ param }) => {
           >
             {amt+"%"}
           </Typography></> }
-      
+       */}
 
        
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Unique customers. 
         </Typography>
       </Box>
     </CardContent>

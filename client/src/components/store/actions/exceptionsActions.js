@@ -1,10 +1,10 @@
-import {GET_EXCEPTIONS, EXCEPTIONS_ERROR} from '../types'
+import {GET_EXCEPTIONS,SET_CURRENT_EXCEPTIONS, EXCEPTIONS_ERROR} from '../types'
 import axios from 'axios'
 
 export const getExceptions = () => async dispatch => {
     
     try{
-        const res = await axios.get(`http://127.0.0.1:4545/exception/getCurrentException`)
+        const res = await axios.get(`http://afs-web01:4545/exception/getCurrentException`)
         dispatch( {
             type: GET_EXCEPTIONS,
             payload: res.data.
@@ -19,3 +19,11 @@ export const getExceptions = () => async dispatch => {
     }
 
 }
+
+
+export const setExceptions = (exception)  => ({
+    
+            type: SET_CURRENT_EXCEPTIONS,
+            payload: exception,
+
+}  );

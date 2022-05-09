@@ -44,7 +44,7 @@ export class Api {
   async getRule(authorization: string): Promise<Types.Rule> {
     try {
       let response = await fetch(
-        `http://127.0.0.1:4545/getRules`,
+        `http://afs-web01:4545/getRules`,
       );
       let json = await response.json();
       return { kind: "ok", Rule: json };

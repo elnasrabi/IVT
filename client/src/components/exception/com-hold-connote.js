@@ -26,7 +26,12 @@ import {
   TextField,
   Typography
 } from '@mui/material';
+import {
 
+  useMsal,
+} from '@azure/msal-react';
+
+import { useRouter } from 'next/router'
 
 export const HoldConnote = ({connote,props}) => {
   const [values, setValues] = useState({
@@ -35,19 +40,22 @@ export const HoldConnote = ({connote,props}) => {
     HeldBy:'Manga'
    
   });
+  const { accounts } = useMsal();
   const [submit,setSubmitting]= useState(false);
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
+  const router = useRouter()
 
   const registerHandler = async (values) => {
+    let loginname=accounts[0].username.substring(0, accounts[0].username.indexOf("@"));
     const payload = {
       // make payload here using values
       Connote: connote.con_note,
       Reason: formik.values.Reason,
-      HeldBy:'Manga3'
+      HeldBy:loginname
     }
     try {
-      const response = await axios.post('http://127.0.0.1:4545/exception/heldConnote', payload).then(response => {
+      const response = await axios.post('http://afs-web01:4545/exception/heldConnote', payload).then(response => {
         console.log('response.data.success',response.data);
 
         if(response.data.Msg)
@@ -78,7 +86,7 @@ export const HoldConnote = ({connote,props}) => {
 
 
  
-    const res =  axios.post('http://127.0.0.1:4545/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('http://afs-web01:4545/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 
@@ -140,81 +148,8 @@ export const HoldConnote = ({connote,props}) => {
 
 
   return (
-    // <form
-    //   autoComplete="off"
-    //   noValidate
-    //   {...props}
-    // >
-    //   <Card>
-    //     <CardHeader
-    //       subheader="Why connote needs to be hold?"
-    //       title="Hold Connote"
-    //     />
-    //       {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
-    //     <Divider />
-    //     <CardContent>
-    //       <Grid
-    //         container
-    //         spacing={3}
-    //       >
-    //         <Grid
-    //           item
-    //           md={6}
-    //           xs={12}
-    //         >
-    //           <TextField
-    //             fullWidth
-    //             label="Connote No"
-    //             name="Connote"
-    //             // onChange={handleChange}
-    //             required
-    //             contentEditable={false}
-    //             value={values.Connote}
-    //             variant="outlined"
-    //           />
-    //         </Grid>
-    //         <Grid
-    //           item
-    //           md={6}
-    //           xs={12}
-    //         >
-    //           <TextField
-    //             fullWidth
-    //             helperText="Please specify the reasons of helding the connote"
-    //             label="Reasons"
-    //             name="Reason"
-    //             onChange={handleChange}
-    //             required
-    //             multiline={true}
-    //             value={values.Reason}
-    //             variant="outlined"
-    //           />
-    //         </Grid>
-                
-    //       </Grid>
-    //     </CardContent>
-    //     <Divider />
-    //     <Box
-    //       sx={{
-    //         display: 'flex',
-    //         justifyContent: 'flex-end',
-    //         p: 2
-    //       }}
-    //     >
-    //       <Button
-    //         color="primary"
-    //         variant="contained"
-    //         onClick={() => {
-    //           setValues({...values, HeldBy : 'Manga2' })
-    //           HoldConnote(values)
-              
-    //           }}>
-    //         Hold
-    //       </Button>
-    //     </Box>
-    //   </Card>
-    // </form>
-
+    
+    
     <Box
     component="main"
     sx={{
@@ -225,17 +160,14 @@ export const HoldConnote = ({connote,props}) => {
     }}
   >
     <Container maxWidth="sm">
-      <NextLink
-        href="/exception/exceptions"
-        passHref
-      >
-        <Button
+     
+        <Button onClick={() => router.back()}
           component="a"
           startIcon={<ArrowBackIcon fontSize="small" />}
         >
           Exceptions
         </Button>
-      </NextLink>
+      
       {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
         <Divider />
         <form onSubmit={formik.handleSubmit}>
