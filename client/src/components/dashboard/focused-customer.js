@@ -17,6 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const CH2ImageURL=  '/static/images/dashboard/CH2.png'
 const SpecsaversImageURL=  '/static/images/dashboard/Specsavers.png'
+const MakitaImageURL=  '/static/images/dashboard/makita.png'
 const OtherImageURL=  '/static/images/dashboard/other.png'
 
 const products = [
@@ -85,7 +86,14 @@ console.log('FocusedCust',FocusedCust)
               height: 48,
               width: 48
             }}
-          />:  <img
+          />:  cust.Customer=='Makita'? <img
+          alt={cust.Customer}
+          src={MakitaImageURL}
+          style={{
+            height: 48,
+            width: 48
+          }}
+        />:  <img
           alt={cust.Customer}
           src={OtherImageURL}
           style={{
