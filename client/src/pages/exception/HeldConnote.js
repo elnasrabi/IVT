@@ -23,9 +23,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
-function HeldConnote({ router: { query } }){ 
+function HeldConnote(){ 
+  
 
-  const connote = JSON.parse(query.connote);
+  //const connote = JSON.parse(query.connote);
  
     
 return(
@@ -59,7 +60,7 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldConnote connote={connote}/>
+          <HoldConnote connote={'1234'}/>
         </Box>
       </Container>
     </Box>

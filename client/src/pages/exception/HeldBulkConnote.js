@@ -3,30 +3,13 @@ import { Box, Container } from '@mui/material';
 
 import { HoldBulkConnote } from '../../components/exception/com-hold-bulk-connote';
 
-import { DashboardNavbar } from '../../components/dashboard-navbar';
-import { Header } from '../../components/common/Header';
-import { ExceptionListToolbar } from '../../components/exception/exception-list-toolbar';
-import { DashboardLayout } from '../../components/dashboard-layout';
 import { withRouter } from 'next/router';
-import NextLink from 'next/link';
-import {
-
-  Button,
-  Checkbox,
- 
-  FormHelperText,
-  Link,
-  TextField,
-  Typography
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
+function HeldBulkConnote(){ 
 
-function HeldBulkConnote({ router: { query } }){ 
-
-  const connote = JSON.parse(query.connote);
- console.log('connote param',connote)
+  //const connote = JSON.parse(query.connote);
+ //console.log('connote param',connote)
     
 return(
   <>
@@ -59,16 +42,16 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldBulkConnote connotesToHold={connote}/>
+          <HoldBulkConnote connotesToHold={'1234'}/>
         </Box>
       </Container>
     </Box>
   </> )
 };
 HeldBulkConnote.getLayout = (page) => (
-  <authenticatedTemplate>
+ <div>
   {page}
-</authenticatedTemplate>
+  </div>
 );
 
 export default withRouter(HeldBulkConnote);

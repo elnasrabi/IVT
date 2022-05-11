@@ -74,7 +74,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
   function newHeldConnote(HeldConnotes){
 
-    const res =  axios.post('http://afs-web01:4545/rules/newHeldConnote', HeldConnotes).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/newHeldConnote', HeldConnotes).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -99,7 +99,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
   function updateSingleHeldConnote(HeldConnote){
 
-    const res =  axios.post('http://afs-web01:4545/rules/updateHeldConnote', HeldConnote).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/updateHeldConnote', HeldConnote).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -123,7 +123,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
     function deleteSingleHeldConnote(HeldConnote){
 
-      const res =  axios.post('http://afs-web01:4545/rules/deleteHeldConnote', HeldConnote).then(response => {
+      const res =  axios.post('https://afs-web01:5051/api/rules/deleteHeldConnote', HeldConnote).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

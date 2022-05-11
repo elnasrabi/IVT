@@ -1,15 +1,5 @@
 import { useState } from 'react';
-// import {
-//   Box,
-//   Button,
-//   Card,
-//   CardContent,
-//   CardHeader,
-//   Divider,
-//   Grid,
-//   TextField
-// } from '@mui/material';
-import NextLink from 'next/link';
+
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
@@ -55,7 +45,7 @@ export const HoldConnote = ({connote,props}) => {
       HeldBy:loginname
     }
     try {
-      const response = await axios.post('http://afs-web01:4545/exception/heldConnote', payload).then(response => {
+      const response = await axios.post('https://afs-web01:5051/api/exception/heldConnote', payload).then(response => {
         console.log('response.data.success',response.data);
 
         if(response.data.Msg)
@@ -86,7 +76,7 @@ export const HoldConnote = ({connote,props}) => {
 
 
  
-    const res =  axios.post('http://afs-web01:4545/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 

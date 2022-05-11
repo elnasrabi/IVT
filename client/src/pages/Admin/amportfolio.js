@@ -1,21 +1,12 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
 import { AMPortfolioListResults } from '../../components/rules/AMPortfolio-list-results';
-
-
-import { DashboardLayout } from '../../components/dashboard-layout';
-import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom"
-import useSWR from 'swr'
-import Link from 'next/link'
-import {connect} from 'react-redux'
-
-
 
 
 function AMPortfolio({props,AMPortfolioData}){ 
-  
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 return(
   <>
     <Head>
@@ -60,13 +51,29 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   try {
-    const result = await axios.get('http://afs-web01:4545/rules/getAMPortfolios');
+    const https = require('https');
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
+
+    const result = await axios.get('https://afs-web01:5051/api/rules/getAMPortfolios',{ httpsAgent: agent });
     const data = result.data;
+    if(data)
+    { return {
+      props: {
+        AMPortfolioData: data
+      }
+  }}
+  else
+  {
     return {
-        props: {
-          AMPortfolioData: data
-        }
-    }
+      props: {
+        AMPortfolioData: []
+      }
+  }
+
+  }
+   
 } catch (error) {
     console.log(error);
 }

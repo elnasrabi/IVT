@@ -13,6 +13,8 @@ import axios from 'axios';
 
 function Fuels({props,FuelData}){ 
   
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  
 return(
   <>
     <Head>
@@ -55,7 +57,12 @@ export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
   try {
-    const result = await axios.get('http://afs-web01:4545/rules/getFuels');
+    const https = require('https');
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
+
+    const result = await axios.get('https://afs-web01:5051/api/rules/getFuels',{ httpsAgent: agent });
     const data = result.data;
     return {
         props: {

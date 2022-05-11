@@ -17,7 +17,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const CH2ImageURL=  '/static/images/dashboard/CH2.png'
 const SpecsaversImageURL=  '/static/images/dashboard/Specsavers.png'
-const OtherImageURL=  '/static/images/dashboard/Other.JPG'
+const OtherImageURL=  '/static/images/dashboard/other.png'
 
 const products = [
   {
@@ -68,7 +68,7 @@ console.log('FocusedCust',FocusedCust)
       {FocusedCust.map((cust, i) => (
         <ListItem
           divider={i < FocusedCust.length - 1}
-         // key={product.id}
+          key={cust.Customer}
         >
           <ListItemAvatar>
           {cust.Customer=='CH2'?<img

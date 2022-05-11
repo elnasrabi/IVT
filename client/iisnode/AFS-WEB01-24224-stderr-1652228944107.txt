@@ -1,0 +1,28 @@
+(node:24224) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: Cannot find module 'D:\Github\IVT\client\.next\server\pages\_error.js'
+Require stack:
+- D:\Github\IVT\client\node_modules\next\dist\server\require.js
+- D:\Github\IVT\client\node_modules\next\dist\server\next-server.js
+- D:\Github\IVT\client\node_modules\next\dist\server\next.js
+- D:\Github\IVT\client\server.js
+- C:\Program Files\iisnode\interceptor.js
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at Function.mod._resolveFilename (D:\Github\IVT\client\node_modules\next\dist\build\webpack\require-hook.js:183:28)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Module.require (node:internal/modules/cjs/loader:1005:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at Object.requirePage (D:\Github\IVT\client\node_modules\next\dist\server\require.js:48:12)
+    at Object.loadComponents (D:\Github\IVT\client\node_modules\next\dist\server\load-components.js:58:23)
+    at NextNodeServer.findPageComponents (D:\Github\IVT\client\node_modules\next\dist\server\next-server.js:442:63)
+    at NextNodeServer.renderErrorToResponse (D:\Github\IVT\client\node_modules\next\dist\server\base-server.js:1196:37)
+    at async NextNodeServer.pipe (D:\Github\IVT\client\node_modules\next\dist\server\base-server.js:628:25) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\Github\\IVT\\client\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\Github\\IVT\\client\\node_modules\\next\\dist\\server\\next-server.js',
+    'D:\\Github\\IVT\\client\\node_modules\\next\\dist\\server\\next.js',
+    'D:\\Github\\IVT\\client\\server.js',
+    'C:\\Program Files\\iisnode\\interceptor.js'
+  ]
+}

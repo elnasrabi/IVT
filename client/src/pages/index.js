@@ -11,7 +11,7 @@ import { TotalCustomers } from '../components/dashboard/total-customers';
 import { TotalGross } from '../components/dashboard/total-gross';
 import { TotalHeldConnote } from '../components/dashboard/total-heldConnote';
 import { TotalCarrier } from '../components/dashboard/total-carrier';
-import { CommonMeasures } from '../components/dashboard/Common-measures';
+ import { CommonMeasures } from '../components/dashboard/Common-measures';
 import {
   AuthenticatedTemplate,
   
@@ -27,13 +27,12 @@ import { SignInButton } from "../components/Sign-in-Button";
 import { Redirect } from 'react-router-dom'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
-import useUser from '../lib/useUser'
 import axios from 'axios';
 import useSWR from 'swr'
 const Dashboard = () => {
   const router = useRouter();
+ 
   const { accounts } = useMsal();
-
   const [isAdmin, setIsAdmin] = useState(false)
   const [LoggedUser, setLoggedUser] = useState({UserType:0,AccountManager:'',IsActive:1});
   const [top10excpetion, setTop10excpetion] = useState([])
@@ -47,6 +46,7 @@ const Dashboard = () => {
   const [vHeldCount, setHeldCount] = useState('0')
   const [FocusedCustomer, setFocusedCustomer] = useState([])
   
+
  
   const setSession = (accessToken) => {
     if (typeof window !== 'undefined')
@@ -79,7 +79,7 @@ const Dashboard = () => {
     }
     if(!accessToken)
     {
-    axios.post('http://afs-web01:4545/admin/getlogin', payload)
+    axios.post('https://afs-web01:5051/api/admin/getlogin', payload)
     .then(response =>{
        setLoggedUser({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
        setSession({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
@@ -125,7 +125,7 @@ const Dashboard = () => {
     if (typeof window !== 'undefined' && !totalmeasure) 
     {
       
-      axios.post('http://afs-web01:4545/dashboard/getTotalMeasure', payload)
+      axios.post('https://afs-web01:5051/api/dashboard/getTotalMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -168,7 +168,7 @@ const Dashboard = () => {
     let Top10=localStorage.getItem('Top10excpetion')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('http://afs-web01:4545/dashboard/getTop10Exception', payload)
+      axios.post('https://afs-web01:5051/api/dashboard/getTop10Exception', payload)
       .then(response =>{
   
         if(response.data)
@@ -208,7 +208,7 @@ const Dashboard = () => {
     let FocusedCustomer=localStorage.getItem('FocusedCustomer')
     if (typeof window !== 'undefined' && !FocusedCustomer) 
     {
-      axios.post('http://afs-web01:4545/dashboard/getFocusedCustomer', payload)
+      axios.post('https://afs-web01:5051/api/dashboard/getFocusedCustomer', payload)
       .then(response =>{
   
         if(response.data)
@@ -246,7 +246,7 @@ const Dashboard = () => {
     let Common=localStorage.getItem('CommonMeasure')
     if (typeof window !== 'undefined' && !Common) 
     {
-      axios.post('http://afs-web01:4545/dashboard/getCommonMeasure', payload)
+      axios.post('https://afs-web01:5051/api/dashboard/getCommonMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -286,7 +286,7 @@ const Dashboard = () => {
     let Top10=localStorage.getItem('LastIVTInvoiceWeek')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('http://afs-web01:4545/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
+      axios.post('https://afs-web01:5051/api/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
       .then(response =>{
   
         if(response.data)
@@ -311,7 +311,7 @@ const Dashboard = () => {
 
   function WelcomeUser() {
     try{
-      const { accounts } = useMsal();
+     
       if (isAuthenticated) {
       const username = accounts[0].name;
       return <p>Welcome, {username}</p>;

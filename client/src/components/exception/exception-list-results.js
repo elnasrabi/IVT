@@ -113,7 +113,7 @@ function DeleteExceptionApi(Exception_id){
 
    
  
-  const res =  axios.post('http://afs-web01:4545/deleteException', Exception_id).then(response => {
+  const res =  axios.post('https://afs-web01:5051/api/deleteException', Exception_id).then(response => {
     
   console.log('response.data.success',response.data);
     if(response.data.Msg)

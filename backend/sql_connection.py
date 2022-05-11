@@ -9,7 +9,7 @@ def get_sql_connection():
         username = 'report_subscriber'
         password = 'P@ssw0rd'
         __cnx = pyodbc.connect(
-            'DRIVER={SQL Server Native Client 11.0};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password +';MARS_Connection=Yes')
+            'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password +';MARS_Connection=Yes')
     return __cnx
 
 
@@ -22,5 +22,5 @@ def get_job_agent_connection():
         username = 'report_subscriber'
         password = 'P@ssw0rd'
         __cnxx = pyodbc.connect(
-            'DRIVER={SQL Server Native Client 11.0};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password +';MARS_Connection=Yes')
+            'DRIVER={SQL Server};SERVER=' + server + ';DATABASE=' + database + ';UID=' + username + ';PWD=' + password +';MARS_Connection=Yes')
     return __cnxx

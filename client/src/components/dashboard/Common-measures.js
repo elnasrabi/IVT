@@ -40,7 +40,7 @@ export const CommonMeasures = (props) => {
   });
   }
 
-
+  const common=[];
   // console.log('CommonMeasure.Percenarge',result)
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -103,7 +103,7 @@ export const CommonMeasures = (props) => {
   };
 
   try {
-    const common = [
+    common = [
       {
         title: vError[0].cType,
         value: vError[0].Percenarge,
@@ -131,7 +131,7 @@ export const CommonMeasures = (props) => {
     ];
   }
   catch(e){
-    const common = [
+     common = [
       {
         title: 'NA',
         value: 0,

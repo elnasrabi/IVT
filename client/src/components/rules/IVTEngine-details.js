@@ -61,7 +61,7 @@ export const IVTEngineDetails = (props) => {
         setAlertContent('IVT Engine Tasks Started...');
         setAlert(3);
 
-           const res =  axios.post('http://afs-web01:4545/rules/runIVT',{ task: task } ).then(response => {
+           const res =  axios.post('https://afs-web01:5051/api/rules/runIVT',{ task: task } ).then(response => {
              
             
              if(response.data.Msg)

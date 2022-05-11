@@ -6,18 +6,14 @@ import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
-import store from '../components/store/store'
+// import store from '../components/store/store'
 //import {AdminLogin} from '../components/auth/getlogin'
-import {Provider} from 'react-redux';
+
 import Router from "next/router";
 
 import {useState,useEffect} from 'react'
 import NProgress from "NProgress"
-import {
-  AuthenticatedTemplate,
-  UnauthenticatedTemplate,
-  useMsal,
-} from '@azure/msal-react';
+
 import axios from 'axios';
 import { AMDashboardLayout } from '../components/AM-dashboard-layout';
 import { GlobalDashboardLayout } from '../components/Global-dashboard-layout';
@@ -34,7 +30,7 @@ const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
 
-
+ 
 
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
@@ -78,7 +74,7 @@ const App = (props) => {
    
     <CacheProvider value={emotionCache}>
       <Head>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ==" crossOrigin="anonymous" referrerpolicy="no-referrer" />
         <title>
           IVT Solution
         </title>

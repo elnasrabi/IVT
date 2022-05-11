@@ -553,7 +553,7 @@ DashboardSidebar.propTypes = {
 //      LoginName: loginname // 'fhenderson'//loginname
 //    }
    
-// const result = await axios.get('http://afs-web01:4545/exception/getCurrentException');
+// const result = await axios.get('https://afs-web01:5051/api/exception/getCurrentException');
 //     const data = result;
 //     return {
 //         props: {

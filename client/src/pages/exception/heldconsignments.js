@@ -42,7 +42,7 @@ function HeldConnote({props,HeldConnoteData}){
       // make payload here using values
       LoginName: loginname // 'fhenderson'//loginname
     }
-    const address = `http://afs-web01:4545/exception/getHeldConnote`;
+    const address = `https://afs-web01:5051/api/exception/getHeldConnote`;
     const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
     const { data, error } = useSWR(address, fetcher);
 
@@ -59,7 +59,7 @@ function HeldConnote({props,HeldConnoteData}){
   //     // make payload here using values
   //     LoginName:  loginname //'fhenderson'//loginname
   //   }
-  //    axios.post('http://afs-web01:4545/exception/getHeldConnote', payload)
+  //    axios.post('https://afs-web01:5051/api/exception/getHeldConnote', payload)
   //   .then(response => setResult(response.data))
   //   .catch(error => console.log(error))
 
@@ -106,7 +106,7 @@ HeldConnote.getLayout = (page) => (
 //   // Call an external API endpoint to get posts.
 //   // You can use any data fetching library
 //   try {
-//     const result = await axios.get('http://afs-web01:4545/rules/getHeldConnotes');
+//     const result = await axios.get('https://afs-web01:5051/api/rules/getHeldConnotes');
 //     const data = result.data;
 //     return {
 //         props: {
