@@ -60,8 +60,10 @@ export const fetchMsGraph = async (url, accessToken) => {
       clientId: '80249579-f4e8-485e-bea8-a14db308f590',
       authority: 'https://login.microsoftonline.com/00b6e27a-f85c-4d05-8668-57fd7cc1ec1c',
       validateAuthority: 'true',
-      redirectUri: 'https://afs-web01:91/',
-      postLogoutRedirectUri: 'https://afs-web01:91/login',
+      redirectUri: 'http://localhost:3000/',
+      postLogoutRedirectUri: 'http://localhost:3000/login',
+      // redirectUri: 'https://afs-web01:91/',
+      // postLogoutRedirectUri: 'https://afs-web01:91/login',
       navigateToLoginRequestUrl: 'true',
     },
     cache: {
