@@ -8,6 +8,7 @@ import { Header } from '../../components/common/Header';
 import { ExceptionListToolbar } from '../../components/exception/exception-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { withRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import NextLink from 'next/link';
 import {
 
@@ -20,13 +21,15 @@ import {
   Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { HeldConnoteListResults } from '../../components/exception/heldconnote-list-results';
 
 
 
 function HeldConnote(){ 
   
-
-  //const connote = JSON.parse(query.connote);
+  const router = useRouter()
+  const query=router.query
+  const connote = JSON.parse(query.connote);
  
     
 return(
@@ -60,7 +63,7 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldConnote connote={'1234'}/>
+          <HoldConnote connote={connote}/>
         </Box>
       </Container>
     </Box>

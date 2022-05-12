@@ -16,7 +16,24 @@ import Link from 'next/link'
 
 function Cubics({props,cubicData}){ 
 
+  try {
+    const https = require('https');
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  const address = `https://afs-web01:5051/api/rules/getCubics`;
+  const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
+  const { data, error } = useSWR(address, fetcher);
+
+  if (error) <p>Loading failed...</p>;
+  if (!data) <h1>Loading...</h1>;
+  if (data) cubicData=data;
+
+
+} catch (error) {
+    console.log(error);
+}
   
 
   

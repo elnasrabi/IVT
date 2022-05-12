@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom"
 import useSWR from 'swr'
 import Link from 'next/link'
+import NextLink from 'next/link';
 import {connect} from 'react-redux'
 import {getExceptions} from '../../components/store/actions/exceptionsActions'
 import {
@@ -21,7 +22,12 @@ import {
 import { SignInButton } from "../../components/Sign-in-Button";
 import { useIsAuthenticated } from "@azure/msal-react";
 import Table from "../../components/fileuploader/Table";
+import {
 
+  Button,
+
+} from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
@@ -64,6 +70,18 @@ function FileReader({props,excep}){
   return(
     <div>
     <spann>{ProtectedComponent()}</spann>
+    <NextLink
+        href="/rules"
+        passHref
+      >
+        <Button
+          component="a"
+          startIcon={<ArrowBackIcon fontSize="small" />}
+        >
+          IVT Admin Panel
+        </Button>
+      </NextLink>
+
     <Table/>
     </div>
     )

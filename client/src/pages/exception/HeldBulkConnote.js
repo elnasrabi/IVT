@@ -3,13 +3,14 @@ import { Box, Container } from '@mui/material';
 
 import { HoldBulkConnote } from '../../components/exception/com-hold-bulk-connote';
 
-import { withRouter } from 'next/router';
+import { withRouter,useRouter } from 'next/router';
 
 
 function HeldBulkConnote(){ 
 
-  //const connote = JSON.parse(query.connote);
- //console.log('connote param',connote)
+  const router = useRouter()
+  const query=router.query
+  const connote = JSON.parse(query.connote);
     
 return(
   <>
@@ -42,7 +43,7 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldBulkConnote connotesToHold={'1234'}/>
+          <HoldBulkConnote connotesToHold={connote}/>
         </Box>
       </Container>
     </Box>
