@@ -32,7 +32,7 @@ const CustomToolbar = (props) => {
 
   useEffect(() => {
     let arr;
-    if (CSVData.length>0)
+    if (CSVData.length>0 && CSVData)
     {
          arr=Array.from(fn(CSVData[0]));
 
@@ -83,11 +83,15 @@ const CustomToolbar = (props) => {
             };
           }
         });
-    }
+    
+    
+        setDataForTable(dataArr);
+    
+      }
     
    
-    setDataForTable(dataArr);
-    console.log("CSV DATA", dataArr);
+
+  
   }, [CSVData, setDataForTable]);
 
   const handleOpen = () => {
