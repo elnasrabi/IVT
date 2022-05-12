@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 function Cubics({props,cubicData}){ 
 
-  try {
+ 
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
@@ -31,10 +31,6 @@ function Cubics({props,cubicData}){
   if (data) cubicData=data;
 
 
-} catch (error) {
-    console.log(error);
-}
-  
 
   
 return(

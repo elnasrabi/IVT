@@ -15,7 +15,7 @@ import {connect} from 'react-redux'
 
 
 function Tolerances({props,ToleranceData}){ 
-  try {
+
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
@@ -30,9 +30,7 @@ function Tolerances({props,ToleranceData}){
   if (data) ToleranceData=data;
 
 
-} catch (error) {
-    console.log(error);
-}
+
 
   
 return(

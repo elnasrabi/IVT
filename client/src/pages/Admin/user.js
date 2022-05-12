@@ -16,7 +16,7 @@ import {connect} from 'react-redux'
 
 function Users({props,UserData}){ 
 
-  try {
+
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
@@ -31,9 +31,7 @@ function Users({props,UserData}){
   if (data) UserData=data;
 
 
-} catch (error) {
-    console.log(error);
-}
+
   
 return(
   <>

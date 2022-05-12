@@ -6,33 +6,26 @@ import { FuelListResults } from '../../components/rules/fuel-list-results';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
-
+import useSWR from 'swr'
 
 
 
 
 function Fuels({props,FuelData}){ 
-  try {
+ 
+
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   const address = `https://afs-web01:5051/api/rules/getFuels`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
-
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
   if (data) FuelData=data;
 
-
-} catch (error) {
-    console.log(error);
-}
-
-  
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   
 return(
   <>
@@ -75,6 +68,7 @@ export async function getStaticProps() {
 
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   try {
     const https = require('https');
     const agent = new https.Agent({  

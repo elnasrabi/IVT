@@ -82,7 +82,7 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 3000);
+      }, 5000);
     });
  
     

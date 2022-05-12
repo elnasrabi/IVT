@@ -28,8 +28,20 @@ import { HeldConnoteListResults } from '../../components/exception/heldconnote-l
 function HeldConnote(){ 
   
   const router = useRouter()
-  const query=router.query
-  const connote = JSON.parse(query.connote);
+  const query=router.query||[]
+  let connote =''
+  try
+  {
+    if(query)
+    {
+      connote=JSON.parse(query.connote)
+    }
+  }
+  catch(err){
+    console.log(err)
+  }
+  
+
  
     
 return(
