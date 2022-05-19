@@ -90,6 +90,11 @@ export async function getStaticProps() {
     }
 } catch (error) {
     console.log(error);
+    return {
+      props: {
+        prefixData: []
+      }
+    }
 }
   
 

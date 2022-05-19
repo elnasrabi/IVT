@@ -76,11 +76,16 @@ export async function getStaticProps() {
     const data = result.data;
    return {
       props: {
-        AMPortfolioData: data
+        AMPortfolioData: data||[]
       }
     }
 } catch (error) {
     console.log(error);
+    return {
+      props: {
+        AMPortfolioData: []
+      }
+    }
 }
   
 

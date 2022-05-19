@@ -269,3 +269,6 @@ def get_all_current_MLexceptions(connection,login):
     # output_json = json.dumps(output_dict)
     cursor.close()
     return respons
+
+
+

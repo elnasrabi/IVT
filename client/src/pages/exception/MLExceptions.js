@@ -96,7 +96,7 @@ return(
   </div>
   )
 };
-Exceptions.getLayout = (page) => (
+MLExceptions.getLayout = (page) => (
   <div>
  
   {page}
