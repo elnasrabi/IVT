@@ -83,8 +83,13 @@ export const IVTEngineDetails = (props) => {
            //setMsg(response.data.Msg)
         resolve();
       }, 5000);
+      // Run the ML Model in background
+      axios.get('https://afs-web01:5051/api/ML/getMLIFExceptions')
     });
- 
+     
+   
+
+    
     
     }
 

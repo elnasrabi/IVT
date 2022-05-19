@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Typography , TextField} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
@@ -32,12 +32,19 @@ function handleLogout(instance) {
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
  // console.log('props top',props)
+ let username='Welcome'
   const isAuthenticated = useIsAuthenticated();
   //   const username = accounts[0].username;
   const router = useRouter() 
 const { accounts } = useMsal();
 // console.log ('accounts[0]',accounts[0])
-const username = 'User';
+try{
+  username = 'Hi ,'+ accounts[0].name;
+}
+catch{
+  username='Welcome to IVT'
+}
+
 // console.log('isAuthenticated',isAuthenticated);
 
   return (
@@ -61,40 +68,10 @@ const username = 'User';
           }}
         >
           
-          <IconButton
-            onClick={onSidebarOpen}
-            sx={{
-              display: {
-                xs: 'inline-flex',
-                lg: 'none'
-              }
-            }}
-          >
-            <MenuIcon fontSize="small" />
-          </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          <Avatar
+        
+          
+         
+          {/* <Avatar
             sx={{
               height: 40,
               width: 40,
@@ -103,15 +80,16 @@ const username = 'User';
             src="/static/images/avatars/avatar_1.png"
           >
             <UserCircleIcon fontSize="small" />
-          </Avatar>
-         {props.isloggedin && <Button variant="secondary" className="ml-auto" onClick={
+            {props.isloggedin && <Button variant="secondary" className="ml-auto" onClick={
             () =>{ handleLogout(msalInstance)
             
             router.push('/login')
           }
             }>Sign out</Button> }
+          </Avatar> */}
+          <Typography> {username} </Typography>
+         
 
-          <span>Welcome {username} </span>
         </Toolbar>
       </DashboardNavbarRoot>
     </>
@@ -121,3 +99,5 @@ const username = 'User';
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };
+
+// New Changes

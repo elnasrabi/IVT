@@ -63,9 +63,9 @@ const items = [
   },
   
   {
-    href: '/404',
+    href: '/exception/MLExceptions',
     icon: (<SmartButtonIcon fontSize="small" />),
-    title: 'Smart Exceptions',
+    title: 'Auto Detected Exceptions',
     isAdmin:false
   },
   
