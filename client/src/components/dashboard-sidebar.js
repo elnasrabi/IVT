@@ -51,7 +51,7 @@ const items = [
   {
     href: '/exception/histexception',
     icon: (<ErrorIcon fontSize="small" />),
-    title: 'Historical Exceptions',
+    title: 'Active Exceptions',
     isAdmin:false
   },
  
@@ -63,9 +63,9 @@ const items = [
   },
   
   {
-    href: '/404',
+    href: '/exception/MLExceptions',
     icon: (<SmartButtonIcon fontSize="small" />),
-    title: 'Smart Exceptions',
+    title: 'Auto Exceptions',
     isAdmin:false
   },
   

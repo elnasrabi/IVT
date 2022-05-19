@@ -61,7 +61,7 @@ export async function getStaticProps() {
     if(data)
     { return {
       props: {
-        AMPortfolioData: data
+        AMPortfolioData: data||[]
       }
   }}
   else
@@ -76,6 +76,11 @@ export async function getStaticProps() {
    
 } catch (error) {
     console.log(error);
+    return {
+      props: {
+        AMPortfolioData: []
+      }
+    }
 }
   
 
