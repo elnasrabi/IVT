@@ -1,7 +1,0 @@
-Application has thrown an uncaught exception and is terminated:
-Error: Could not find a production build in the 'D:\Github\IVT\client\.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
-    at NextNodeServer.getBuildId (D:\Github\IVT\client\node_modules\next\dist\server\next-server.js:137:23)
-    at new Server (D:\Github\IVT\client\node_modules\next\dist\server\base-server.js:93:29)
-    at new NextNodeServer (D:\Github\IVT\client\node_modules\next\dist\server\next-server.js:86:9)
-    at NextServer.createServer (D:\Github\IVT\client\node_modules\next\dist\server\next.js:109:16)
-    at async D:\Github\IVT\client\node_modules\next\dist\server\next.js:121:31

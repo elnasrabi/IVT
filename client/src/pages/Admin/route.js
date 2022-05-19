@@ -14,16 +14,7 @@ import {connect} from 'react-redux'
 
 
 
-function Routes({props}){ 
-
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://afs-web01:5051/api/rules/getRoutes`;
-  const fetcher = async (url) => await axios.get(url).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
-
-  if (error) <p>Loading failed...</p>;
-  if (!data) <h1>Loading...</h1>;
-
+function Routes({props,RouteData}){ 
   
 return(
   <>
@@ -42,7 +33,7 @@ return(
       <Container maxWidth={false}>
         {/* <RouteListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <RouteListResults Routes={data}/>
+          <RouteListResults Routes={RouteData}/>
         </Box>
       
       </Container>
@@ -63,32 +54,37 @@ Routes.getLayout = (page) => (
 
 
 
-// export async function getStaticProps() {
+export async function getStaticProps() {
 
-//   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-//   // Call an external API endpoint to get posts.
-//   // You can use any data fetching library
-//   try {
-//     const https = require('https');
-//     const agent = new https.Agent({  
-//       rejectUnauthorized: false
-//     });
-//     const result = await axios.get('https://afs-web01:5051/api/rules/getRoutes',{ httpsAgent: agent });
-//     const data = result.data;
-//     return {
-//         props: {
-//           RouteData: data
-//         }
-//     }
-// } catch (error) {
-//     console.log(error);
-// }
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  try {
+    const https = require('https');
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
+    const result = await axios.get('https://afs-web01:5051/api/rules/getRoutes',{ httpsAgent: agent });
+    const data = result.data;
+    return {
+        props: {
+          RouteData: data
+        }
+    }
+} catch (error) {
+    console.log(error);
+    return {
+      props: {
+        RouteData: []
+      }
+    }
+}
   
 
-//   // By returning { props: { posts } }, the Blog component
-//   // will receive `posts` as a prop at build time
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
 
-// }
+}
 
 export default Routes
