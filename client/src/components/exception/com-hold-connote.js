@@ -23,10 +23,21 @@ import {
 
 import { useRouter } from 'next/router'
 
-export const HoldConnote = ({connote,props}) => {
+export const HoldConnote = ({connote}) => {
+  
+  try
+  {
+  
+      connote=JSON.parse(connote.connote)
+   
+  }
+  catch{
+connote={}
+  }
+
   const [values, setValues] = useState({
     Connote: connote.con_note,
-    Reason: '',
+    Reason: '', 
     HeldBy:'Manga'
    
   });

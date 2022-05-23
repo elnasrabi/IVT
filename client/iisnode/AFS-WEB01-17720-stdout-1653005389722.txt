@@ -1,0 +1,2 @@
+info  - Loaded env from D:\Github\IVT\client\.env.local
+> Ready on http://afs-web01:\\.\pipe\ccbb8354-3edf-41c2-b0ea-19cf96812956

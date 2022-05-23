@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
 
-import { HoldConnote } from '../../components/exception/com-hold-connote';
+import { ViewConnoteCom } from '../../components/exception/com-View-connote';
 
 import { DashboardNavbar } from '../../components/dashboard-navbar';
 import { Header } from '../../components/common/Header';
@@ -23,35 +23,28 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
-function HeldConnote(){ 
-
-  let connote='';
-  try {
-    const router = useRouter();
-     connote = router.query || {}
-     
-  }
-  catch{
-  connote='' 
-  }
-    
-
+function ViewConnote(){ 
   
   
-  // let connote = '123';
-  // try {
-  //   connote=JSON.parse(query.connote)
-  // }
-  // catch{
-  //   connote=''
-  // }
+  let connote='1234';
+try {
+  const router = useRouter();
+   connote = router.query || {}
+   
+}
+catch{
+connote='1234' 
+}
+  
+
+  //const connote = JSON.parse(query.connote);
  
     
 return(
   <>
     <Head>
       <title>
-        Hold Connote | IVT
+        View Connote | IVT
       </title>
     </Head>
     <Box
@@ -78,18 +71,20 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldConnote connote={connote}/>
+          <ViewConnoteCom connote={connote}/>
         </Box>
       </Container>
     </Box>
   </> )
 };
-HeldConnote.getLayout = (page) => (
+ViewConnote.getLayout = (page) => (
  
-  <authenticatedTemplate>
-  {page}
-</authenticatedTemplate>
+<div>
+{page}
+</div>
+
+
  
 );
 
-export default withRouter(HeldConnote);
+export default withRouter(ViewConnote);

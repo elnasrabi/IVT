@@ -12,6 +12,7 @@ import json
 import rules
 import exceptions
 import admin
+import ML
 import dashboard
 import os
 
@@ -547,6 +548,27 @@ def run_IVT():
         'Msg': msg
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+    #endregion 
+
+    #region ML Models
+@app.route('/api/ML/getMLIFExceptions', methods=['GET'])
+def get_ML_IF_Exceptions():
+   # request_payload = request.get_json()
+    msg = ML.get_ML_IF_exceptions()
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/ML/getCurrentMLException', methods=['GET','POST'])
+def get_ML_Current_exception():
+    request_payload = request.get_json()
+    response = ML.get_all_current_MLexceptions(connection,request_payload)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    print('response:',response)
     return response
     #endregion 
 

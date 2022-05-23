@@ -51,7 +51,7 @@ const items = [
   {
     href: '/exception/histexception',
     icon: (<ErrorIcon fontSize="small" />),
-    title: 'Active Exceptions',
+    title: 'Pending Exceptions',
     isAdmin:false
   },
  

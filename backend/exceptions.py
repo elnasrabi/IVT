@@ -260,8 +260,7 @@ def deleteHeldConnote(connection,HeldConnote):
     return 'Connote has released successfully.'
 
     
-def connect():
-    return pytds.connect(dsn='AFS-SQL01',database='IVT',autocommit=True, auth=login.SspiAuth())
+
     
 def heldBulkConnote(connection,connote):
     cursor=connection.cursor()
@@ -275,43 +274,6 @@ def heldBulkConnote(connection,connote):
     #     resultcode=MessageCode
     cursor.close()
     return 'Connote has been helded successfully.'
-
-def heldBulkConnoteTest(connection,connote):
- engine = sa.create_engine('mssql+pytds://[ServerName]', creator=connect)
- proc_name = "so51930062"
- type_name = proc_name + "Type"
-
-# set up test environment
- with engine.begin() as conn:
-     conn.exec_driver_sql(f"""\
-                DROP PROCEDURE IF EXISTS {proc_name} 
-            """)
-     conn.exec_driver_sql(f"""\
-                DROP TYPE IF EXISTS {type_name} 
-            """)
-     conn.exec_driver_sql(f"""\
-                CREATE TYPE {type_name} AS TABLE (
-                id int,
-                txt nvarchar(50)
-                ) 
-            """)
-     conn.exec_driver_sql(f"""\
-                CREATE PROCEDURE {proc_name} 
-                @prefix nvarchar(10),
-                @tvp {type_name} READONLY
-                AS
-                BEGIN
-                    SET NOCOUNT ON;
-                    SELECT id, @prefix + txt AS new_txt FROM @tvp;
-                END
-            """)
-
- conn = engine.raw_connection()
- with engine.begin() as conn:
-            data = {"prefix": "new_", "tvp": [(1, "foo"), (2, "bar")]}
-            sql = f"{{CALL {proc_name} (:prefix, :tvp)}}"
-            print(conn.execute(sa.text(sql), data).fetchall())
-        # [(1, 'new_foo'), (2, 'new_bar')]
 
 def delete_rule(connection, rule_id):
     cursor = connection.cursor()

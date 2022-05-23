@@ -83,6 +83,8 @@ export const IVTEngineDetails = (props) => {
            //setMsg(response.data.Msg)
         resolve();
       }, 3000);
+
+      axios.post('https://afs-web01:5051/api/ML/getMLIFExceptions');
     });
  
     

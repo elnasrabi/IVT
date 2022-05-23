@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import {
   Box,
   Button,
+  Grid,
   Checkbox,
   Container,
   FormHelperText,
@@ -23,61 +24,30 @@ import {
 
 import { useRouter } from 'next/router'
 
-export const ViewConnote = ({connote,props}) => {
+export const ViewConnoteCom = ({connote}) => {
+  try
+  {
+  
+      connote=JSON.parse(connote.connote)
+   
+  }
+  catch{
+connote={}
+  }
+  
+ 
+
   const [values, setValues] = useState({
     Connote: connote.con_note,
     Reason: '',
     HeldBy:'Manga'
-   
   });
   const { accounts } = useMsal();
   const [submit,setSubmitting]= useState(false);
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
   const router = useRouter()
-
-  const registerHandler = async (values) => {
-    let loginname=accounts[0].username.substring(0, accounts[0].username.indexOf("@"));
-    const payload = {
-      // make payload here using values
-      Connote: connote.con_note,
-      Reason: formik.values.Reason,
-      HeldBy:loginname
-    }
-    try {
-      const response = await axios.post('https://afs-web01:5051/api/exception/heldConnote', payload).then(response => {
-        console.log('response.data.success',response.data);
-
-        if(response.data.Msg)
-          {
-            setAlertContent(response.data.Msg);
-            setAlert(1);
-          }
-        else
-          {
-            setAlertContent( error.message);
-            setAlert(2);
-          }
-       }).catch(error=>{
-        setAlertContent('Error in Holding the Connote - '+ error.message);
-        setAlert(2);
-       })
-
-    
-    } catch (e) {
-      setAlertContent( e.message);
-      setAlert(2);
-    } finally {
-     ;
-    }
-  }
-
-
-
-
   return (
-    
-    
     <Box
     component="main"
     sx={{
@@ -87,7 +57,7 @@ export const ViewConnote = ({connote,props}) => {
       minHeight: '100%'
     }}
   >
-    <Container maxWidth="sm">
+    <Container>
      
         <Button onClick={() => router.back()}
           component="a"
@@ -95,95 +65,139 @@ export const ViewConnote = ({connote,props}) => {
         >
           Exceptions
         </Button>
-    
-        <Divider />
-        <form onSubmit={formik.handleSubmit}>
-        <Box sx={{ my: 3 }}>
-          <Typography
-            color="textPrimary"
-            variant="h4"
-          >
-            Hold Reason
-          </Typography>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="body2"
-          >
-          Provide the reasons of helding the connote...
-          </Typography>
-        </Box>
-        <TextField
-          error={Boolean(formik.touched.connote && formik.errors.connote)}
-          fullWidth
-          helperText={formik.touched.connote && formik.errors.connote}
-          label="Connote"
-          margin="normal"
-          name="connote"
-          onBlur={formik.handleBlur}
-          //onChange={formik.handleChange}
-          value={values.Connote}
-          variant="outlined"
-        />
-          <TextField
-          error={Boolean(formik.touched.customer && formik.errors.connote)}
-          fullWidth
-          helperText={formik.touched.customer && formik.errors.customer}
-          label="Customer"
-          margin="normal"
-          name="customer"
-          onBlur={formik.handleBlur}
-          //onChange={formik.handleChange}
-          value={formik.values.customer}
-          variant="outlined"
-        />
-          <TextField
-          error={Boolean(formik.touched.cons_date && formik.errors.customer)}
-          fullWidth
-          helperText={formik.touched.cons_date && formik.errors.connote}
-          label="Connote Date"
-          margin="normal"
-          name="cons_date"
-          onBlur={formik.handleBlur}
-          //onChange={formik.handleChange}
-          value={formik.values.cons_date}
-          variant="outlined"
-        />
-        <TextField
-          error={Boolean(formik.touched.Reason && formik.errors.connote)}
-          required
-          fullWidth
-          helperText={formik.touched.Reason && formik.errors.Reason}
-          label="Reason"
-          margin="normal"
-          name="Reason"
-          multiline="true"
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-          value={formik.values.Reason}
-          variant="outlined"
-        />
         
+        <Divider />
+       
+        <Grid
+          container
+          spacing={1}
+          style={{
+ 
+            paddingTop: "40px"
+          }}
+        >
+          <Grid
+            xl={12}
+            xs={20}
+          >
+            <Typography color="#334FFF">Exception:</Typography>
+            <Typography color="textPrimary">{connote.ErrDesc}</Typography>
+      
+         <Typography color="#334FFF">Error Code::</Typography>
+         <Typography color="textPrimary">{connote.ErrCode}</Typography>
+
+          </Grid>
+
+
+       
+      
+       <Grid
+           
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={20}
+          >
+        
+            <Typography color="334FFF">Connote:{connote.con_note}</Typography>
+            <Typography color="334FFF">Connote Date:{connote.cons_date}</Typography>
+            <Typography color="textPrimary">  Job Number:{connote.jno}</Typography>
+            <Typography color="textPrimary">Supplier Reference:{connote.supplier_ref}</Typography>
+            <Typography color="textPrimary">Customer Reference:{connote.cus_ref}</Typography>
+            <Typography color="textPrimary">Account Manager:{connote.AccountManager}</Typography>
+            <Typography color="textPrimary">DeliveryRef:{connote.del_ref}</Typography>
+           
+          
+
+          </Grid>
+
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={20}
+            style={{
+ 
+              paddingLeft: "40px"
+            }}
+          >
+           <Typography color="textPrimary">Customer:{connote.customer}</Typography>
+           <Typography color="textPrimary">Finance Group:{connote.FinanceGroup}</Typography>
+           <Typography color="textPrimary">Carrier:{connote.carrier}</Typography>
+           <Typography color="textPrimary">From:{connote.from_loc}</Typography>
+           <Typography color="textPrimary">To:{connote.to_loc}</Typography>
+           <Typography color="textPrimary">Col Post:{connote.col_post}</Typography>
+           <Typography color="textPrimary">Del Post:{connote.del_post}</Typography>
+           <Typography color="textPrimary">Col Sub Zone:{connote.colsubzone}</Typography>
+           <Typography color="textPrimary">Del Sub Zone:{connote.delsubzone}</Typography>
+           <Typography color="textPrimary">Entered By:{connote.entered_by}</Typography>
+
+           
+
+          </Grid>
+
+          
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={20}
+          >
+           <Typography color="textPrimary">Cubic:{connote.cubic}</Typography>
+           <Typography color="textPrimary">Weight:{connote.weight}</Typography>
+           <Typography color="textPrimary">Chg kg:{connote.chg_kg}</Typography>
+           <Typography color="textPrimary">Quantity:{connote.quantity}</Typography>
+           <Typography color="textPrimary">Lift:{connote.lift}</Typography>
+           <Typography color="textPrimary">Pallet:{connote.pallet}</Typography>
+           <Typography color="textPrimary">Space:{connote.space}</Typography>
+           <Typography color="textPrimary">Option Code:{connote.option_code}</Typography>
+           <Typography color="textPrimary">Work Code:{connote.work_code}</Typography>
+           <Typography color="textPrimary">Unit:{connote.unit}</Typography>
+           <Typography color="textPrimary">Status:{connote.status}</Typography>
+
+           
+
+          </Grid>
+
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={20}
+          >
+           <Typography color="textPrimary">Freight Charges:{connote.freight_charges}</Typography>
+           <Typography color="textPrimary">Fuel Surch:{connote.fuel_surch}</Typography>
+           <Typography color="textPrimary">GST:{connote.gst}</Typography>
+           <Typography color="textPrimary">Other Charges:{connote.other_charges}</Typography>
+           <Typography color="textPrimary">Gross:{connote.gross}</Typography>
+
+          </Grid>
+
+
+          </Grid>
+
+
+          
+    
+     
         <Box sx={{ py: 2 }}>
           <Button
             color="primary"
-            disabled={formik.isSubmitting}
-            fullWidth
+          
+          
             size="large"
-            type="submit"
-          //  onClick={() => {
-                     
-          //   setValues({...values, HeldBy : 'Manga2' })
-          //      ViewConnote(values)}}
+            onClick={() => router.back()}
             variant="contained"
           >
-            Hold
+            Back
           </Button>
           
         </Box>
-        </form>
       
-
 
     </Container>
   </Box>

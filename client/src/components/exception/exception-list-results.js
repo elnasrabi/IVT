@@ -25,6 +25,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from "@material-ui/icons/AddAlarm";
+import ViewIcon from "@material-ui/icons/Search";
 import tableIcons from "../TableIcons.js";
 import { getInitials } from '../../utils/get-initials';
 import MaterialTable , { MTableAction } from "material-table";
@@ -238,6 +239,17 @@ const handleSubmit=(event)=>{
           >
                <IconButton aria-label="add" tooltip="Hold Connote">
                     <AddIcon tooltip="Hold Connote"> </AddIcon>
+                  </IconButton>
+                 </Link>
+
+                 <Link
+            href={{
+              pathname: '/exception/ViewConnote',
+              query: { connote: JSON.stringify(rowData) },
+            }}  as="/exception/ViewConnote"
+          >
+               <IconButton aria-label="add" tooltip="View Connote">
+                    <ViewIcon tooltip="View Connote"> </ViewIcon>
                   </IconButton>
                  </Link>
                   

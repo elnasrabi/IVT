@@ -615,7 +615,7 @@ def runIVT(connection,task):
     # for (MessageCode) in cursor:
     #     resultcode=MessageCode
     cursor.close()
-    return 'IVT Engine tasks have finished successfully.'
+    return 'IVT Engine tasks have finished successfully - ML Model results will be available shortly.'
 
     
     

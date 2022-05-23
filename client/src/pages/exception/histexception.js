@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { ExceptionListResults } from '../../components/exception/exception-list-results';
 import { Users} from '../../components/exception/test-redux';
 import { ExceptionListToolbar } from '../../components/exception/exception-list-toolbar';
@@ -26,6 +26,7 @@ import {
 import Alert from '@mui/material/Alert';
 import { useIsAuthenticated } from "@azure/msal-react";
 import { DatePicker,DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 import DateFnsUtils from '@date-io/date-fns';
 
 function HistExceptions({props,excep}){ 
@@ -139,6 +140,7 @@ return(
               }}
             >
              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            
  <DatePicker
         value={InvoiceWeek}
         margin="dense"
@@ -185,6 +187,7 @@ return(
         {/* <ExceptionListToolbar /> */}
         <Box sx={{ mt: 1 }}>
           <ExceptionListResults exceptions={data}/>
+          <Typography>Connotes which are not resolved yet...</Typography>
         </Box>
       
       </Container>
