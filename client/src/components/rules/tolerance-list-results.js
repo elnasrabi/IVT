@@ -163,8 +163,8 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
           { title: "Customer", field: "Customer" },  //editable: 'never'
           { title: "Carrier", field: "Carrier"  },
-          { title: "P4_TOLERANCE", field: "P4_TOLERANCE",type:"numeric" },
-          { title: "P5_TOLERANCE", field: "P5_TOLERANCE",type:"numeric" },
+          { title: "P4_TOLERANCE(Weight)", field: "P4_TOLERANCE",type:"numeric" },
+          { title: "P5_TOLERANCE(Cost)", field: "P5_TOLERANCE",type:"numeric" },
           { title: "P6_TOLERANCE", field: "P6_TOLERANCE",type:"numeric" },
           { title: "Charge Weight Min", field: "ChargeWeightMin",type:"numeric" },
           { title: "Charge Weight Max", field: "ChargeWeightMax",type:"numeric" },

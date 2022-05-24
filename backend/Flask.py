@@ -394,6 +394,46 @@ def new_Fuels():
 
 
 
+#region Consolodition 
+@app.route('/api/rules/getConsoloditions', methods=['GET'])
+def get_Consoloditiones():
+    response = admin.get_Consoloditions(connection)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/updateConsolodition', methods=['POST'])
+def update_single_Consoloditions():
+    request_payload = request.get_json()
+    msg = admin.updateConsolodition(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/deleteConsolodition', methods=['POST'])
+def delete_single_Consoloditions():
+    request_payload = request.get_json()
+    msg = admin.deleteConsolodition(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/newConsolodition', methods=['POST'])
+def new_Consoloditions():
+    request_payload = request.get_json()
+    msg = admin.newConsolodition(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#endregion
+
 
 
 #region tolerance 

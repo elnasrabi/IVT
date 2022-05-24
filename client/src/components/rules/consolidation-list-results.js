@@ -38,7 +38,7 @@ import Link from 'next/link'
 
 
 
-export const FuelListResults = ({ Fuels, ...rest }) => {
+export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
 
   const [selectedRow, setSelectedRow] = useState();
@@ -46,7 +46,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
 
-  const [data, setData] = useState(Fuels);
+  const [data, setData] = useState(Consoloditions);
 
   function getNewDataBulkEdit(changes, copyData) {
     // key matches the column data id
@@ -64,9 +64,9 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
     return copyData;
   }
 
-  function newFuel(Fuel){
+  function newConsolodition(Consoloditions){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newFuel', Fuel).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/newConsolodition', Consoloditions).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -80,7 +80,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
           setAlert(2);
         }
      }).catch(error=>{
-      setAlertContent('Error in Creating the Fuel - '+ error.message);
+      setAlertContent('Error in Creating the Consolodition - '+ error.message);
       setAlert(2);
      })
     //setstate({ Message: response.data }
@@ -89,9 +89,9 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
     }
 
 
-  function updateSingleFuel(Fuel){
+  function updateSingleConsolodition(Consolodition){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateFuel', Fuel).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/updateConsolodition', Consolodition).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -105,7 +105,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
           setAlert(2);
         }
      }).catch(error=>{
-      setAlertContent('Error in Updating the Fuel - '+ error.message);
+      setAlertContent('Error in Updating the Consolodition - '+ error.message);
       setAlert(2);
      })
     //setstate({ Message: response.data }
@@ -113,9 +113,9 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
     
     }
 
-    function deleteSingleFuel(Fuel){
+    function deleteSingleConsolodition(Consolodition){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteFuel', Fuel).then(response => {
+      const res =  axios.post('https://afs-web01:5051/api/rules/deleteConsolodition', Consolodition).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -129,7 +129,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
             setAlert(2);
           }
        }).catch(error=>{
-        setAlertContent('Error in deleteing the Fuel - '+ error.message);
+        setAlertContent('Error in deleteing the Consolodition - '+ error.message);
         setAlert(2);
        })
       //setstate({ Message: response.data }
@@ -155,17 +155,19 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
       </NextLink>
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
       <MaterialTable
-        title="Fuels"
+        title="Consoloditions"
         icons={tableIcons}
         
         // icons={{ Filter: () => <FiltersMenu /> }}
         columns={[
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
           { title: "Customer", field: "Customer" },  //editable: 'never'
-          { title: "Carrier", field: "Carrier"  },
-          { title: "RefFuelSurch", field: "RefFuelSurch",type:"numeric" },
-          { title: "Buy Discount", field: "BuyDiscount",type:"numeric" },
-          { title: "UpdatedDate", field: "UpdatedDate",editable: 'never' },
+          { title: "Check_Connote?", field: "Check_Connote",type: 'boolean', initialEditValue: false  },
+          { title: "Check_Reciever?", field: "Check_Reciever",type: 'boolean', initialEditValue: false  },
+          { title: "Check_Suburb?", field: "Check_Suburb",type: 'boolean', initialEditValue: false  },
+          { title: "Check_ConDate?", field: "Check_ConDate",type: 'boolean', initialEditValue: false  },
+          { title: "Check_FreightCharge?", field: "Check_FreightCharge",type: 'boolean', initialEditValue: false  },
+          { title: "Check_Carrier?", field: "Check_Carrier",type: 'boolean', initialEditValue: false  },
          
         ]}
         data={data}
@@ -216,17 +218,17 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
             let updatedrows = [...data];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
-              rows.map(Fuel=>{
-                console.log('Fuel.oldData.Id',Fuel.oldData.tableData.id)
-                index=Fuel.oldData.tableData.id
-                console.log('Fuel.newData',Fuel.newData)
-                updatedrows[index]=Fuel.newData
+              rows.map(Consolodition=>{
+                console.log('Consolodition.oldData.Id',Consolodition.oldData.tableData.id)
+                index=Consolodition.oldData.tableData.id
+                console.log('Consolodition.newData',Consolodition.newData)
+                updatedrows[index]=Consolodition.newData
 
               })
               console.log('updatedrows',updatedrows)
             setTimeout(() => {
               for(var i=0;i<rows.length;i++){
-                updateSingleFuel(rows[i].newData) 
+                updateSingleConsolodition(rows[i].newData) 
                }
             
              setData(updatedrows)
@@ -240,7 +242,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
-              newFuel(newData);
+              newConsolodition(newData);
               setData([...data, newData]);
               resolve();
             }, 1000);
@@ -264,7 +266,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
               const index = dataUpdate.indexOf(target);
               dataUpdate[index] = newData;
              // setData([...dataUpdate]);
-              updateSingleFuel(newData);
+              updateSingleConsolodition(newData);
               resolve();
             }, 1000);
           });
@@ -283,7 +285,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
               // });
               // setData(_data);
               
-              deleteSingleFuel(oldData);
+              deleteSingleConsolodition(oldData);
               setData([...dataDelete]);
               resolve();
             }, 1000);
@@ -299,6 +301,6 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
   );
 };
 
-FuelListResults.propTypes = {
-  Fuels: PropTypes.array.isRequired
+ConsoloditionListResults.propTypes = {
+  Consoloditions: PropTypes.array.isRequired
 };

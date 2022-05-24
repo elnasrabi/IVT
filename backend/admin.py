@@ -236,6 +236,7 @@ def get_Fuels(connection):
       ,Customer
       ,Carrier
       ,RefFuelSurch
+      ,BuyDiscount
       ,UpdatedDate
        ) in cursor:
         respons.append(
@@ -243,6 +244,7 @@ def get_Fuels(connection):
                 'Customer':Customer,
                 'Carrier':Carrier,
                 'RefFuelSurch':RefFuelSurch,
+                'BuyDiscount':BuyDiscount,
                 'UpdatedDate':UpdatedDate.strftime("%Y/%m/%d")
                
             }
@@ -253,9 +255,9 @@ def get_Fuels(connection):
 
 def updateFuel(connection,Fuel):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdateFuel] @Id = ?, @Customer = ?, @Carrier = ?,@RefFuelSurch=? "
+    query = "EXEC [WebIVT].[sp_UpdateFuel] @Id = ?, @Customer = ?, @Carrier = ?,@RefFuelSurch=? ,@BuyDiscount=? "
   
-    data=(Fuel['Id'],Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'])
+    data=(Fuel['Id'],Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'],Fuel['BuyDiscount'])
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -281,9 +283,9 @@ def deleteFuel(connection,Fuel):
 
 def newFuel(connection,Fuel):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_NewFuel]  @Customer = ?, @Carrier = ?,@RefFuelSurch=? "
+    query = "EXEC [WebIVT].[sp_NewFuel]  @Customer = ?, @Carrier = ?,@RefFuelSurch=? ,@BuyDiscount=? "
   
-    data=(Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'])
+    data=(Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'],Fuel['BuyDiscount'])
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -294,6 +296,85 @@ def newFuel(connection,Fuel):
     return 'Fuel has created successfully.'
 #endregion 
 
+
+#region Consolodition
+def get_Consoloditions(connection):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getConsolodition]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,Customer
+      ,Check_Connote
+      ,Check_Reciever
+      ,Check_Suburb
+      ,Check_ConDate
+      ,Check_FreightCharge
+      ,Check_Carrier
+      
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'Customer':Customer,
+                'Check_Connote':Check_Connote,
+                'Check_Reciever':Check_Reciever,
+                'Check_Suburb':Check_Suburb,
+                'Check_ConDate':Check_ConDate,
+                'Check_FreightCharge':Check_FreightCharge,
+                'Check_Carrier':Check_Carrier,
+
+               
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateConsolodition(connection,Consolodition):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateConsolodition] @Id = ?, @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+  
+    data=(Consolodition['Id'],Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Consolidation has updated successfully.'
+
+def deleteConsolodition(connection,Consolodition):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteConsolodition] @Id = ?"
+  
+    data=(Consolodition['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Consolidation has deleted successfully.'
+
+def newConsolodition(connection,Consolodition):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateConsolodition]  @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+  
+    data=(Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
+       # Prepare the stored procedure execution script and parameter values
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Consolidation has created successfully.'
+#endregion 
 
 
 #region tolerance

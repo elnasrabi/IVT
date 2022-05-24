@@ -61,6 +61,15 @@ export const rulesMeta = [
     priroity: 'P7/P8',
     path:'/Admin/fuel'
   },
+    {
+    id: uuid(),
+    createdAt: '04/04/2019',
+    description: 'Configure how connotes data can be consolidated for each customer.',
+    media: '/static/images/rules/Consolidation.png',
+    title: 'Consolidation Check',
+    priroity: 'P21',
+    path:'/Admin/consolidation'
+  },
   {
     id: uuid(),
   
