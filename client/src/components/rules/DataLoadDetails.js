@@ -79,7 +79,7 @@ export const DataLoadDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 45000);
+      }, 60000);
     });
  
     

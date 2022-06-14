@@ -163,7 +163,7 @@ export const UserListResults = ({ Users, ...rest }) => {
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
           { title: "User Name", field: "AccountManager" },  //editable: 'never'
           { title: "Login Name", field: "LoginName"  },
-          { title: "Is Active?", field: "IsActive",type:"numeric" },
+          { title: "Is Active?", field: "IsActive",type:"boolean" },
           { title: "User Type", field: "UserType",type:"numeric" },
          
          

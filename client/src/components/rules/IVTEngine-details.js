@@ -27,12 +27,20 @@ const Tasks = [
     label: 'Priority 1 Rules'
   },
   {
-    value: 'P2',
-    label: 'Priority 2 Rules'
+    value: 'Fuel',
+    label: 'Fuel Rules'
   }
   ,{
-    value: 'P3',
-    label: 'Priority 3 Rules'
+    value: 'Weight',
+    label: 'Weight Rules'
+  }
+  ,{
+    value: 'Cost',
+    label: 'Cost Rules'
+  }
+  ,{
+    value: 'Special',
+    label: 'Other Special Rules'
   }
 ];
 
@@ -82,7 +90,7 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 3000);
+      }, 4000);
 
       axios.post('https://afs-web01:5051/api/ML/getMLIFExceptions');
     });

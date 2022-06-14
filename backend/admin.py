@@ -333,22 +333,26 @@ def get_Consoloditions(connection):
     return respons
 
 def updateConsolodition(connection,Consolodition):
-    cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdateConsolodition] @Id = ?, @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
-  
-    data=(Consolodition['Id'],Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
-       # Prepare the stored procedure execution script and parameter values
-    cursor.execute(query,data)
-    connection.commit()
-    # resultcode=0
-    # for (MessageCode) in cursor:
-    #     resultcode=MessageCode
-    cursor.close()
-    return 'Consolidation has updated successfully.'
+    try:
+        cursor=connection.cursor()
+        query = "EXEC [WebIVT].[sp_UpdateConsolidation] @Id = ?, @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+    
+        data=(Consolodition['Id'],Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
+        # Prepare the stored procedure execution script and parameter values
+        cursor.execute(query,data)
+        connection.commit()
+        # resultcode=0
+        # for (MessageCode) in cursor:
+        #     resultcode=MessageCode
+        cursor.close()
+        return 'Consolidation has updated successfully.'
+    except Exception as e: print(e)
+
+   
 
 def deleteConsolodition(connection,Consolodition):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_DeleteConsolodition] @Id = ?"
+    query = "EXEC [WebIVT].[sp_DeleteConsolidation] @Id = ?"
   
     data=(Consolodition['Id'])
        # Prepare the stored procedure execution script and parameter values
@@ -362,7 +366,7 @@ def deleteConsolodition(connection,Consolodition):
 
 def newConsolodition(connection,Consolodition):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdateConsolodition]  @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+    query = "EXEC [WebIVT].[sp_NewConsolidation]  @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
   
     data=(Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
        # Prepare the stored procedure execution script and parameter values
