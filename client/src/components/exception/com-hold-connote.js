@@ -56,7 +56,7 @@ connote={}
       HeldBy:loginname
     }
     try {
-      const response = await axios.post('https://afs-web01:5051/api/exception/heldConnote', payload).then(response => {
+      const response = await axios.post('http://localhost:5051/api/exception/heldConnote', payload).then(response => {
         console.log('response.data.success',response.data);
 
         if(response.data.Msg)
@@ -87,7 +87,7 @@ connote={}
 
 
  
-    const res =  axios.post('https://afs-web01:5051/api/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('http://localhost:5051/api/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 

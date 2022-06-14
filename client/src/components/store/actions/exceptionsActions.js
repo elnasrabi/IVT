@@ -4,7 +4,7 @@ import axios from 'axios'
 export const getExceptions = () => async dispatch => {
     
     try{
-        const res = await axios.get(`https://afs-web01:5051/api/exception/getCurrentException`)
+        const res = await axios.get(`http://localhost:5051/api/exception/getCurrentException`)
         dispatch( {
             type: GET_EXCEPTIONS,
             payload: res.data.

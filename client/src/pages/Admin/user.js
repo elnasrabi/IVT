@@ -22,7 +22,7 @@ function Users(){
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://afs-web01:5051/api/rules/getUsers`;
+  const address = `http://localhost:5051/api/rules/getUsers`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
 
@@ -41,7 +41,7 @@ function Users(){
    const agent = new https.Agent({  
      rejectUnauthorized: false
    });
-   const result =  axios.get('https://afs-web01:5051/api/rules/getUsers',{ httpsAgent: agent });
+   const result =  axios.get('http://localhost:5051/api/rules/getUsers',{ httpsAgent: agent });
    const data = result.data;
    UserData=data
 } catch (error) {
@@ -99,7 +99,7 @@ Users.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://afs-web01:5051/api/rules/getUsers',{ httpsAgent: agent });
+//     const result = await axios.get('http://localhost:5051/api/rules/getUsers',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {

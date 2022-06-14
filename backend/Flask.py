@@ -616,5 +616,5 @@ def get_ML_Current_exception():
 
 if __name__ == "__main__":
     print("Starting Python Flask Server")
-    app.run(port=5050)
+    app.run(port=5051)
     

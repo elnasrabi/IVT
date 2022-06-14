@@ -13,7 +13,7 @@
     "redux-thunk": "^2.4.1",
     "virtualized": "^0.1.0"
   },
-  "proxy": "https://afs-web01:5051",
+  "proxy": "http://localhost:5051",
   "devDependencies": {
     "@types/react": "^17.0.43"
   }

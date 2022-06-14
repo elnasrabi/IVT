@@ -1,0 +1,6 @@
+<<<<<<<< HEAD:client/iisnode/localhost-11236-stderr-1652328608612.txt
+(node:11236) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+========
+(node:12540) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+>>>>>>>> 2dbefbf (Add Consolidation):client/iisnode/localhost-12540-stderr-1653270335632.txt
+(Use `node --trace-deprecation ...` to show where the warning was created)

@@ -47,6 +47,11 @@ connote={}
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
   const router = useRouter()
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
   return (
     <Box
     component="main"

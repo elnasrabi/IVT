@@ -79,7 +79,7 @@ const Dashboard = () => {
     }
     if(!accessToken)
     {
-    axios.post('https://afs-web01:5051/api/admin/getlogin', payload)
+    axios.post('http://localhost:5051/api/admin/getlogin', payload)
     .then(response =>{
        setLoggedUser({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
        setSession({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
@@ -125,7 +125,7 @@ const Dashboard = () => {
     if (typeof window !== 'undefined' && !totalmeasure) 
     {
       
-      axios.post('https://afs-web01:5051/api/dashboard/getTotalMeasure', payload)
+      axios.post('http://localhost:5051/api/dashboard/getTotalMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -168,7 +168,7 @@ const Dashboard = () => {
     let Top10=localStorage.getItem('Top10excpetion')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getTop10Exception', payload)
+      axios.post('http://localhost:5051/api/dashboard/getTop10Exception', payload)
       .then(response =>{
   
         if(response.data)
@@ -208,7 +208,7 @@ const Dashboard = () => {
     let FocusedCustomer=localStorage.getItem('FocusedCustomer')
     if (typeof window !== 'undefined' && !FocusedCustomer) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getFocusedCustomer', payload)
+      axios.post('http://localhost:5051/api/dashboard/getFocusedCustomer', payload)
       .then(response =>{
   
         if(response.data)
@@ -246,7 +246,7 @@ const Dashboard = () => {
     let Common=localStorage.getItem('CommonMeasure')
     if (typeof window !== 'undefined' && !Common) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getCommonMeasure', payload)
+      axios.post('http://localhost:5051/api/dashboard/getCommonMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -286,7 +286,7 @@ const Dashboard = () => {
     let Top10=localStorage.getItem('LastIVTInvoiceWeek')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
+      axios.post('http://localhost:5051/api/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
       .then(response =>{
   
         if(response.data)

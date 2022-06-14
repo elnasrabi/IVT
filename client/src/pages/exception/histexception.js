@@ -52,7 +52,7 @@ function HistExceptions({props,excep}){
       LoginName: loginname, // 'fhenderson'//loginname
       InvoiceWeek:InvoiceWeek
     }
-    const address = `https://afs-web01:5051/api/exception/getHistoricalException`;
+    const address = `http://localhost:5051/api/exception/getHistoricalException`;
     const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
     const { data, error } = useSWR(address, fetcher, {
       revalidateOnFocus: false,
@@ -73,7 +73,7 @@ function HistExceptions({props,excep}){
           setAlertContent(' Loading...');
           setAlert(3);
   
-             const res =  axios.post('https://afs-web01:5051/api/exception/getHistoricalException',{ LoginName: loginname,InvoiceWeek:InvoiceWeek } ).then(response => {
+             const res =  axios.post('http://localhost:5051/api/exception/getHistoricalException',{ LoginName: loginname,InvoiceWeek:InvoiceWeek } ).then(response => {
               
               if(response)
               {
@@ -218,7 +218,7 @@ HistExceptions.getLayout = (page) => (
 //   // You can use any data fetching library
 //   try {
 
-//     const result = await axios.get('https://afs-web01:5051/api/exception/getCurrentException');
+//     const result = await axios.get('http://localhost:5051/api/exception/getCurrentException');
 //     const data = result.data;
 //     return {
 //         props: {

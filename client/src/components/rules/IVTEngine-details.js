@@ -69,7 +69,7 @@ export const IVTEngineDetails = (props) => {
         setAlertContent('IVT Engine Tasks Started...');
         setAlert(3);
 
-           const res =  axios.post('https://afs-web01:5051/api/rules/runIVT',{ task: task } ).then(response => {
+           const res =  axios.post('http://localhost:5051/api/rules/runIVT',{ task: task } ).then(response => {
              
             
              if(response.data.Msg)
@@ -90,7 +90,16 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
+<<<<<<< Updated upstream
       }, 4000);
+=======
+      }, 5000);
+      // Run the ML Model in background
+      axios.get('http://localhost:5051/api/ML/getMLIFExceptions')
+    });
+     
+   
+>>>>>>> Stashed changes
 
       axios.post('https://afs-web01:5051/api/ML/getMLIFExceptions');
     });
