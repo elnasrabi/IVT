@@ -3,6 +3,14 @@ import { v4 as uuid } from 'uuid';
 export const rulesMeta = [
   {
     id: uuid(),
+    description: 'View and Update IVT Rules.',
+    media: '/static/images/rules/rules.png',
+    title: 'IVT Rules',
+    priroity: 'No',
+    path:'/Admin/rule'
+  },
+  {
+    id: uuid(),
     description: 'Load new data to be investigated.',
     media: '/static/images/rules/dataload.png',
     title: 'New Load',

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { ConsoloditionListResults } from '../../components/rules/consolidation-list-results';
+import { RuleListResults } from '../../components/rules/rule-list-result';
 
 
 import { DashboardLayout } from '../../components/dashboard-layout';
@@ -13,20 +13,20 @@ import {connect} from 'react-redux'
 
 
 
-function Consoloditions(){ 
-    let ConsoloditionData=[];
+function Rules(){ 
+    let RuleData=[];
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `http://localhost:5050/api/rules/getConsoloditions`;
+  const address = `https://localhost:5050/api/rules/getRules`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
 
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-  if (data) ConsoloditionData=data;
+  if (data) RuleData=data;
 
   useEffect(()=>{
 
@@ -39,9 +39,9 @@ function Consoloditions(){
    const agent = new https.Agent({  
      rejectUnauthorized: false
    });
-   const result =  axios.get('http://localhost:5050/api/rules/getConsoloditions',{ httpsAgent: agent });
+   const result =  axios.get('https://localhost:5050/api/rules/getRules',{ httpsAgent: agent });
    const data = result.data;
-   ConsoloditionData=data
+   RuleData=data
 } catch (error) {
    console.log(error);
 }
@@ -53,7 +53,7 @@ return(
   <>
     <Head>
       <title>
-        Consolodition | IVT
+        Rule | IVT
       </title>
     </Head>
     <Box
@@ -66,14 +66,14 @@ return(
       <Container maxWidth={false}>
         {/* <RouteListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <ConsoloditionListResults Consoloditions={ConsoloditionData}/>
+          <RuleListResults Rules={RuleData}/>
         </Box>
       
       </Container>
     </Box>
   </> )
 };
-Consoloditions.getLayout = (page) => (
+Rules.getLayout = (page) => (
   
 
   <div>
@@ -87,38 +87,38 @@ Consoloditions.getLayout = (page) => (
 
 
 
-// export async function getStaticProps() {
+export async function getStaticProps() {
 
-//   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-//   // Call an external API endpoint to get posts.
-//   // You can use any data fetching library
-//   try {
-//     const https = require('https');
-//     const agent = new https.Agent({  
-//       rejectUnauthorized: false
-//     });
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  try {
+    const https = require('https');
+    const agent = new https.Agent({  
+      rejectUnauthorized: false
+    });
 
-//     const result = await axios.get('http://localhost:5050/api/rules/getConsoloditions',{ httpsAgent: agent });
-//     const data = result.data;
-//     return {
-//         props: {
-//           ConsoloditionData: data
-//         }
-//     }
-// } catch (error) {
-//     console.log(error);
-//     return {
-//       props: {
-//         ConsoloditionData: []
-//       }
-//     }
-// }
+    const result = await axios.get('https://localhost:5050/api/rules/getRules',{ httpsAgent: agent });
+    const data = result.data;
+    return {
+        props: {
+          RuleData: data
+        }
+    }
+} catch (error) {
+    console.log(error);
+    return {
+      props: {
+        RuleData: []
+      }
+    }
+}
   
 
-//   // By returning { props: { posts } }, the Blog component
-//   // will receive `posts` as a prop at build time
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
 
-// }
+}
 
-export default Consoloditions
+export default Rules

@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
 
-import { HoldBulkConnote } from '../../components/exception/com-hold-bulk-connote';
+import { ReleaseBulkConnoteCom } from '../../components/exception/com-release-bulk-connote';
 
 import { withRouter,useRouter } from 'next/router';
 
 
-function HeldBulkConnote(){ 
+function ReleaseBulkConnote(){ 
 
   let connote='';
   try {
@@ -14,17 +14,17 @@ function HeldBulkConnote(){
      connote = router.query || {}
      
   }
-  catch{
-  connote='' 
+  catch (e){
+  connote=e
   }
     
- console.log('connote param',connote)
+ console.log('connote param',connote.connote)
     
 return(
   <>
     <Head>
       <title>
-        Hold Bulk Connotes | IVT
+        Release Bulk Connotes | IVT
       </title>
     </Head>
     <Box
@@ -51,16 +51,16 @@ return(
    
         
         <Box sx={{ mt: 1 }}>
-          <HoldBulkConnote connotesToHold={connote}/>
+          <ReleaseBulkConnoteCom connotesToRelease={connote}/>
         </Box>
       </Container>
     </Box>
   </> )
 };
-HeldBulkConnote.getLayout = (page) => (
+ReleaseBulkConnote.getLayout = (page) => (
  <div>
   {page}
   </div>
 );
 
-export default withRouter(HeldBulkConnote);
+export default withRouter(ReleaseBulkConnote);

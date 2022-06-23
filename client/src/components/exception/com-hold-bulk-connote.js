@@ -34,9 +34,12 @@ import {
 
 
 export const HoldBulkConnote = ({connotesToHold}) => {
+   connotesToHold= JSON.parse(connotesToHold.connote)
   const [values, setValues] = useState({
     Reason: '',
-    HeldBy:'Manga'
+    HeldBy:'Manga',
+    Customer:'',
+    Carrier:''
    
   });
 
@@ -63,12 +66,14 @@ export const HoldBulkConnote = ({connotesToHold}) => {
       // make payload here using values
       Connote: connotesToHold[i].con_note,
       Reason: formik.values.Reason,
-      HeldBy:loginname
+      HeldBy:loginname,
+      Customer: connotesToHold[i].customer,
+      Carrier: connotesToHold[i].carrier
     }
     
       console.log('JSON.stringify(connotesToHoldParam)',payload )
       try {
-        const response = await axios.post('http://localhost:5051/api/exception/heldConnote', payload ).then(response => {
+        const response = await axios.post('https://localhost:5050/api/exception/heldConnote', payload ).then(response => {
           console.log('response.data.success',response.data);
   
           if(response.data.Msg)
@@ -103,7 +108,7 @@ export const HoldBulkConnote = ({connotesToHold}) => {
 
 
  
-    const res =  axios.post('http://localhost:5051/api/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('https://localhost:5050/api/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 

@@ -37,6 +37,12 @@ const items = [
 
   },
   {
+    href: '/exception/heldconsignments',
+    icon: (<UserIcon fontSize="small" />),
+    title: 'Held Connotes',
+    isAdmin:false
+  },
+  {
     href: '/rules',
     icon: (<CogIcon fontSize="small" />),
     title: 'IVT Admin Panel',
@@ -52,13 +58,6 @@ const items = [
     href: '/exception/histexception',
     icon: (<ErrorIcon fontSize="small" />),
     title: 'Pending Exceptions',
-    isAdmin:false
-  },
- 
-  {
-    href: '/exception/heldconsignments',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Held Connotes',
     isAdmin:false
   },
   
@@ -553,7 +552,7 @@ DashboardSidebar.propTypes = {
 //      LoginName: loginname // 'fhenderson'//loginname
 //    }
    
-// const result = await axios.get('http://localhost:5051/api/exception/getCurrentException');
+// const result = await axios.get('https://localhost:5050/api/exception/getCurrentException');
 //     const data = result;
 //     return {
 //         props: {

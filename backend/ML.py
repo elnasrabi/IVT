@@ -201,7 +201,7 @@ def get_all_current_MLexceptions(connection,login):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -246,7 +246,8 @@ def get_all_current_MLexceptions(connection,login):
                 'RecordedDate':RecordedDate,
                 'ErrPriority':ErrPriority,
                 'ErrCode':ErrCode,
-                'ErrDesc':ErrDesc,
+                'ShortErrDesc':ShortErrDesc,
+                'ErrDesc':ShortErrDesc,
                 'ActionTime':ActionTime,
                 'AccountManager' : AccountManager ,
 	            'FinanceGroup' : FinanceGroup,

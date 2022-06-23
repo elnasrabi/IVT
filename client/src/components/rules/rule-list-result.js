@@ -26,7 +26,7 @@ import {
   Typography
 } from '@mui/material';
 import EditIcon from '@material-ui/icons/Edit';
-import CancelIcon from "@material-ui/icons/Cancel";
+import AddIcon from "@material-ui/icons/AddAlarm";
 import tableIcons from "../TableIcons.js";
 import { getInitials } from '../../utils/get-initials';
 import MaterialTable , { MTableAction } from "material-table";
@@ -38,7 +38,7 @@ import Link from 'next/link'
 
 
 
-export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
+export const RuleListResults = ({ Rules, ...rest }) => {
 
 
   const [selectedRow, setSelectedRow] = useState();
@@ -46,9 +46,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
 
-  const [data, setData] = useState(HeldConnotes);
-
-  // console.log('HeldConnotes',HeldConnotes);
+  const [data, setData] = useState(Rules);
 
   function getNewDataBulkEdit(changes, copyData) {
     // key matches the column data id
@@ -66,15 +64,34 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
     return copyData;
   }
 
-  useEffect(()=>{
-    setData(HeldConnotes)
+  // function newRule(Rules){
 
-  },[HeldConnotes])
-  
+  //   const res =  axios.post('http://localhost:5050/api/rules/newRule', Rules).then(response => {
+      
+  //   console.log('response.data.success',response.data);
+  //     if(response.data.Msg)
+  //       {
+  //         setAlertContent(response.data.Msg);
+  //         setAlert(1);
+  //       }
+  //     else
+  //       {
+  //         setAlertContent( error.message);
+  //         setAlert(2);
+  //       }
+  //    }).catch(error=>{
+  //     setAlertContent('Error in Creating the Rule - '+ error.message);
+  //     setAlert(2);
+  //    })
+  //   //setstate({ Message: response.data }
+  //   //setMsg(response.data.Msg)
+    
+  //   }
 
-  function newHeldConnote(HeldConnotes){
 
-    const res =  axios.post('https://localhost:5050/api/rules/newHeldConnote', HeldConnotes).then(response => {
+  function updateSingleRule(Rule){
+
+    const res =  axios.post('https://localhost:5050/api/rules/updateRule', Rule).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -88,7 +105,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
           setAlert(2);
         }
      }).catch(error=>{
-      setAlertContent('Error in Creating the HeldConnote - '+ error.message);
+      setAlertContent('Error in Updating the Rule - '+ error.message);
       setAlert(2);
      })
     //setstate({ Message: response.data }
@@ -96,34 +113,9 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
     
     }
 
+    function deleteSingleRule(Rule){
 
-  function updateSingleHeldConnote(HeldConnote){
-
-    const res =  axios.post('https://localhost:5050/api/rules/updateHeldConnote', HeldConnote).then(response => {
-      
-    console.log('response.data.success',response.data);
-      if(response.data.Msg)
-        {
-          setAlertContent(response.data.Msg);
-          setAlert(1);
-        }
-      else
-        {
-          setAlertContent( error.message);
-          setAlert(2);
-        }
-     }).catch(error=>{
-      setAlertContent('Error in Updating the HeldConnote - '+ error.message);
-      setAlert(2);
-     })
-    //setstate({ Message: response.data }
-    //setMsg(response.data.Msg)
-    
-    }
-
-    function deleteSingleHeldConnote(HeldConnote){
-
-      const res =  axios.post('https://localhost:5050/api/rules/deleteHeldConnote', HeldConnote).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteRule', Rule).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -137,7 +129,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
             setAlert(2);
           }
        }).catch(error=>{
-        setAlertContent('Error in deleteing the HeldConnote - '+ error.message);
+        setAlertContent('Error in deleteing the Rule - '+ error.message);
         setAlert(2);
        })
       //setstate({ Message: response.data }
@@ -150,22 +142,34 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
         <div className="App">
-     
+        <NextLink
+        href="/rules"
+        passHref
+      >
+        <Button
+          component="a"
+          startIcon={<ArrowBackIcon fontSize="small" />}
+        >
+          IVT Admin Panel
+        </Button>
+      </NextLink>
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
       <MaterialTable
-        title="HeldConnotes"
+        title="Rules"
         icons={tableIcons}
         
         // icons={{ Filter: () => <FiltersMenu /> }}
         columns={[
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
-          { title: "Connote", field: "Connote" ,editable: 'never'},  
-          { title: "Reason", field: "Reason" },  //editable: 'never'
-          { title: "Customer", field: "customer" ,editable: 'never'},  //editable: 'never'
-          { title: "Held At", field: "ActionTime",editable: 'never' },
-          { title: "Held By", field: "HeldBy",editable: 'never' },
-        
-       
+          { title: "ErrCode", field: "ErrCode" },  //editable: 'never'
+          { title: "ErrDesc", field: "ErrDesc"  },
+          { title: "ShortErrDesc", field: "ShortErrDesc"},
+          { title: "OnOff", field: "OnOff",type:"boolean" },
+          { title: "Mandatory", field: "Mandatory",type:"boolean" },
+          { title: "VCode", field: "VCode" },
+          { title: "Customer", field: "Customer" },
+          { title: "Carrier", field: "Carrier" },
+         
         ]}
         data={data}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
@@ -215,17 +219,17 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
             let updatedrows = [...data];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
-              rows.map(HeldConnote=>{
-                console.log('HeldConnote.oldData.Id',HeldConnote.oldData.tableData.id)
-                index=HeldConnote.oldData.tableData.id
-                console.log('HeldConnote.newData',HeldConnote.newData)
-                updatedrows[index]=HeldConnote.newData
+              rows.map(Rule=>{
+                console.log('Rule.oldData.Id',Rule.oldData.tableData.id)
+                index=Rule.oldData.tableData.id
+                console.log('Rule.newData',Rule.newData)
+                updatedrows[index]=Rule.newData
 
               })
               console.log('updatedrows',updatedrows)
             setTimeout(() => {
               for(var i=0;i<rows.length;i++){
-                updateSingleHeldConnote(rows[i].newData) 
+                updateSingleRule(rows[i].newData) 
                }
             
              setData(updatedrows)
@@ -239,7 +243,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
         //   return new Promise((resolve, reject) => {
         //     setTimeout(() => {
         //       //newData.id = "uuid-" + Math.random() * 10000000;
-        //       newHeldConnote(newData);
+        //       newRule(newData);
         //       setData([...data, newData]);
         //       resolve();
         //     }, 1000);
@@ -263,7 +267,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
               const index = dataUpdate.indexOf(target);
               dataUpdate[index] = newData;
              // setData([...dataUpdate]);
-              updateSingleHeldConnote(newData);
+              updateSingleRule(newData);
               resolve();
             }, 1000);
           });
@@ -282,32 +286,13 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
               // });
               // setData(_data);
               
-              deleteSingleHeldConnote(oldData);
+              deleteSingleRule(oldData);
               setData([...dataDelete]);
               resolve();
             }, 1000);
           });
         },
       }}
-      actions={[
-      
-        (rowData) => ({
-          icon: () =>    <Link
-          href={{
-            pathname: '/exception/ReleaseBulkConnote',
-            query: { connote: JSON.stringify(selectedRows) },
-          }}  as="/exception/ReleaseBulkConnote"
-        >
-             <IconButton aria-label="cancel" tooltip="Release Connote">
-                  <CancelIcon tooltip="Release Connote"> </CancelIcon>
-                </IconButton>
-               </Link>,
-          isFreeAction: true,
-          tooltip: 'Release Connotes',
-          onClick: (event, rowData) => console.log(selectedRows),
-         
-        })
-      ]}
       />
     </div>
         </Box>
@@ -317,6 +302,6 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
   );
 };
 
-HeldConnoteListResults.propTypes = {
-  HeldConnotes: PropTypes.array.isRequired
+RuleListResults.propTypes = {
+  Rules: PropTypes.array.isRequired
 };

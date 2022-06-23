@@ -57,7 +57,7 @@ export const TopExceptions = (props) => {
     LoginName: loginname // 'fhenderson'//loginname
   }
 
-  await axios.post('http://localhost:5051/api/dashboard/getTop10Exception', payload)
+  await axios.post('https://localhost:5050/api/dashboard/getTop10Exception', payload)
   .then(response =>{
     console.log('Dashboard response',response.data)
     if(response.data)

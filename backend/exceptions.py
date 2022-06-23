@@ -20,7 +20,7 @@ def get_all_current_exceptions(connection,login):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -64,6 +64,7 @@ def get_all_current_exceptions(connection,login):
                 'CurrentWeek':CurrentWeek,
                 'RecordedDate':RecordedDate,
                 'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
                 'ErrCode':ErrCode,
                 'ErrDesc':ErrDesc,
                 'ActionTime':ActionTime,
@@ -101,7 +102,7 @@ def get_all_historical_exceptions(connection,reqs):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -146,6 +147,7 @@ def get_all_historical_exceptions(connection,reqs):
                 'RecordedDate':RecordedDate,
                 'ErrPriority':ErrPriority,
                 'ErrCode':ErrCode,
+                'ShortErrDesc':ShortErrDesc,
                 'ErrDesc':ErrDesc,
                 'ActionTime':ActionTime,
                 'AccountManager' : AccountManager ,
@@ -163,9 +165,10 @@ def get_all_historical_exceptions(connection,reqs):
 
 def heldConnote(connection,connote):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_HeldConnote] @Connote = ?, @Reason = ?, @HeldBy = ?"
+    query = "EXEC [WebIVT].[sp_HeldConnote] @Connote = ?, @Reason = ?, @HeldBy = ?,@Customer=? , @Carrier=? "
   
-    data=(connote['Connote'],connote['Reason'],connote['HeldBy'])
+    data=(connote['Connote'],connote['Reason'],connote['HeldBy'],connote['Customer'],connote['Carrier'])
+       # Prepare the stored procedure execution script and parameter values
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -196,10 +199,7 @@ def get_held_connote(connection,login):
       ,cons_date
       ,carrier
       ,CurrentWeek
-      ,ErrPriority
-      ,ErrCode
-      ,ErrDesc,
-	  AccountManager  ,
+	 , AccountManager  ,
 	  FinanceGroup ,
 	  CustomerName ,
 	  BusinessCountry ,
@@ -212,14 +212,11 @@ def get_held_connote(connection,login):
                 'cons_date':cons_date,
                 'carrier':carrier,
                 'Connote':Connote,
-                'Reason':Reason,
+                'Reason': Reason,
                 'HeldBy':HeldBy ,
                 'Id':Id,
                 'CurrentWeek':CurrentWeek,
                 'cons_date':cons_date,
-                'ErrPriority':ErrPriority,
-                'ErrCode':ErrCode,
-                'ErrDesc':ErrDesc,
                 'ActionTime':datetime.date(ActionTime).strftime("%b %d %Y"),
                 'AccountManager' : AccountManager ,
 	            'FinanceGroup' : FinanceGroup,

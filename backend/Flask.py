@@ -517,6 +517,36 @@ def new_Users():
 
 #endregion
 
+#region rule 
+@app.route('/api/rules/getRules', methods=['GET'])
+def get_rulees():
+    response = admin.get_Rules(connection)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/updateRule', methods=['POST'])
+def update_single_rules():
+    request_payload = request.get_json()
+    msg = admin.updateRule(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/deleteRule', methods=['POST'])
+def delete_single_rules():
+    request_payload = request.get_json()
+    msg = admin.deleteRule(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+    #endregion
+
 #region AMPortfolio 
 @app.route('/api/rules/getAMPortfolios', methods=['GET'])
 def get_AMPortfolioes():
@@ -616,5 +646,5 @@ def get_ML_Current_exception():
 
 if __name__ == "__main__":
     print("Starting Python Flask Server")
-    app.run(port=5051)
+    app.run(port=5050 , ssl_context=('C:\cert\CA\localhost\cert.pem', 'C:\cert\CA\localhost\key.pem'))
     

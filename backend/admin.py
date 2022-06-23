@@ -609,18 +609,81 @@ def newAMPortfolio(connection,AMPortfolio):
    return 'AM Portfolio has created successfully.'
 #endregion 
 
+#region Rule
+def get_Rules(connection):
 
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getRules]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,ErrCode
+      ,ErrDesc
+      ,ShortErrDesc
+      ,OnOff
+      ,Mandatory
+      ,VCode
+      ,Customer
+      ,Carrier
+
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'ErrCode':ErrCode,
+                'ErrDesc':ErrDesc,
+                'ShortErrDesc':ShortErrDesc,
+                'OnOff':OnOff,
+                'Mandatory':Mandatory,
+                'VCode':VCode,
+                'Customer':Customer,
+                'Carrier':Carrier,
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateRule(connection,Rule):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateRule] @Id = ?, @ErrCode = ?, @ErrDesc = ?,@ShortErrDesc=? ,@OnOff=?,@Mandatory=?,@VCode=?,@Customer=?,@Carrier=? "
+  
+    data=(Rule['Id'],Rule['ErrCode'],Rule['ErrDesc'],Rule['ShortErrDesc'],Rule['OnOff'],Rule['Mandatory'],Rule['VCode'],Rule['Customer'],Rule['Carrier'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule has updated successfully.'
+
+def deleteRule(connection,Rule):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteRule] @Id = ?"
+  
+    data=(Rule['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule has deleted successfully.'
+
+#endregion
 
 #region authentication
-def getloginLocal():
+# def getloginLocal():
 
-    loginname=os.getlogin()
-    user_info = win32net.NetUserGetInfo(win32net.NetGetAnyDCName(), win32api.GetUserName(), 2)
-    full_name = user_info["full_name"]
-    displayname=full_name
-    response={'loginname':loginname,'displayname':displayname}
+#     loginname=os.getlogin()
+#     user_info = win32net.NetUserGetInfo(win32net.NetGetAnyDCName(), win32api.GetUserName(), 2)
+#     full_name = user_info["full_name"]
+#     displayname=full_name
+#     response={'loginname':loginname,'displayname':displayname}
     
-    return response
+#     return response
 
 def get_login(connection,login):
 

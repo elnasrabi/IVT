@@ -114,7 +114,7 @@ function DeleteExceptionApi(Exception_id){
 
    
  
-  const res =  axios.post('http://localhost:5051/api/deleteException', Exception_id).then(response => {
+  const res =  axios.post('https://localhost:5050/api/deleteException', Exception_id).then(response => {
     
   console.log('response.data.success',response.data);
     if(response.data.Msg)
@@ -204,7 +204,7 @@ const handleSubmit=(event)=>{
         
         // icons={{ Filter: () => <FiltersMenu /> }}
         columns={[
-          { title: "Exception", field: "ErrDesc",editable:'never'},
+          { title: "Exception", field: "ShortErrDesc",editable:'never'},
           { title: "Customer", field: "FinanceGroup",editable:'never' },
           { title: "Connote", field: "con_note",editable:'never' },
           { title: "Week", field: "CurrentWeek",editable:'never' },
