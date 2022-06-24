@@ -34,7 +34,19 @@ import {
 
 
 export const ReleaseBulkConnoteCom = ({connotesToRelease}) => {
-  let connotesToReleaseConverted= JSON.parse(connotesToRelease.connote)
+  let connotesToReleaseConverted= {};
+
+  try{
+    if(connotesToRelease){
+      connotesToReleaseConverted= JSON.parse(connotesToRelease.connote);
+      connotesToRelease= JSON.parse(connotesToRelease.connote);
+    }
+ 
+  }
+  catch{
+    connotesToReleaseConverted={};
+  }
+
   const [values, setValues] = useState({
     Reason: '',
     HeldBy:'Manga'

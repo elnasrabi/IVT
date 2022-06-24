@@ -34,7 +34,14 @@ import {
 
 
 export const HoldBulkConnote = ({connotesToHold}) => {
-   connotesToHold= JSON.parse(connotesToHold.connote)
+  try{
+    if(connotesToHold)
+    connotesToHold= JSON.parse(connotesToHold.connote)
+  }
+  catch{
+    connotesToHold={}
+  }
+   
   const [values, setValues] = useState({
     Reason: '',
     HeldBy:'Manga',

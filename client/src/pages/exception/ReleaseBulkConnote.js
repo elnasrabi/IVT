@@ -8,7 +8,7 @@ import { withRouter,useRouter } from 'next/router';
 
 function ReleaseBulkConnote(){ 
 
-  let connote='';
+  let connote={connote:{}};
   try {
     const router = useRouter();
      connote = router.query || {}
@@ -18,7 +18,7 @@ function ReleaseBulkConnote(){
   connote=e
   }
     
- console.log('connote param',connote.connote)
+
     
 return(
   <>
