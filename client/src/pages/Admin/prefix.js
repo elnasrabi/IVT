@@ -22,7 +22,7 @@ function Prefixes(){
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://localhost:5050/api/rules/getPrefixes`;
+  const address = `https://afs-web01:5051/api/rules/getPrefixes`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
 
@@ -41,7 +41,7 @@ function Prefixes(){
    const agent = new https.Agent({  
      rejectUnauthorized: false
    });
-   const result =  axios.get('https://localhost:5050/api/rules/getPrefixes',{ httpsAgent: agent });
+   const result =  axios.get('https://afs-web01:5051/api/rules/getPrefixes',{ httpsAgent: agent });
    const data = result.data;
    prefixData=data
 } catch (error) {
@@ -100,7 +100,7 @@ Prefixes.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://localhost:5050/api/rules/getPrefixes',{ httpsAgent: agent });
+//     const result = await axios.get('https://afs-web01:5051/api/rules/getPrefixes',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {

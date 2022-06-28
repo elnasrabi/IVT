@@ -21,7 +21,7 @@ function Routes(){
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://localhost:5050/api/rules/getRoutes`;
+  const address = `https://afs-web01:5051/api/rules/getRoutes`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
 
@@ -41,7 +41,7 @@ function Routes(){
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
-    const result =  axios.get('https://localhost:5050/api/rules/getRoutes',{ httpsAgent: agent });
+    const result =  axios.get('https://afs-web01:5051/api/rules/getRoutes',{ httpsAgent: agent });
     const data = result.data;
     RouteData=data
 } catch (error) {
@@ -99,7 +99,7 @@ Routes.getLayout = (page) => (
 //     const agent = new https.Agent({  
 //       rejectUnauthorized: false
 //     });
-//     const result = await axios.get('https://localhost:5050/api/rules/getRoutes',{ httpsAgent: agent });
+//     const result = await axios.get('https://afs-web01:5051/api/rules/getRoutes',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {
