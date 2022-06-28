@@ -10,7 +10,7 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 
-
+//Rule
 
 
 function Rules(){ 
