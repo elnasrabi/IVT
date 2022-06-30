@@ -66,7 +66,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
   // function newRule(Rules){
 
-  //   const res =  axios.post('https://localhost:5050/api/rules/newRule', Rules).then(response => {
+  //   const res =  axios.post('https://afs-web01:5051/api/rules/newRule', Rules).then(response => {
       
   //   console.log('response.data.success',response.data);
   //     if(response.data.Msg)
