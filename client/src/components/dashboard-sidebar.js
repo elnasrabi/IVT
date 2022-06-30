@@ -64,7 +64,7 @@ const items = [
   {
     href: '/exception/MLExceptions',
     icon: (<SmartButtonIcon fontSize="small" />),
-    title: 'Auto Exceptions',
+    title: 'ML Exceptions',
     isAdmin:false
   },
   
@@ -100,30 +100,32 @@ const AMitems = [
 
   },
   {
-    href: '/exception/exceptions',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Exceptions',
-    isAdmin:false
-  },
-  {
-    href: '/exception/histexception',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Historical Exceptions',
-    isAdmin:false
-  },
-  {
     href: '/exception/heldconsignments',
     icon: (<UserIcon fontSize="small" />),
     title: 'Held Connotes',
     isAdmin:false
   },
+ 
   {
-    href: '/404',
-    icon: (<ClockIcon fontSize="small" />),
-    title: 'Smart Exceptions',
+    href: '/exception/exceptions',
+    icon: (<XCircleIcon fontSize="small" />),
+    title: 'Current Exceptions',
     isAdmin:false
   },
-
+  {
+    href: '/exception/histexception',
+    icon: (<ErrorIcon fontSize="small" />),
+    title: 'Pending Exceptions',
+    isAdmin:false
+  },
+  
+  {
+    href: '/exception/MLExceptions',
+    icon: (<SmartButtonIcon fontSize="small" />),
+    title: 'ML Exceptions',
+    isAdmin:false
+  },
+  
   {
     href: '/logout',
     icon: (<LockIcon fontSize="small" />),
@@ -549,7 +551,7 @@ DashboardSidebar.propTypes = {
 //    }
 //    const payload = {
 //      // make payload here using values
-//      LoginName: loginname // 'fhenderson'//loginname
+//      LoginName: loginname // 'mnasir'//loginname
 //    }
    
 // const result = await axios.get('https://localhost:5050/api/exception/getCurrentException');

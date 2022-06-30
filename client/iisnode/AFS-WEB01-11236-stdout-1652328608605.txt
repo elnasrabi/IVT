@@ -1,4 +1,4 @@
-> Ready on http://localhost:\\.\pipe\a76fb8f6-1335-4313-9026-4fc736adb4ca
+> Ready on https://localhost:\\.\pipe\a76fb8f6-1335-4313-9026-4fc736adb4ca
 Dashboard props:  {
   children: {
     '$$typeof': Symbol(react.element),

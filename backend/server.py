@@ -39,7 +39,7 @@ def delete_Rule():
         'rule_id': rule_id_data
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
-    # response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    # response.headers.add('Access-Control-Allow-Origin', 'https://localhost:3000')
     # response.headers.add('Access-Control-Allow-Credentials', 'true')
     # response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     # response.headers.add('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept     ')

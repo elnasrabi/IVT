@@ -54,7 +54,7 @@ export const TopExceptions = (props) => {
   }
   const payload = {
     // make payload here using values
-    LoginName: loginname // 'fhenderson'//loginname
+    LoginName: loginname // 'mnasir'//loginname
   }
 
   await axios.post('https://localhost:5050/api/dashboard/getTop10Exception', payload)

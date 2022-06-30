@@ -43,7 +43,15 @@ export const CommonMeasures = (props) => {
   const common=[];
   // console.log('CommonMeasure.Percenarge',result)
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (x)
+    {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    else{
+
+      return 0
+    }
+   
   }
 
   function nFormatter(num, digits) {

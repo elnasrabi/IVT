@@ -12,6 +12,7 @@ import {
   ListItemAvatar,
   ListItemText
 } from '@mui/material';
+import { useRouter } from 'next/router';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
@@ -20,40 +21,9 @@ const SpecsaversImageURL=  '/static/images/dashboard/Specsavers.png'
 const MakitaImageURL=  '/static/images/dashboard/makita.png'
 const OtherImageURL=  '/static/images/dashboard/other.png'
 
-const products = [
-  {
-    id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
-    updatedAt: subHours(Date.now(), 2)
-  },
-  {
-    id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
-    updatedAt: subHours(Date.now(), 2)
-  },
-  {
-    id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
-    updatedAt: subHours(Date.now(), 3)
-  },
-  {
-    id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
-    updatedAt: subHours(Date.now(), 5)
-  },
-  {
-    id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
-    updatedAt: subHours(Date.now(), 9)
-  }
-];
 
 export const CustomerFocused = (props) => {
+  const router = useRouter();
   const FocusedCust=[]
   if(props.data){
     FocusedCust=props.data
@@ -68,7 +38,7 @@ console.log('FocusedCust',FocusedCust)
     <List>
       {FocusedCust.map((cust, i) => (
         <ListItem
-          divider={i < FocusedCust.length - 1}
+          divider={i <= FocusedCust.length - 1}
           key={cust.Customer}
         >
           <ListItemAvatar>
@@ -86,7 +56,7 @@ console.log('FocusedCust',FocusedCust)
               height: 48,
               width: 48
             }}
-          />:  cust.Customer=='Makita'? <img
+          />:  (cust.Customer=='Makita' || cust.Customer=='MAKITA')? <img
           alt={cust.Customer}
           src={MakitaImageURL}
           style={{
@@ -124,13 +94,13 @@ console.log('FocusedCust',FocusedCust)
       }}
     >
       <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          onClick={()=>router.push('/exception/exceptions')}
+        >
+          View All
+        </Button>
     </Box>
   </Card>
 )};
