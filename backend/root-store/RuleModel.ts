@@ -41,7 +41,7 @@ export const RuleModel = types
     self.responseSuccess = true;
     try {
       useEffect(()=>{
-        fetch('http://localhost:5000/articles',{
+        fetch('https://localhost:5000/articles',{
         
           headers : {
             'Content-Type':'application/json'

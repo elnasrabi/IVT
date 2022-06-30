@@ -75,7 +75,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     if(!accessToken)
     {
@@ -118,7 +118,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let totalmeasure=localStorage.getItem('TotalMeasure')
 
@@ -163,7 +163,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Top10=localStorage.getItem('Top10excpetion')
     if (typeof window !== 'undefined' && !Top10) 
@@ -203,7 +203,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let FocusedCustomer=localStorage.getItem('FocusedCustomer')
     if (typeof window !== 'undefined' && !FocusedCustomer) 
@@ -241,7 +241,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Common=localStorage.getItem('CommonMeasure')
     if (typeof window !== 'undefined' && !Common) 
@@ -281,7 +281,7 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Top10=localStorage.getItem('LastIVTInvoiceWeek')
     if (typeof window !== 'undefined' && !Top10) 

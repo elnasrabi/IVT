@@ -259,12 +259,12 @@ def get_all_current_MLexceptions(connection,login):
         )
 
     # input_dict = json.loads(respons)
-    # filtered = [x for x in respons if x['LoginName'] == 'fhenderson']
+    # filtered = [x for x in respons if x['LoginName'] == 'mnasir']
     # df=pd.DataFrame.from_dict(respons)
-    # df_filtered = df[df['LoginName'].isin(['fhenderson'])]
+    # df_filtered = df[df['LoginName'].isin(['mnasir'])]
     # df_filtered=df_filtered.values.tolist()
 # Filter python objects with list comprehensions
-    # output_dict = [x for x in input_dict if x['LoginName'] == 'fhenderson']
+    # output_dict = [x for x in input_dict if x['LoginName'] == 'mnasir']
 
 # Transform python object back into json
     # output_json = json.dumps(output_dict)

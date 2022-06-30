@@ -49,7 +49,7 @@ function HistExceptions({props,excep}){
   
     const payload = {
       // make payload here using values
-      LoginName: loginname, // 'fhenderson'//loginname
+      LoginName: loginname, // 'mnasir'//loginname
       InvoiceWeek:InvoiceWeek
     }
     const address = `https://afs-web01:5051/api/exception/getHistoricalException`;

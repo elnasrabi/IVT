@@ -3,7 +3,15 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const TotalGross = (props) => {
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (x)
+    {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    else{
+
+      return 0
+    }
+   
   }
 
   function nFormatter(num, digits) {
@@ -66,7 +74,7 @@ export const TotalGross = (props) => {
           color="textSecondary"
           variant="caption"
         >
-         Exceptioned Amount
+         Held Amount
         </Typography>
     </CardContent>
   </Card>

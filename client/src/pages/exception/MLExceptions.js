@@ -35,7 +35,7 @@ function MLExceptions({props,excep}){
   }
   const payload = {
     // make payload here using values
-    LoginName: loginname // 'fhenderson'//loginname
+    LoginName: loginname // 'mnasir'//loginname
   }
   const address = `https://afs-web01:5051/api/ML/getCurrentMLException`;
   const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
@@ -52,7 +52,7 @@ function MLExceptions({props,excep}){
   //   }
   //   const payload = {
   //     // make payload here using values
-  //     LoginName: loginname // 'fhenderson'//loginname
+  //     LoginName: loginname // 'mnasir'//loginname
   //   }
   //    axios.post('https://afs-web01:5051/api/exception/getCurrentException', payload)
   //   .then(response => {

@@ -8,8 +8,17 @@ import { useState } from 'react';
 export const TotalCustomers = (props) => {
   const [isUp, setIsUp] = useState(true);
   const [amt, setAmt] = useState(15);
+  
   const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    if (x)
+    {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    else{
+
+      return 0
+    }
+   
   }
 
   function nFormatter(num, digits) {
