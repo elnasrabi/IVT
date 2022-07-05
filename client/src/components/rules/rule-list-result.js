@@ -66,7 +66,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
   // function newRule(Rules){
 
-  //   const res =  axios.post('https://afs-web01:5051/api/rules/newRule', Rules).then(response => {
+  //   const res =  axios.post('https://localhost:5050/api/rules/newRule', Rules).then(response => {
       
   //   console.log('response.data.success',response.data);
   //     if(response.data.Msg)
@@ -91,7 +91,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
   function updateSingleRule(Rule){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateRule', Rule).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateRule', Rule).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
     function deleteSingleRule(Rule){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteRule', Rule).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteRule', Rule).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -166,12 +166,12 @@ export const RuleListResults = ({ Rules, ...rest }) => {
           { title: "ShortErrDesc", field: "ShortErrDesc"},
           { title: "OnOff", field: "OnOff",type:"boolean" },
           { title: "Mandatory", field: "Mandatory",type:"boolean" },
-          { title: "VCode", field: "VCode" },
-          { title: "Customer", field: "Customer" },
-          { title: "Carrier", field: "Carrier" },
+          // { title: "VCode", field: "VCode" },
+          // { title: "Customer", field: "Customer" },
+          // { title: "Carrier", field: "Carrier" },
          
         ]}
-        data={data}
+        data={ Rules}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -216,7 +216,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Rules];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(Rule=>{
@@ -233,6 +233,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
                }
             
              setData(updatedrows)
+             Rules=data;
               resolve();
             }, 2000);
           })
@@ -244,7 +245,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
         //     setTimeout(() => {
         //       //newData.id = "uuid-" + Math.random() * 10000000;
         //       newRule(newData);
-        //       setData([...data, newData]);
+        //       setData([...Rules, newData]);
         //       resolve();
         //     }, 1000);
         //   });
@@ -252,7 +253,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Rules];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -260,8 +261,9 @@ export const RuleListResults = ({ Rules, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
+              Rules=data;
 
-              const dataUpdate = [...data];
+              const dataUpdate = [...Rules];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -275,12 +277,12 @@ export const RuleListResults = ({ Rules, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Rules];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Rules];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -288,6 +290,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
               
               deleteSingleRule(oldData);
               setData([...dataDelete]);
+              Rules=data;
               resolve();
             }, 1000);
           });

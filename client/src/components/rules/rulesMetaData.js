@@ -25,6 +25,14 @@ export const rulesMeta = [
     priroity: 'No',
     path:'/Admin/IVTEngine'
   },
+  {
+    id: uuid(),
+    description: 'Dynamic Rule Options.',
+    media: '/static/images/rules/RuleOption.png',
+    title: 'Rule Options',
+    priroity: 'No',
+    path:'/Admin/ruleoption'
+  },
 
   {
     id: uuid(),

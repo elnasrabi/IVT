@@ -14,38 +14,39 @@ import useSWR from 'swr'
 
 function Fuels(){ 
  
-    let FuelData=[];
+   
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
 
-  const address = `https://afs-web01:5051/api/rules/getFuels`;
+  const address = `https://localhost:5050/api/rules/getFuels`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
+  let  FuelData=data;
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
   if (data) FuelData=data;
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+//     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
- // Call an external API endpoint to get posts.
- // You can use any data fetching library
- try {
-   const https = require('https');
-   const agent = new https.Agent({  
-     rejectUnauthorized: false
-   });
-   const result =  axios.get('https://afs-web01:5051/api/rules/getFuels',{ httpsAgent: agent });
-   const data = result.data;
-   FuelData=data
-} catch (error) {
-   console.log(error);
-}
+//  // Call an external API endpoint to get posts.
+//  // You can use any data fetching library
+//  try {
+//    const https = require('https');
+//    const agent = new https.Agent({  
+//      rejectUnauthorized: false
+//    });
+//    const result =  axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
+//    const data = result.data;
+//    FuelData=data
+// } catch (error) {
+//    console.log(error);
+// }
  
-},[])
+// },[])
 
 
 
@@ -66,7 +67,7 @@ return(
       <Container maxWidth={false}>
         {/* <FuelListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <FuelListResults Fuels={FuelData}/>
+          <FuelListResults Fuels={data}/>
         </Box>
       
       </Container>
@@ -96,7 +97,7 @@ Fuels.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://afs-web01:5051/api/rules/getFuels',{ httpsAgent: agent });
+//     const result = await axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {

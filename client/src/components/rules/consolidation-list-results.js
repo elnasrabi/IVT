@@ -66,7 +66,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
   function newConsolodition(Consoloditions){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newConsolodition', Consoloditions).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newConsolodition', Consoloditions).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
   function updateSingleConsolodition(Consolodition){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateConsolodition', Consolodition).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateConsolodition', Consolodition).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
     function deleteSingleConsolodition(Consolodition){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteConsolodition', Consolodition).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteConsolodition', Consolodition).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -170,7 +170,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
           { title: "Check_Carrier?", field: "Check_Carrier",type: 'boolean', initialEditValue: false  },
          
         ]}
-        data={data}
+        data={Consoloditions}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -215,7 +215,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Consoloditions];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(Consolodition=>{
@@ -232,6 +232,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
                }
             
              setData(updatedrows)
+             Consoloditions=data;
               resolve();
             }, 2000);
           })
@@ -243,7 +244,8 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
               newConsolodition(newData);
-              setData([...data, newData]);
+              setData([...Consoloditions, newData]);
+              Consoloditions=data;
               resolve();
             }, 1000);
           });
@@ -251,7 +253,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Consoloditions];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -259,8 +261,9 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
+              Consoloditions=data;
 
-              const dataUpdate = [...data];
+              const dataUpdate = [...Consoloditions];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -274,12 +277,12 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Consoloditions];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Consoloditions];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -287,6 +290,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
               
               deleteSingleConsolodition(oldData);
               setData([...dataDelete]);
+              Consoloditions=data;
               resolve();
             }, 1000);
           });

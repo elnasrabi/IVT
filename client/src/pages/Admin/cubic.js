@@ -17,39 +17,39 @@ import Link from 'next/link'
 function Cubics(){ 
   
 
-    let cubicData=[];
+    ;
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://afs-web01:5051/api/rules/getCubics`;
+  const address = `https://localhost:5050/api/rules/getCubics`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
-
+  let cubicData=data
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
   if (data) cubicData=data;
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+//     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
- // Call an external API endpoint to get posts.
- // You can use any data fetching library
- try {
-   const https = require('https');
-   const agent = new https.Agent({  
-     rejectUnauthorized: false
-   });
-   const result =  axios.get('https://afs-web01:5051/api/rules/getCubics',{ httpsAgent: agent });
-   const data = result.data;
-   cubicData=data
-} catch (error) {
-   console.log(error);
-}
+//  // Call an external API endpoint to get posts.
+//  // You can use any data fetching library
+//  try {
+//    const https = require('https');
+//    const agent = new https.Agent({  
+//      rejectUnauthorized: false
+//    });
+//    const result =  axios.get('https://localhost:5050/api/rules/getCubics',{ httpsAgent: agent });
+//    const data = result.data;
+//    cubicData=data
+// } catch (error) {
+//    console.log(error);
+// }
  
-},[])
+// },[])
 
   
 return(
@@ -69,7 +69,7 @@ return(
       <Container maxWidth={false}>
         {/* <prefixListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <CubicListResults Cubics={cubicData}/>
+          <CubicListResults Cubics={data}/>
         </Box>
       
       </Container>
@@ -95,7 +95,7 @@ Cubics.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://afs-web01:5051/api/rules/getCubics',{ httpsAgent: agent });
+//     const result = await axios.get('https://localhost:5050/api/rules/getCubics',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {

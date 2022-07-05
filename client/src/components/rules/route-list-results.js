@@ -66,7 +66,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
   function newRoute(Route){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newRoute', Route).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newRoute', Route).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
   function updateSingleRoute(Route){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateRoute', Route).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateRoute', Route).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
     function deleteSingleRoute(Route){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteRoute', Route).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteRoute', Route).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -167,7 +167,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
           { title: "Creation Date", field: "CreationDate" },
        
         ]}
-        data={data}
+        data={Routes}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -212,7 +212,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Routes];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(Route=>{
@@ -229,6 +229,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
                }
             
              setData(updatedrows)
+             Routes=data;
               resolve();
             }, 2000);
           })
@@ -240,7 +241,8 @@ export const RouteListResults = ({ Routes, ...rest }) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
               newRoute(newData);
-              setData([...data, newData]);
+              setData([...Routes, newData]);
+              Routes=data;
               resolve();
             }, 1000);
           });
@@ -248,7 +250,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Routes];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -256,8 +258,8 @@ export const RouteListResults = ({ Routes, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
-
-              const dataUpdate = [...data];
+              Routes=data;
+              const dataUpdate = [...Routes];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -271,12 +273,12 @@ export const RouteListResults = ({ Routes, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Routes];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Routes];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -284,6 +286,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
               
               deleteSingleRoute(oldData);
               setData([...dataDelete]);
+              Routes=data;
               resolve();
             }, 1000);
           });

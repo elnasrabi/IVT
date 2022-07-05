@@ -1,32 +1,32 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { ToleranceListResults } from '../../components/rules/tolerance-list-results';
+import { RuleOptionListResults } from '../../components/rules/ruleoption-list-results';
 
 
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
+
 import useSWR from 'swr'
-import Link from 'next/link'
-import {connect} from 'react-redux'
 
 
 
 
-function Tolerances(){ 
-    let ToleranceData=[];
+function RuleOptions(){ 
+ 
+   
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://localhost:5050/api/rules/getTolerances`;
+
+  const address = `https://localhost:5050/api/rules/getRuleOptions`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
-
+  let  RuleOptionData=data;
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-  if (data) ToleranceData=data;
+  if (data) RuleOptionData=data;
 
 //   useEffect(()=>{
 
@@ -39,9 +39,9 @@ function Tolerances(){
 //    const agent = new https.Agent({  
 //      rejectUnauthorized: false
 //    });
-//    const result =  axios.get('https://localhost:5050/api/rules/getTolerances',{ httpsAgent: agent });
+//    const result =  axios.get('https://localhost:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //    const data = result.data;
-//    ToleranceData=data
+//    RuleOptionData=data
 // } catch (error) {
 //    console.log(error);
 // }
@@ -49,11 +49,12 @@ function Tolerances(){
 // },[])
 
 
+
 return(
   <>
     <Head>
       <title>
-        Tolerance | IVT
+        RuleOptions | IVT
       </title>
     </Head>
     <Box
@@ -64,18 +65,17 @@ return(
       }}
     >
       <Container maxWidth={false}>
-        {/* <RouteListToolbar /> */}
+        {/* <RuleOptionListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <ToleranceListResults Tolerances={data}/>
+          <RuleOptionListResults RuleOptions={data}/>
         </Box>
       
       </Container>
     </Box>
   </> )
 };
-Tolerances.getLayout = (page) => (
+RuleOptions.getLayout = (page) => (
   
-
   <div>
   {page}
 </div>
@@ -89,8 +89,6 @@ Tolerances.getLayout = (page) => (
 
 // export async function getStaticProps() {
 
-//   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 //   // Call an external API endpoint to get posts.
 //   // You can use any data fetching library
 //   try {
@@ -99,26 +97,26 @@ Tolerances.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://localhost:5050/api/rules/getTolerances',{ httpsAgent: agent });
+//     const result = await axios.get('https://localhost:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {
-//           ToleranceData: data
+//           RuleOptionData: data
 //         }
 //     }
 // } catch (error) {
 //     console.log(error);
 //     return {
 //       props: {
-//         ToleranceData: []
+//         RuleOptionData: []
 //       }
 //     }
 // }
   
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+//   // By returning { props: { posts } }, the Blog component
+//   // will receive `posts` as a prop at build time
 
 // }
 
-export default Tolerances
+export default RuleOptions

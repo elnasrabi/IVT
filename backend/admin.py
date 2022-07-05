@@ -297,6 +297,78 @@ def newFuel(connection,Fuel):
 #endregion 
 
 
+#region RuleOption
+def get_RuleOptions(connection):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getRuleOption]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,RuleCode
+      ,OptionDesc
+      ,OptionValue
+      ,OptionValue_Min
+      ,OptionValue_Max
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'RuleCode':RuleCode,
+                'OptionDesc':OptionDesc,
+                'OptionValue':OptionValue,
+                'OptionValue_Min':OptionValue_Min,
+                 'OptionValue_Max':OptionValue_Max,
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateRuleOption] @Id = ?, @RuleCode = ?, @OptionDesc = ?,@OptionValue=? ,@OptionValue_Min=? ,@OptionValue_Max=?"
+  
+    data=(RuleOption['Id'],RuleOption['RuleCode'],RuleOption['OptionDesc'],RuleOption['OptionValue'],RuleOption['OptionValue_Min'],RuleOption['OptionValue_Max'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has updated successfully.'
+
+def deleteRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteRuleOption] @Id = ?"
+  
+    data=(RuleOption['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has deleted successfully.'
+
+def newRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_NewRuleOption]  @RuleCode = ?, @OptionDesc = ?,@OptionValue=? ,@OptionValue_Min=? ,@OptionValue_Max=?"
+  
+    data=(RuleOption['RuleCode'],RuleOption['OptionDesc'],RuleOption['OptionValue'],RuleOption['OptionValue_Min'],RuleOption['OptionValue_Max'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has created successfully.'
+#endregion 
+
+
 #region Consolodition
 def get_Consoloditions(connection):
 

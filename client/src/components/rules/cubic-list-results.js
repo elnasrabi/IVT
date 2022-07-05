@@ -66,7 +66,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
   function newCubic(Cubic){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newCubic', Cubic).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newCubic', Cubic).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
   function updateSingleCubic(Cubic){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateCubic', Cubic).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateCubic', Cubic).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
     function deleteSingleCubic(Cubic){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteCubic', Cubic).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteCubic', Cubic).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -166,7 +166,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
           { title: "Ref Cubic", field: "RefCubic",type:"numeric" },
          
         ]}
-        data={data}
+        data={Cubics}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -211,7 +211,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Cubics];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(Cubic=>{
@@ -228,6 +228,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
                }
             
              setData(updatedrows)
+             Cubics=data;
               resolve();
             }, 2000);
           })
@@ -239,7 +240,8 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
               newCubic(newData);
-              setData([...data, newData]);
+              setData([...Cubics, newData]);
+              Cubics=data;
               resolve();
             }, 1000);
           });
@@ -247,7 +249,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Cubics];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -255,8 +257,8 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
-
-              const dataUpdate = [...data];
+              Cubics=data;
+              const dataUpdate = [...Cubics];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -270,12 +272,12 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Cubics];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Cubics];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -283,6 +285,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
               
               deleteSingleCubic(oldData);
               setData([...dataDelete]);
+              Cubics=data;
               resolve();
             }, 1000);
           });

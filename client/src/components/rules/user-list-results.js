@@ -66,7 +66,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
   function newUser(Users){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newUser', Users).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newUser', Users).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
   function updateSingleUser(User){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateUser', User).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateUser', User).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
     function deleteSingleUser(User){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteUser', User).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteUser', User).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -168,7 +168,7 @@ export const UserListResults = ({ Users, ...rest }) => {
          
          
         ]}
-        data={data}
+        data={Users}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -213,7 +213,7 @@ export const UserListResults = ({ Users, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Users];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(User=>{
@@ -230,6 +230,7 @@ export const UserListResults = ({ Users, ...rest }) => {
                }
             
              setData(updatedrows)
+             Users=data;
               resolve();
             }, 2000);
           })
@@ -241,7 +242,8 @@ export const UserListResults = ({ Users, ...rest }) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
               newUser(newData);
-              setData([...data, newData]);
+              setData([...Users, newData]);
+              Users=data;
               resolve();
             }, 1000);
           });
@@ -249,7 +251,7 @@ export const UserListResults = ({ Users, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Users];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -258,7 +260,7 @@ export const UserListResults = ({ Users, ...rest }) => {
               // Update our state
               setData(dataCopy);
 
-              const dataUpdate = [...data];
+              const dataUpdate = [...Users];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -272,12 +274,12 @@ export const UserListResults = ({ Users, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Users];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Users];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -285,6 +287,7 @@ export const UserListResults = ({ Users, ...rest }) => {
               
               deleteSingleUser(oldData);
               setData([...dataDelete]);
+              Users=data;
               resolve();
             }, 1000);
           });

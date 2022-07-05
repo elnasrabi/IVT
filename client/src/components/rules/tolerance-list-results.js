@@ -66,7 +66,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
   function newTolerance(Tolerances){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newTolerance', Tolerances).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newTolerance', Tolerances).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
   function updateSingleTolerance(Tolerance){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateTolerance', Tolerance).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateTolerance', Tolerance).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
     function deleteSingleTolerance(Tolerance){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteTolerance', Tolerance).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteTolerance', Tolerance).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -163,16 +163,16 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
           { title: "Customer", field: "Customer" },  //editable: 'never'
           { title: "Carrier", field: "Carrier"  },
-          { title: "P4_TOLERANCE(Weight)", field: "P4_TOLERANCE",type:"numeric" },
-          { title: "P5_TOLERANCE(Cost)", field: "P5_TOLERANCE",type:"numeric" },
-          { title: "P6_TOLERANCE(Weekly Cost)", field: "P6_TOLERANCE",type:"numeric" },
+          { title: "TOLERANCE(Weight)", field: "P4_TOLERANCE",type:"numeric" },
+          { title: "TOLERANCE(Cost)", field: "P5_TOLERANCE",type:"numeric" },
+          { title: "TOLERANCE(Weekly Cost)", field: "P6_TOLERANCE",type:"numeric" },
           { title: "Charge Weight Min", field: "ChargeWeightMin",type:"numeric" },
           { title: "Charge Weight Max", field: "ChargeWeightMax",type:"numeric" },
           { title: "Total Nett Min", field: "TotalNettMin",type:"numeric" },
           { title: "Total Nett Max", field: "TotalNettMax",type:"numeric" },
          
         ]}
-        data={data}
+        data={Tolerances}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -217,7 +217,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            let updatedrows = [...data];
+            let updatedrows = [...Tolerances];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(Tolerance=>{
@@ -234,6 +234,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
                }
             
              setData(updatedrows)
+             Tolerances=data;
               resolve();
             }, 2000);
           })
@@ -245,7 +246,8 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
             setTimeout(() => {
               //newData.id = "uuid-" + Math.random() * 10000000;
               newTolerance(newData);
-              setData([...data, newData]);
+              setData([...Tolerances, newData]);
+              Tolerances=data;
               resolve();
             }, 1000);
           });
@@ -253,7 +255,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...data];
+              const dataCopy = [...Tolerances];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -261,8 +263,9 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
+              Tolerances=data;
 
-              const dataUpdate = [...data];
+              const dataUpdate = [...Tolerances];
               // In dataUpdate, find target
               const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
               const index = dataUpdate.indexOf(target);
@@ -276,12 +279,12 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...data];
+              const dataDelete = [...Tolerances];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...data];
+              // let _data = [...Tolerances];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
@@ -289,6 +292,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
               
               deleteSingleTolerance(oldData);
               setData([...dataDelete]);
+              Tolerances=data;
               resolve();
             }, 1000);
           });
