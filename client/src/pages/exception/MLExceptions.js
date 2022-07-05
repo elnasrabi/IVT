@@ -37,7 +37,7 @@ function MLExceptions({props,excep}){
     // make payload here using values
     LoginName: loginname // 'mnasir'//loginname
   }
-  const address = `https://localhost:5050/api/ML/getCurrentMLException`;
+  const address = `https://afs-web01:5051/api/ML/getCurrentMLException`;
   const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
   const { data, error } = useSWR(address, fetcher);
 
@@ -54,7 +54,7 @@ function MLExceptions({props,excep}){
   //     // make payload here using values
   //     LoginName: loginname // 'mnasir'//loginname
   //   }
-  //    axios.post('https://localhost:5050/api/exception/getCurrentException', payload)
+  //    axios.post('https://afs-web01:5051/api/exception/getCurrentException', payload)
   //   .then(response => {
   //     setResult(response.data)
   //     localStorage.setItem('currentexceptions', response.data)
@@ -118,7 +118,7 @@ MLExceptions.getLayout = (page) => (
 //   // You can use any data fetching library
 //   try {
 
-//     const result = await axios.get('https://localhost:5050/api/exception/getCurrentException');
+//     const result = await axios.get('https://afs-web01:5051/api/exception/getCurrentException');
 //     const data = result.data;
 //     return {
 //         props: {
