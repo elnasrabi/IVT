@@ -51,7 +51,7 @@ const items = [
   {
     href: '/exception/exceptions',
     icon: (<XCircleIcon fontSize="small" />),
-    title: 'Current Exceptions',
+    title: 'Quality Exceptions',
     isAdmin:false
   },
   {
@@ -109,7 +109,7 @@ const AMitems = [
   {
     href: '/exception/exceptions',
     icon: (<XCircleIcon fontSize="small" />),
-    title: 'Current Exceptions',
+    title: 'Quality Exceptions',
     isAdmin:false
   },
   {
@@ -161,7 +161,12 @@ console.log('UserType eeeeeeeeee',UserType)
   const [isLoaded, setIsloaded] = useState(false)
   const [LoggedUser, setLoggedUser] = useState({UserType:0,AccountManager:'',IsActive:1});
  
+  const getAccessToken = () => {
+    if (typeof window !== 'undefined') 
+       return localStorage.getItem('accessToken');
+  };
 
+  const token=getAccessToken();
 
   useEffect(
     () => {
@@ -434,7 +439,7 @@ console.log('UserType eeeeeeeeee',UserType)
 
   if (lgUp) {
     return (
-      (isAuthenticated && UserType==1)? <Drawer
+      (isAuthenticated && UserType==1 && token)? <Drawer
     anchor="left"
     open
     PaperProps={{
@@ -447,7 +452,7 @@ console.log('UserType eeeeeeeeee',UserType)
     variant="permanent"
   >
     {content}
-  </Drawer>:(isAuthenticated && UserType==0)? <Drawer
+  </Drawer>:(isAuthenticated && UserType==0 && token)? <Drawer
     anchor="left"
     open
     PaperProps={{
@@ -480,7 +485,7 @@ console.log('UserType eeeeeeeeee',UserType)
   }
 
   return (
-    (isAuthenticated && UserType==1)? <Drawer
+    (isAuthenticated && UserType==1 && token)? <Drawer
     anchor="left"
     open
     PaperProps={{
@@ -493,7 +498,7 @@ console.log('UserType eeeeeeeeee',UserType)
     variant="permanent"
   >
     {content}
-  </Drawer>:(isAuthenticated && UserType==0)? <Drawer
+  </Drawer>:(isAuthenticated && UserType==0 && token)? <Drawer
     anchor="left"
     open
     PaperProps={{
@@ -554,7 +559,7 @@ DashboardSidebar.propTypes = {
 //      LoginName: loginname // 'mnasir'//loginname
 //    }
    
-// const result = await axios.get('https://afs-web01:5051/api/exception/getCurrentException');
+// const result = await axios.get('https://localhost:5050/api/exception/getCurrentException');
 //     const data = result;
 //     return {
 //         props: {
