@@ -13,11 +13,18 @@ import { msalConfig } from "../authConfig";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { useIsAuthenticated } from "@azure/msal-react";
-
+import {
+  AuthenticatedTemplate,
+  
+  useMsal,
+} from '@azure/msal-react';
+import axios from 'axios';
 const msalInstance = new PublicClientApplication(msalConfig);
 
 
+
 async function handleLogin() {
+
   await msalInstance.loginRedirect();
 
 
@@ -37,9 +44,35 @@ async function handleLogin() {
 const Login = () => {
   const isAuthenticated = useIsAuthenticated();
   //   const username = accounts[0].username;
+  const { accounts } = useMsal();
+
+
+  const getLoginAccessToken = () => {
+    if (typeof window !== 'undefined') 
+       return localStorage.getItem('accessToken');
+  };
+  let loginname=''
+    if (isAuthenticated){
+      loginname=accounts[0].username.substring(0, accounts[0].username.indexOf("@"));
+     // console.log('loginname',loginname)
+   }
+    const Userpayload = {
+      // make payload here using values
+      LoginName: loginname // 'mnasir'//loginname
+    }
+   
+   
+
+
 
   useEffect(()=>{
-    if (isAuthenticated){
+    
+
+    
+   
+    const token=getLoginAccessToken();
+
+    if (isAuthenticated && token){
       router.push('/');
     }
   },[])
@@ -65,7 +98,10 @@ const Login = () => {
           'Password is required')
     }),
     onSubmit: () => {
-      router.push('/');
+      if (isAuthenticated ){
+        router.push('/');
+      }
+     
     }
   });
 
