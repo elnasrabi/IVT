@@ -188,23 +188,9 @@ def get_held_connote(connection,login):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query,data)
     respons=[]
-    for (Id
-      ,Connote
-      ,Reason
-      ,HeldBy
-      ,ActionTime
-      ,supplier_ref
-      ,jno
-      ,customer
-      ,cons_date
-      ,carrier
-      ,CurrentWeek
-	 , AccountManager  ,
-	  FinanceGroup ,
-	  CustomerName ,
-	  BusinessCountry ,
-	  LoginName) in cursor:
-        respons.append(
+    for (Id,Connote ,Reason ,HeldBy ,ActionTime ,supplier_ref ,jno ,customer ,cons_date ,carrier ,CurrentWeek ,ErrPriority ,ErrDesc ,invoice_no ,invoice_date ,con_note ,from_loc ,colsubzone ,to ,delsubzone ,option_code ,work_code ,freight_charges ,other_charges ,fuel_surch ,total_nett ,gst ,gross ,items ,quantity ,space ,lift ,weight ,pallet ,hours ,cubic ,del_com 
+    ,entered_by ,status ,cus_ref ,col_post ,del_post ,chg_kg ,unit ,del_ref,AccountManager,FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+     respons.append(
             {
                 'supplier_ref':supplier_ref,
                 'jno':jno,
@@ -216,13 +202,48 @@ def get_held_connote(connection,login):
                 'HeldBy':HeldBy ,
                 'Id':Id,
                 'CurrentWeek':CurrentWeek,
+                'ErrPriority':ErrPriority,
                 'cons_date':cons_date,
                 'ActionTime':datetime.date(ActionTime).strftime("%b %d %Y"),
-                'AccountManager' : AccountManager ,
-	            'FinanceGroup' : FinanceGroup,
-	            'CustomerName' : CustomerName,
-	            'BusinessCountry' : BusinessCountry,
-                'LoginName':LoginName
+                'ErrDesc':ErrDesc,
+                'invoice_no':invoice_no,
+                'invoice_date':invoice_date,
+                'con_note':con_note,
+                'from_loc':from_loc,
+                'colsubzone':colsubzone,
+                'to':to,
+                'delsubzone':delsubzone,
+                'option_code':option_code,
+                'work_code':work_code,
+                'freight_charges':freight_charges,
+                'other_charges':other_charges,
+                'fuel_surch':fuel_surch,
+                'total_nett':total_nett,
+                'gst':gst,
+                'gross':gross,
+                'items':items,
+                'quantity':quantity,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'entered_by':entered_by,
+                'status':status,
+                'cus_ref':cus_ref,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'unit':unit,
+                'del_ref':del_ref,
+                'AccountManager':AccountManager,
+                'FinanceGroup':FinanceGroup,
+                'CustomerName':CustomerName,
+                'BusinessCountry':BusinessCountry,
+                'LoginName':LoginName,
+
 
             }
         )

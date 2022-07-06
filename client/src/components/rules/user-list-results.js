@@ -66,7 +66,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
   function newUser(Users){
 
-    const res =  axios.post('https://localhost:5050/api/rules/newUser', Users).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/newUser', Users).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
   function updateSingleUser(User){
 
-    const res =  axios.post('https://localhost:5050/api/rules/updateUser', User).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/updateUser', User).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const UserListResults = ({ Users, ...rest }) => {
 
     function deleteSingleUser(User){
 
-      const res =  axios.post('https://localhost:5050/api/rules/deleteUser', User).then(response => {
+      const res =  axios.post('https://afs-web01:5051/api/rules/deleteUser', User).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

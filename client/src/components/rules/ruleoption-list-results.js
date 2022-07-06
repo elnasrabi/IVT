@@ -66,7 +66,7 @@ export const RuleOptionListResults = ({ RuleOptions, ...rest }) => {
 
   function newRuleOption(RuleOption){
 
-    const res =  axios.post('https://localhost:5050/api/rules/newRuleOption', RuleOption).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/newRuleOption', RuleOption).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const RuleOptionListResults = ({ RuleOptions, ...rest }) => {
 
   function updateSingleRuleOption(RuleOption){
 
-    const res =  axios.post('https://localhost:5050/api/rules/updateRuleOption', RuleOption).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/updateRuleOption', RuleOption).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const RuleOptionListResults = ({ RuleOptions, ...rest }) => {
 
     function deleteSingleRuleOption(RuleOption){
 
-      const res =  axios.post('https://localhost:5050/api/rules/deleteRuleOption', RuleOption).then(response => {
+      const res =  axios.post('https://afs-web01:5051/api/rules/deleteRuleOption', RuleOption).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
