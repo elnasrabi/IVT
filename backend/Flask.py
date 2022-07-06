@@ -394,6 +394,51 @@ def new_Fuels():
 
 
 
+
+
+#region RuleOption 
+
+@app.route('/api/rules/getRuleOptions', methods=['GET'])
+def get_RuleOptiones():
+    response = admin.get_RuleOptions(connection)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/updateRuleOption', methods=['POST'])
+def update_single_RuleOptions():
+    request_payload = request.get_json()
+    msg = admin.updateRuleOption(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/deleteRuleOption', methods=['POST'])
+def delete_single_RuleOptions():
+    request_payload = request.get_json()
+    msg = admin.deleteRuleOption(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/api/rules/newRuleOption', methods=['POST'])
+def new_RuleOptions():
+    request_payload = request.get_json()
+    msg = admin.newRuleOption(connection, request_payload)
+    response = jsonify({
+        'Msg': msg
+    })
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+#endregion
+
+
+
 #region Consolodition 
 @app.route('/api/rules/getConsoloditions', methods=['GET'])
 def get_Consoloditiones():
