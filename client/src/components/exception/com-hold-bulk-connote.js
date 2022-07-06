@@ -80,7 +80,7 @@ export const HoldBulkConnote = ({connotesToHold}) => {
     
       console.log('JSON.stringify(connotesToHoldParam)',payload )
       try {
-        const response = await axios.post('https://localhost:5050/api/exception/heldConnote', payload ).then(response => {
+        const response = await axios.post('https://afs-web01:5051/api/exception/heldConnote', payload ).then(response => {
           console.log('response.data.success',response.data);
   
           if(response.data.Msg)
@@ -115,7 +115,7 @@ export const HoldBulkConnote = ({connotesToHold}) => {
 
 
  
-    const res =  axios.post('https://localhost:5050/api/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 
