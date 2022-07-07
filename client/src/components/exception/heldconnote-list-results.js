@@ -74,7 +74,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
   function newHeldConnote(HeldConnotes){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newHeldConnote', HeldConnotes).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newHeldConnote', HeldConnotes).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -99,7 +99,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
   function updateSingleHeldConnote(HeldConnote){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateHeldConnote', HeldConnote).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateHeldConnote', HeldConnote).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -123,7 +123,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
 
     function deleteSingleHeldConnote(HeldConnote){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteHeldConnote', HeldConnote).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteHeldConnote', HeldConnote).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -164,6 +164,27 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
           { title: "Customer", field: "customer" ,editable: 'never'},  //editable: 'never'
           { title: "Held At", field: "ActionTime",editable: 'never' },
           { title: "Held By", field: "HeldBy",editable: 'never' },
+          {
+            
+            render: rowData => {
+              return (
+                <div>
+
+                 <Link
+            href={{
+              pathname: '/exception/ViewConnote',
+              query: { connote: JSON.stringify(rowData) },
+            }}  as="/exception/ViewConnote"
+          >
+               <IconButton aria-label="add" tooltip="View Connote">
+                    <ViewIcon tooltip="View Connote"> </ViewIcon>
+                  </IconButton>
+                 </Link>
+                  
+                </div>
+              );
+            }
+          }
         
         
         ]}
@@ -291,23 +312,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
       }}
       actions={[
       
-        (rowData) => ({
-          icon: () =>    <Link
-          href={{
-            pathname: '/exception/ReleaseBulkConnote',
-            query: { connote: JSON.stringify(selectedRows) },
-          }}  as="/exception/ReleaseBulkConnote"
-        >
-             <IconButton aria-label="cancel" tooltip="Release Connote">
-                  <CancelIcon tooltip="Release Connote"> </CancelIcon>
-                </IconButton>
-               </Link>,
-          isFreeAction: true,
-          tooltip: 'Release Connotes',
-          onClick: (event, rowData) => console.log(selectedRows),
-         
-        }) ,
-
+    
         (rowData) => ({
           icon: () =>    <Link
           href={{
@@ -322,6 +327,7 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
           isFreeAction: true,
           tooltip: 'Release Connotes',
           onClick: (event, rowData) => console.log(selectedRows),
+          
          
         })
 

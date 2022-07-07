@@ -66,7 +66,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
   function newCubic(Cubic){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newCubic', Cubic).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newCubic', Cubic).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
   function updateSingleCubic(Cubic){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateCubic', Cubic).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateCubic', Cubic).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const CubicListResults = ({ Cubics, ...rest }) => {
 
     function deleteSingleCubic(Cubic){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteCubic', Cubic).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteCubic', Cubic).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
