@@ -29,14 +29,14 @@ const CustomToolbar = (props) => {
 
   const fn = ([keys, ...values]) => 
   values.map(vs => Object.fromEntries(vs.map((v, i) => [keys[i], v])))
-
+  let dataArr=[]
   useEffect(() => {
     let arr;
     if (CSVData.length>0)
     {
          arr=Array.from(fn(CSVData[0]));
 
-         const dataArr = arr.map((data) => {
+    dataArr = arr.map((data) => {
             
           if (data) {
             return {
@@ -85,8 +85,8 @@ const CustomToolbar = (props) => {
         });
     }
     
-   
-    setDataForTable(dataArr);
+  if(dataArr)
+  setDataForTable(dataArr);
     console.log("CSV DATA", dataArr);
   }, [CSVData, setDataForTable]);
 

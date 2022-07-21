@@ -316,12 +316,12 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
         (rowData) => ({
           icon: () =>    <Link
           href={{
-            pathname: '/exception/ViewConnote',
+            pathname: '/exception/ReleaseBulkConnote',
             query: { connote: JSON.stringify(rowData) },
-          }}  as="/exception/ViewConnote"
+          }}  as="/exception/ReleaseBulkConnote"
         >
              <IconButton aria-label="add" tooltip="View Connote">
-                  <ViewIcon tooltip="View Connote"> </ViewIcon>
+                  <CancelIcon tooltip="View Connote"> </CancelIcon>
                 </IconButton>
                </Link>,
           isFreeAction: true,
