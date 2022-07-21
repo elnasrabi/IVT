@@ -6,7 +6,8 @@ import { RuleListResults } from '../../components/rules/rule-list-result';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 
@@ -22,11 +23,13 @@ function Rules(){
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   const address = `https://localhost:5050/api/rules/getRules`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
+  //const { data, error } = useSWR(address, fetcher);
+
+  const { data, error }= useSWRImmutable(address, fetcher)
 
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-  if (data) RuleData=data;
+ 
 
 //   useEffect(()=>{
 

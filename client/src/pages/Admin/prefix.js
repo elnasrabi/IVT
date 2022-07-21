@@ -7,7 +7,8 @@ import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 
@@ -24,7 +25,16 @@ function Prefixes(){
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   const address = `https://localhost:5050/api/rules/getPrefixes`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: true,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+  const { data, error }= useSWRImmutable(address, fetcher)
 
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;

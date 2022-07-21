@@ -7,7 +7,8 @@ import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
-import useSWR from 'swr'
+import {useSWR,useStaleSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 import {
@@ -43,12 +44,21 @@ function HeldConnote({props,HeldConnoteData}){
       LoginName: loginname // 'mnasir'//loginname
     }
     const address = `https://localhost:5050/api/exception/getHeldConnote`;
+    
+     
+    
     const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
-    const { data, error } = useSWR(address, fetcher);
-
+    // const { data, error } =  useSWR(address, fetcher, revalidationOptions);
+    const { data, error }= useSWRImmutable(address, fetcher)
     if (error) <p>Loading failed...</p>;
     if (!data) <h1>Loading...</h1>;
+ 
 
+ 
+
+   
+    
+     
 
   // useEffect(()=>{
   //   let loginname=''
