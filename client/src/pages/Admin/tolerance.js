@@ -6,7 +6,8 @@ import { ToleranceListResults } from '../../components/rules/tolerance-list-resu
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 
@@ -22,7 +23,17 @@ function Tolerances(){
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   const address = `https://afs-web01:5051/api/rules/getTolerances`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: true,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+
+  const { data, error }= useSWRImmutable(address, fetcher)
 
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;

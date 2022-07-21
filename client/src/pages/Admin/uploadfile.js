@@ -9,7 +9,8 @@ import { exceptions } from '../../__mocks__/exceptions';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 import {getExceptions} from '../../components/store/actions/exceptionsActions'

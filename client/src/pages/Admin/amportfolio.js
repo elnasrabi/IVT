@@ -3,7 +3,8 @@ import { Box, Container } from '@mui/material';
 import { useState,useEffect,fetch } from 'react';
 import { AMPortfolioListResults } from '../../components/rules/AMPortfolio-list-results';
 import axios from 'axios';
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 function AMPortfolio(){ 
 
@@ -16,8 +17,16 @@ function AMPortfolio(){
 
   const address = `https://afs-web01:5051/api/rules/getAMPortfolios`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
-
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: true,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+  const { data, error }= useSWRImmutable(address, fetcher)
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
   if (data) AMPortfolioData=data;

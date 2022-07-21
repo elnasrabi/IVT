@@ -10,7 +10,8 @@ import { exceptions } from '../../__mocks__/exceptions';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom"
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 import Link from 'next/link'
 import {connect} from 'react-redux'
 import {getExceptions} from '../../components/store/actions/exceptionsActions'
@@ -39,8 +40,16 @@ function Exceptions({props,excep}){
   }
   const address = `https://afs-web01:5051/api/exception/getCurrentException`;
   const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
-
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: false,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+  const { data, error }= useSWRImmutable(address, fetcher)
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
 
@@ -57,7 +66,7 @@ function Exceptions({props,excep}){
   //    axios.post('https://afs-web01:5051/api/exception/getCurrentException', payload)
   //   .then(response => {
   //     setResult(response.data)
-  //     localStorage.setItem('currentexceptions', response.data)
+  //    // localStorage.setItem('currentexceptions', response.data)
   //   })
   //   .catch(error => console.log(error))
 

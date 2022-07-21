@@ -56,6 +56,7 @@ function HistExceptions({props,excep}){
     const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
     const { data, error } = useSWR(address, fetcher, {
       revalidateOnFocus: false,
+    revalidateIfStale: true,
       revalidateIfStale: false,
       revalidateOnReconnect: false
     });

@@ -28,7 +28,8 @@ import { Redirect } from 'react-router-dom'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import axios from 'axios';
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 const Dashboard = () => {
   const router = useRouter();
  
@@ -67,7 +68,16 @@ const Dashboard = () => {
 
   const address = `https://afs-web01:5051/api/dashboard/getTotalMeasure`;
   const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: true,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+  const { data, error }= useSWRImmutable(address, fetcher)
   let  RuleOptionData=data;
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
