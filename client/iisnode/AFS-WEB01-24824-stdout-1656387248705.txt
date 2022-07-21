@@ -1,2 +1,0 @@
-info  - Loaded env from D:\Github\IVT\client\.env.local
-> Ready on http://localhost:\\.\pipe\dc3a6217-f1bc-482f-9c66-0f7a57b831ca
