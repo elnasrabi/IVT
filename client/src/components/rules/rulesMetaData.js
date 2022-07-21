@@ -105,12 +105,12 @@ export const rulesMeta = [
     priroity: 'No',
     path:'/Admin/amportfolio'
   },
-  {
-    id: uuid(),
-    description: 'Inspect Buy or Sell File.',
-    media: '/static/images/rules/fileinspect.png',
-    title: 'File Inspection',
-    priroity: 'No',
-    path:'/Admin/uploadfile'
-  },
+  // {
+  //   id: uuid(),
+  //   description: 'Inspect Buy or Sell File.',
+  //   media: '/static/images/rules/fileinspect.png',
+  //   title: 'File Inspection',
+  //   priroity: 'No',
+  //   path:'/Admin/uploadfile'
+  // },
 ];
