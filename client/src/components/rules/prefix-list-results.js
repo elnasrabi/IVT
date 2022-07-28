@@ -66,7 +66,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function newPrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newPrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newPrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function updateSinglePrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updatePrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updatePrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
     function deleteSinglePrefix(prefix){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deletePrefix', prefix).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deletePrefix', prefix).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -162,10 +162,30 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
         columns={[
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
           { title: "Customer", field: "Customercode" },  //editable: 'never'
-          { title: "Prefix", field: "Prefix"  },
-          { title: "Carrier", field: "Carrier" },
-          { title: "Delivery Comment", field: "DeliveryComment",lookup: { true: '1', false: '0' } ,},
-          { title: "Customer Reference", field: "CustomerReference",lookup: { true: '1', false: '0' }, },
+          { title: "Prefix", field: "Prefix",initialEditValue:0 },
+          { title: "Carrier", field: "Carrier",initialEditValue:0 },
+          { title: "Del Com", field: "DeliveryComment",lookup: { true: '1', false: '0' } ,initialEditValue:0} ,
+          { title: "Cust Ref", field: "CustomerReference",lookup: { true: '1', false: '0' },initialEditValue:0},
+          //{ title: "Old Month", field: "Old_Connote_Month",initialEditValue:0,hidden:true },
+          { title: "GM <", field: "GM_Below",initialEditValue:0},
+          { title: "GM >", field: "GM_Above",initialEditValue:0 },
+          { title: "GM MV", field: "GM_Movement",initialEditValue:0 },
+          // { title: "Fuel >", field: "FuelDiff_Above",initialEditValue:0,hidden:true },
+          // { title: "Fuel <", field: "FuelDiff_Below",initialEditValue:0,hidden:true },
+          // { title: "Fuel Freight", field: "Fuel_Freight_Ratio",initialEditValue:0,hidden:true },
+          // { title: "TotalSell", field: "TotalSell_Threshold",initialEditValue:0,hidden:true },
+          // { title: "Cubic", field: "Cubic_Threshold",initialEditValue:0,hidden:true },
+          // { title: "Weight", field: "Weight_Threshold",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_1", field: "Custom_Rule_1",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_2", field: "Custom_Rule_2",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_3", field: "Custom_Rule_3",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_4", field: "Custom_Rule_4",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_5", field: "Custom_Rule_5",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_6", field: "Custom_Rule_6",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_7", field: "Custom_Rule_7",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_8", field: "Custom_Rule_8",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_9", field: "Custom_Rule_9",initialEditValue:0,hidden:true },
+          // { title: "Custom_Rule_10", field: "Custom_Rule_10",initialEditValue:0,hidden:true },
       
         ]}
         data={Prefixes}
@@ -213,17 +233,18 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
+            console.log('...Prefixes',...Prefixes)
             let updatedrows = [...Prefixes];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
               rows.map(prefix=>{
-                console.log('prefix.oldData.Id',prefix.oldData.tableData.id)
+                //console.log('prefix.oldData.Id',prefix.oldData.tableData.id)
                 index=prefix.oldData.tableData.id
-                console.log('prefix.newData',prefix.newData)
+               // console.log('prefix.newData',prefix.newData)
                 updatedrows[index]=prefix.newData
 
               })
-              console.log('updatedrows',updatedrows)
+             // console.log('updatedrows',updatedrows)
             setTimeout(() => {
               for(var i=0;i<rows.length;i++){
                 updateSinglePrefix(rows[i].newData) 
@@ -260,14 +281,20 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
               // Update our state
               setData(dataCopy);
               Prefixes=data;
+              console.log('...Prefixes',data)
+              if(Prefixes)
+              {
+                const dataUpdate = [...Prefixes];
+                // In dataUpdate, find target
+                const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
+                const index = dataUpdate.indexOf(target);
+                dataUpdate[index] = newData;
+               // setData([...dataUpdate]);
+               
+              }
 
-              const dataUpdate = [...Prefixes];
-              // In dataUpdate, find target
-              const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
-              const index = dataUpdate.indexOf(target);
-              dataUpdate[index] = newData;
-             // setData([...dataUpdate]);
               updateSinglePrefix(newData);
+           
               resolve();
             }, 1000);
           });

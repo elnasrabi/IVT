@@ -37,9 +37,9 @@ export const rulesMeta = [
 
   {
     id: uuid(),
-    description: 'Specify the prefixes allowed for customer-carrier combination along with optional setting of delivery comments and customer references.',
+    description: 'Either use customer group for only customers settings or customer code/carrier combination for prefix & other settings.',
     media: '/static/images/rules/prefix.png',
-    title: 'Prefix',
+    title: 'Customer Settings',
     priroity: 'P1',
     path:'/Admin/prefix'
   },

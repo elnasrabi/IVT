@@ -23,14 +23,37 @@ def get_prefixes(connection):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query)
     respons=[]
-    for (Id,Customercode, Carrier, Prefix,DeliveryComment,CustomerReference) in cursor:
+    for (Id,Customercode, Carrier, Prefix,DeliveryComment,CustomerReference ,Old_Connote_Month,GM_Below,GM_Above,GM_Movement,
+    FuelDiff_Above,FuelDiff_Below,Fuel_Freight_Ratio,TotalSell_Threshold,Cubic_Threshold,Weight_Threshold,Custom_Rule_1,Custom_Rule_2,
+    Custom_Rule_3,Custom_Rule_4,Custom_Rule_5,Custom_Rule_6,Custom_Rule_7,Custom_Rule_8,Custom_Rule_9,Custom_Rule_10) in cursor:
         respons.append(
             {   'Id':Id,
                 'Customercode':Customercode,
                 'Carrier':Carrier,
                 'Prefix':Prefix,
                 'DeliveryComment':DeliveryComment,
-                'CustomerReference':CustomerReference
+                'CustomerReference':CustomerReference,
+                'Old_Connote_Month':Old_Connote_Month,
+                'GM_Below':GM_Below,
+                'GM_Above':GM_Above,
+                'GM_Movement':GM_Movement,
+                'FuelDiff_Above':FuelDiff_Above,
+                'FuelDiff_Below':FuelDiff_Below,
+                'Fuel_Freight_Ratio':Fuel_Freight_Ratio,
+                'TotalSell_Threshold':TotalSell_Threshold,
+                'Cubic_Threshold':Cubic_Threshold,
+                'Weight_Threshold':Weight_Threshold,
+                'Custom_Rule_1':Custom_Rule_1,
+                'Custom_Rule_2':Custom_Rule_2,
+                'Custom_Rule_3':Custom_Rule_3,
+                'Custom_Rule_4':Custom_Rule_4,
+                'Custom_Rule_5':Custom_Rule_5,
+                'Custom_Rule_6':Custom_Rule_6,
+                'Custom_Rule_7':Custom_Rule_7,
+                'Custom_Rule_8':Custom_Rule_8,
+                'Custom_Rule_9':Custom_Rule_9,
+                'Custom_Rule_10':Custom_Rule_10,
+
                
             }
         )
@@ -40,9 +63,29 @@ def get_prefixes(connection):
 
 def updatePrefix(connection,prefix):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?, @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
-  
-    data=(prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    # s1="EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?, @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,"
+    # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Above=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+    # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    # query = s1 +s2+s3
+    
+    # d1=prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference']
+    # d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Above'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+    # d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    # data=(d1+d2+d3)
+
+    s1="EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?,  @Prefix = ?,@Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,@GM_Movement=?"
+   # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+   # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    query = s1 #+s2+s3
+    
+    d1=prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'],prefix['GM_Above'],prefix['GM_Below'],prefix['GM_Movement']
+    #d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+   #d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    data=(d1)#+d2+d3
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -51,7 +94,7 @@ def updatePrefix(connection,prefix):
     #     resultcode=MessageCode
     cursor.close()
 
-    return 'Prefix has updated successfully.'
+    return 'Customer Settings have updated successfully.'
 
 def deletePrefix(connection,prefix):
     cursor=connection.cursor()
@@ -70,8 +113,19 @@ def deletePrefix(connection,prefix):
 
 def newPrefix(connection,prefix):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
-    data=(prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    # query = "EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
+    # data=(prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    s1="EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,GM_Movement=?"
+   # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+   # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    query = s1 #+s2+s3
+    
+    d1=prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'],prefix['GM_Above'],prefix['GM_Below'],prefix['GM_Movement']
+    #d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+   #d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    data=(d1)#+d2+d3
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -79,7 +133,7 @@ def newPrefix(connection,prefix):
     # for (MessageCode) in cursor:
     #     resultcode=MessageCode
     cursor.close()
-    return 'Prefix has created successfully.'
+    return 'Customer Setting has created successfully.'
 #endregion 
 
 

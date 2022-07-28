@@ -66,7 +66,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
   // function newRule(Rules){
 
-  //   const res =  axios.post('https://afs-web01:5051/api/rules/newRule', Rules).then(response => {
+  //   const res =  axios.post('https://localhost:5050/api/rules/newRule', Rules).then(response => {
       
   //   console.log('response.data.success',response.data);
   //     if(response.data.Msg)
@@ -91,7 +91,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
   function updateSingleRule(Rule){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateRule', Rule).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateRule', Rule).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
 
     function deleteSingleRule(Rule){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteRule', Rule).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteRule', Rule).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -164,7 +164,7 @@ export const RuleListResults = ({ Rules, ...rest }) => {
           { title: "ErrCode", field: "ErrCode" },  //editable: 'never'
           { title: "ErrDesc", field: "ErrDesc"  },
           { title: "ShortErrDesc", field: "ShortErrDesc"},
-          { title: "OnOff", field: "OnOff",type:"boolean" },
+          { title: "Customer", field: "Customer" },
           { title: "Mandatory", field: "Mandatory",type:"boolean" },
           // { title: "VCode", field: "VCode" },
           // { title: "Customer", field: "Customer" },
