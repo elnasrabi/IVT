@@ -8,6 +8,8 @@ from datetime import datetime
 # Some other example server values are
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
+
+
 def get_all_current_exceptions(connection,login):
 
 
@@ -77,16 +79,80 @@ def get_all_current_exceptions(connection,login):
             }
         )
 
-    # input_dict = json.loads(respons)
-    # filtered = [x for x in respons if x['LoginName'] == 'mnasir']
-    # df=pd.DataFrame.from_dict(respons)
-    # df_filtered = df[df['LoginName'].isin(['mnasir'])]
-    # df_filtered=df_filtered.values.tolist()
-# Filter python objects with list comprehensions
-    # output_dict = [x for x in input_dict if x['LoginName'] == 'mnasir']
 
-# Transform python object back into json
-    # output_json = json.dumps(output_dict)
+    cursor.close()
+    return respons
+
+def get_all_quality_exceptions_for_download(connection,login):
+
+
+    
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_get_Quality_Exception_For_Download] @LoginName=?"
+    data=(login['LoginName'])
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query,data)
+    respons=[]
+    for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
+    FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+        respons.append(
+            {
+                'supplier_ref':supplier_ref,
+                'jno':jno,
+                'customer':customer,
+                'cons_date':cons_date,
+                'carrier':carrier,
+                'invoice_no':invoice_no,
+                'invoice_date':invoice_date,
+                'con_note':con_note,
+                'from_loc':from_loc,
+                'colsubzone':colsubzone,
+                'to_loc':to_loc,
+                'delsubzone':delsubzone,
+                'option_code':option_code,
+                'work_code':work_code,
+                'freight_charges':freight_charges,
+                'other_charges':other_charges,
+                'fuel_surch':fuel_surch,
+                'total_nett':total_nett,
+                'gst':gst,
+                'gross':gross,
+                'items':items,
+                'quantity':quantity,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'entered_by':entered_by,
+                'status':status,
+                'cus_ref':cus_ref,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'unit':unit,
+                'del_ref':del_ref,
+                'CurrentWeek':CurrentWeek,
+                'RecordedDate':RecordedDate,
+                'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
+                'ErrCode':ErrCode,
+                'ErrDesc':ErrDesc,
+                'ActionTime':ActionTime,
+                'AccountManager' : AccountManager ,
+	            'FinanceGroup' : FinanceGroup,
+	            'CustomerName' : CustomerName,
+	            'BusinessCountry' : BusinessCountry,
+                'LoginName':LoginName
+
+            }
+        )
+
+
     cursor.close()
     return respons
 
@@ -245,6 +311,50 @@ def get_held_connote(connection,login):
                 'LoginName':LoginName,
 
 
+            }
+        )
+    cursor.close()
+    return respons
+
+
+def get_held_connote_for_download(connection,login):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getHeldConnoteForDownload] @LoginName=?"
+    data=(login['LoginName'])
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query,data)
+    respons=[]
+    for (HeldType,HeldBy,HeldAt,InvoiceWeek,Reason,Supplier_ref,Jno,Customer,Cons_date,Carrier,Connote,from_loc,Colsubzone,To,Delsubzone,Option_code,Work_code,Freight_charges,Other_charges,Fuel_surch,
+    Total_nett,Cus_ref,Buy_Freight_Charges,Buy_Other_Charges,Buy_Fuel_Surch,Buy_TotalNett) in cursor:
+     respons.append(
+            {
+                'HeldType':HeldType,
+                'HeldBy':HeldBy,
+                'HeldAt':HeldAt,
+                'InvoiceWeek':InvoiceWeek,
+                'Reason':Reason,
+                'Supplier_ref':Supplier_ref,
+                'Jno': Jno,
+                'Customer':Customer ,
+                'Cons_date':Cons_date,
+                'Carrier':Carrier,
+                'Connote':Connote,
+                'from_loc':from_loc,
+                'Colsubzone':Colsubzone,
+                'To':To,
+                'Delsubzone':Delsubzone,
+                'Option_code':Option_code,
+                'Work_code':Work_code,
+                'Freight_charges':Freight_charges,
+                'Other_charges':Other_charges,
+                'Fuel_surch':Fuel_surch,
+                'Total_nett':Total_nett,
+                'Cus_ref':Cus_ref,
+                'Buy_Freight_Charges':Buy_Freight_Charges,
+                'Buy_Other_Charges':Buy_Other_Charges,
+                'Buy_Fuel_Surch':Buy_Fuel_Surch,
+                'Buy_TotalNett':Buy_TotalNett,
             }
         )
     cursor.close()

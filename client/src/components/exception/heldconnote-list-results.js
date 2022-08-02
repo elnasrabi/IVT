@@ -33,20 +33,24 @@ import MaterialTable , { MTableAction } from "material-table";
 import { useNavigate } from "react-router-dom";
 import Link from 'next/link'
 import ViewIcon from "@material-ui/icons/Search";
+import {
+  AuthenticatedTemplate,
+  useMsal,
+} from '@azure/msal-react';
 
-
-
-
+import MyCsvLink from '../fileuploader/ExportCSV_Held';
 
 export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
-
-
+  const { accounts } = useMsal();
+  
+  
   const [selectedRow, setSelectedRow] = useState();
   const [selectedRows, setSelectedRows] = useState([]);
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
 
   const [data, setData] = useState(HeldConnotes);
+
 
   // console.log('HeldConnotes',HeldConnotes);
 
@@ -66,11 +70,10 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
     return copyData;
   }
 
-  useEffect(()=>{
-    setData(HeldConnotes)
 
-  },[HeldConnotes])
+
   
+
 
   function newHeldConnote(HeldConnotes){
 
@@ -152,6 +155,9 @@ export const HeldConnoteListResults = ({ HeldConnotes, ...rest }) => {
         <div className="App">
      
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
+        <div>
+       <MyCsvLink/>
+        </div>
       <MaterialTable
         title="HeldConnotes"
         icons={tableIcons}

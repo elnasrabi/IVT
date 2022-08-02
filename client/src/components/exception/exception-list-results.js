@@ -35,6 +35,7 @@ import {
 
   useMsal,
 } from '@azure/msal-react';
+import MyCsvLink from '../fileuploader/ExportCSV_Quality';
 
 
 
@@ -198,6 +199,9 @@ const handleSubmit=(event)=>{
         <Box sx={{ minWidth: 1050 }}>
         <div className="App">
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
+        <div>
+       <MyCsvLink/>
+        </div>
       <MaterialTable
         title="Exceptions"
         icons={tableIcons}
