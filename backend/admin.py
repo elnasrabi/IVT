@@ -115,7 +115,7 @@ def newPrefix(connection,prefix):
     cursor=connection.cursor()
     # query = "EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
     # data=(prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
-    s1="EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,GM_Movement=?"
+    s1="EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,@GM_Movement=?"
    # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
    # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
     query = s1 #+s2+s3

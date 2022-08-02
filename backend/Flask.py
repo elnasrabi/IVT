@@ -150,6 +150,15 @@ def get_exception():
     print('response:',response)
     return response
 
+@app.route('/api/exception/getQualityExceptionForDownload', methods=['GET','POST'])
+def get_Quality_exception_for_Download():
+    request_payload = request.get_json()
+    response = exceptions.get_all_quality_exceptions_for_download(connection,request_payload)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    print('response:',response)
+    return response
+
 @app.route('/api/exception/getHistoricalException', methods=['GET','POST'])
 def get_hist_exception():
     request_payload = request.get_json()
@@ -168,7 +177,14 @@ def get_heldconnote():
     print('response:',response)
     return response
 
-
+@app.route('/api/exception/getHeldConnotefordownload', methods=['GET','POST'])
+def get_heldconnote_for_download():
+    request_payload = request.get_json()
+    response = exceptions.get_held_connote_for_download(connection,request_payload)
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    print('response:',response)
+    return response
 
 @app.route('/api/rules/updateHeldConnote', methods=['POST'])
 def update_HeldReason():

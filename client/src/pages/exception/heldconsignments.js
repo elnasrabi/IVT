@@ -44,7 +44,12 @@ function HeldConnote({props,HeldConnoteData}){
     }
     const address = `https://localhost:5050/api/exception/getHeldConnote`;
     const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
-    const { data, error } = useSWR(address, fetcher);
+    const { data, error } = useSWR(address, fetcher.apply, {revalidateOnFocus: false,
+      revalidateOnMount:true,
+      revalidateOnReconnect: false,
+      refreshWhenOffline: false,
+      refreshWhenHidden: false,
+      refreshInterval: 0},);
 
     if (error) <p>Loading failed...</p>;
     if (!data) <h1>Loading...</h1>;

@@ -91,7 +91,7 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 5000);
+      }, 95000);
       // Run the ML Model in background
      
     });
