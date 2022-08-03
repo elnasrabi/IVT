@@ -31,7 +31,7 @@ const MyCsvLink = (props) => {
         { label: "con_note", key: "con_note" },
         { label: "from_loc", key: "from_loc" },
         { label: "Colsubzone", key: "colsubzone" },
-        { label: "To", key: "To" },
+        { label: "To", key: "to_loc" },
         { label: "Delsubzone", key: "delsubzone" },
         { label: "Option_code", key: "option_code" },
         { label: "Work_code", key: "work_code" },
@@ -83,7 +83,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://afs-web01:5051/api/exception/getQualityExceptionForDownload', payload).then(response => {
+     axios.post('https://localhost:5050/api/exception/getQualityExceptionForDownload', payload).then(response => {
         
         
         setData( response.data )

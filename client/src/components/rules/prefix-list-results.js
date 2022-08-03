@@ -66,7 +66,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function newPrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newPrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newPrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function updateSinglePrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updatePrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updatePrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
     function deleteSinglePrefix(prefix){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deletePrefix', prefix).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deletePrefix', prefix).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

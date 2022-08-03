@@ -66,7 +66,7 @@ export const AMPortfolioListResults = ({ AMPortfolios, ...rest }) => {
 
   function newAMPortfolio(AMPortfolios){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newAMPortfolio', AMPortfolios).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newAMPortfolio', AMPortfolios).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const AMPortfolioListResults = ({ AMPortfolios, ...rest }) => {
 
   function updateSingleAMPortfolio(AMPortfolio){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateAMPortfolio', AMPortfolio).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateAMPortfolio', AMPortfolio).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const AMPortfolioListResults = ({ AMPortfolios, ...rest }) => {
 
     function deleteSingleAMPortfolio(AMPortfolio){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteAMPortfolio', AMPortfolio).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteAMPortfolio', AMPortfolio).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
