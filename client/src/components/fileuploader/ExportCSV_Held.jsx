@@ -96,7 +96,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://localhost:5050/api/exception/getHeldConnotefordownload', payload).then(response => {
+     axios.post('https://afs-web01:5051/api/exception/getHeldConnotefordownload', payload).then(response => {
         
         
         setData( response.data )
