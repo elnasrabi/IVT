@@ -27,12 +27,20 @@ const Tasks = [
     label: 'Priority 1 Rules'
   },
   {
-    value: 'P2',
-    label: 'Priority 2 Rules'
+    value: 'Fuel',
+    label: 'Fuel Rules'
   }
   ,{
-    value: 'P3',
-    label: 'Priority 3 Rules'
+    value: 'Weight',
+    label: 'Weight Rules'
+  }
+  ,{
+    value: 'Cost',
+    label: 'Cost Rules'
+  }
+  ,{
+    value: 'Special',
+    label: 'Other Special Rules'
   }
 ];
 
@@ -61,7 +69,7 @@ export const IVTEngineDetails = (props) => {
         setAlertContent('IVT Engine Tasks Started...');
         setAlert(3);
 
-           const res =  axios.post('https://afs-web01:5051/api/rules/runIVT',{ task: task } ).then(response => {
+           const res =  axios.post('https://localhost:5050/api/rules/runIVT',{ task: task } ).then(response => {
              
             
              if(response.data.Msg)
@@ -69,6 +77,7 @@ export const IVTEngineDetails = (props) => {
                  setAlertContent(response.data.Msg);
                  setAlert(1);
                  resetDashboard()
+                 axios.get('https://localhost:5050/api/ML/getMLIFExceptions')
                }
              else
                {
@@ -82,14 +91,12 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 5000);
+      }, 95000);
       // Run the ML Model in background
-      axios.get('https://afs-web01:5051/api/ML/getMLIFExceptions')
+     
     });
      
-   
-
-    
+  
     
     }
 

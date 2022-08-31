@@ -1,27 +1,27 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { FuelListResults } from '../../components/rules/fuel-list-results';
+import { ConsoloditionListResults } from '../../components/rules/consolidation-list-results';
 
 
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { useState,useEffect,fetch } from 'react';
 import axios from 'axios';
-
 import {useSWR} from 'swr'
 import useSWRImmutable from 'swr/immutable'
+import Link from 'next/link'
+import {connect} from 'react-redux'
 
 
 
 
-function Fuels(){ 
- 
-   
+function Consoloditions(){ 
+    let ConsoloditionData=[];
     const https = require('https');
     const agent = new https.Agent({  
       rejectUnauthorized: false
     });
-
-  const address = `https://localhost:5050/api/rules/getFuels`;
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  const address = `https://localhost:5050/api/rules/getConsoloditions`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   // const { data, error } = useSWR(address, fetcher,{
   //   revalidateOnFocus: false,
@@ -33,10 +33,9 @@ function Fuels(){
   //   refreshInterval: 0
   // });
   const { data, error }= useSWRImmutable(address, fetcher)
-  let  FuelData=data;
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-  if (data) FuelData=data;
+  if (data) ConsoloditionData=data;
 
 //   useEffect(()=>{
 
@@ -49,9 +48,9 @@ function Fuels(){
 //    const agent = new https.Agent({  
 //      rejectUnauthorized: false
 //    });
-//    const result =  axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
+//    const result =  axios.get('https://localhost:5050/api/rules/getConsoloditions',{ httpsAgent: agent });
 //    const data = result.data;
-//    FuelData=data
+//    ConsoloditionData=data
 // } catch (error) {
 //    console.log(error);
 // }
@@ -59,12 +58,11 @@ function Fuels(){
 // },[])
 
 
-
 return(
   <>
     <Head>
       <title>
-        Fuels | IVT
+        Consolodition | IVT
       </title>
     </Head>
     <Box
@@ -75,17 +73,18 @@ return(
       }}
     >
       <Container maxWidth={false}>
-        {/* <FuelListToolbar /> */}
+        {/* <RouteListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <FuelListResults Fuels={data}/>
+          <ConsoloditionListResults Consoloditions={data}/>
         </Box>
       
       </Container>
     </Box>
   </> )
 };
-Fuels.getLayout = (page) => (
+Consoloditions.getLayout = (page) => (
   
+
   <div>
   {page}
 </div>
@@ -99,6 +98,8 @@ Fuels.getLayout = (page) => (
 
 // export async function getStaticProps() {
 
+//   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 //   // Call an external API endpoint to get posts.
 //   // You can use any data fetching library
 //   try {
@@ -107,18 +108,18 @@ Fuels.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
+//     const result = await axios.get('https://localhost:5050/api/rules/getConsoloditions',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {
-//           FuelData: data
+//           ConsoloditionData: data
 //         }
 //     }
 // } catch (error) {
 //     console.log(error);
 //     return {
 //       props: {
-//         FuelData: []
+//         ConsoloditionData: []
 //       }
 //     }
 // }
@@ -129,4 +130,4 @@ Fuels.getLayout = (page) => (
 
 // }
 
-export default Fuels
+export default Consoloditions

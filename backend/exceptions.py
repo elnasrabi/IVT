@@ -8,6 +8,8 @@ from datetime import datetime
 # Some other example server values are
 # server = 'localhost\sqlexpress' # for a named instance
 # server = 'myserver,port' # to specify an alternate port
+
+
 def get_all_current_exceptions(connection,login):
 
 
@@ -20,7 +22,7 @@ def get_all_current_exceptions(connection,login):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -64,6 +66,7 @@ def get_all_current_exceptions(connection,login):
                 'CurrentWeek':CurrentWeek,
                 'RecordedDate':RecordedDate,
                 'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
                 'ErrCode':ErrCode,
                 'ErrDesc':ErrDesc,
                 'ActionTime':ActionTime,
@@ -76,16 +79,81 @@ def get_all_current_exceptions(connection,login):
             }
         )
 
-    # input_dict = json.loads(respons)
-    # filtered = [x for x in respons if x['LoginName'] == 'fhenderson']
-    # df=pd.DataFrame.from_dict(respons)
-    # df_filtered = df[df['LoginName'].isin(['fhenderson'])]
-    # df_filtered=df_filtered.values.tolist()
-# Filter python objects with list comprehensions
-    # output_dict = [x for x in input_dict if x['LoginName'] == 'fhenderson']
 
-# Transform python object back into json
-    # output_json = json.dumps(output_dict)
+    cursor.close()
+    return respons
+
+def get_all_quality_exceptions_for_download(connection,login):
+
+
+    
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_get_Quality_Exception_For_Download] @LoginName=?"
+    data=(login['LoginName'])
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query,data)
+    respons=[]
+    for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,Sub_Reason,ActionTime,AccountManager,
+    FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+        respons.append(
+            {
+                'supplier_ref':supplier_ref,
+                'jno':jno,
+                'customer':customer,
+                'cons_date':cons_date,
+                'carrier':carrier,
+                'invoice_no':invoice_no,
+                'invoice_date':invoice_date,
+                'con_note':con_note,
+                'from_loc':from_loc,
+                'colsubzone':colsubzone,
+                'to_loc':to_loc,
+                'delsubzone':delsubzone,
+                'option_code':option_code,
+                'work_code':work_code,
+                'freight_charges':freight_charges,
+                'other_charges':other_charges,
+                'fuel_surch':fuel_surch,
+                'total_nett':total_nett,
+                'gst':gst,
+                'gross':gross,
+                'items':items,
+                'quantity':quantity,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'entered_by':entered_by,
+                'status':status,
+                'cus_ref':cus_ref,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'unit':unit,
+                'del_ref':del_ref,
+                'CurrentWeek':CurrentWeek,
+                'RecordedDate':RecordedDate,
+                'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
+                'ErrCode':ErrCode,
+                'ErrDesc':ErrDesc,
+                'Sub_Reason':Sub_Reason,
+                'ActionTime':ActionTime,
+                'AccountManager' : AccountManager ,
+	            'FinanceGroup' : FinanceGroup,
+	            'CustomerName' : CustomerName,
+	            'BusinessCountry' : BusinessCountry,
+                'LoginName':LoginName
+
+            }
+        )
+
+
     cursor.close()
     return respons
 
@@ -101,7 +169,7 @@ def get_all_historical_exceptions(connection,reqs):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -146,6 +214,7 @@ def get_all_historical_exceptions(connection,reqs):
                 'RecordedDate':RecordedDate,
                 'ErrPriority':ErrPriority,
                 'ErrCode':ErrCode,
+                'ShortErrDesc':ShortErrDesc,
                 'ErrDesc':ErrDesc,
                 'ActionTime':ActionTime,
                 'AccountManager' : AccountManager ,
@@ -163,9 +232,10 @@ def get_all_historical_exceptions(connection,reqs):
 
 def heldConnote(connection,connote):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_HeldConnote] @Connote = ?, @Reason = ?, @HeldBy = ?"
+    query = "EXEC [WebIVT].[sp_HeldConnote] @Connote = ?, @Reason = ?, @HeldBy = ?,@Customer=? , @Carrier=? "
   
-    data=(connote['Connote'],connote['Reason'],connote['HeldBy'])
+    data=(connote['Connote'],connote['Reason'],connote['HeldBy'],connote['Customer'],connote['Carrier'])
+       # Prepare the stored procedure execution script and parameter values
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -185,26 +255,9 @@ def get_held_connote(connection,login):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query,data)
     respons=[]
-    for (Id
-      ,Connote
-      ,Reason
-      ,HeldBy
-      ,ActionTime
-      ,supplier_ref
-      ,jno
-      ,customer
-      ,cons_date
-      ,carrier
-      ,CurrentWeek
-      ,ErrPriority
-      ,ErrCode
-      ,ErrDesc,
-	  AccountManager  ,
-	  FinanceGroup ,
-	  CustomerName ,
-	  BusinessCountry ,
-	  LoginName) in cursor:
-        respons.append(
+    for (Id,Connote ,Reason ,HeldBy ,ActionTime ,supplier_ref ,jno ,customer ,cons_date ,carrier ,CurrentWeek ,ErrPriority ,ErrDesc ,invoice_no ,invoice_date ,con_note ,from_loc ,colsubzone ,to ,delsubzone ,option_code ,work_code ,freight_charges ,other_charges ,fuel_surch ,total_nett ,gst ,gross ,items ,quantity ,space ,lift ,weight ,pallet ,hours ,cubic ,del_com 
+    ,entered_by ,status ,cus_ref ,col_post ,del_post ,chg_kg ,unit ,del_ref,AccountManager,FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+     respons.append(
             {
                 'supplier_ref':supplier_ref,
                 'jno':jno,
@@ -212,20 +265,126 @@ def get_held_connote(connection,login):
                 'cons_date':cons_date,
                 'carrier':carrier,
                 'Connote':Connote,
-                'Reason':Reason,
+                'Reason': Reason,
                 'HeldBy':HeldBy ,
                 'Id':Id,
                 'CurrentWeek':CurrentWeek,
-                'cons_date':cons_date,
                 'ErrPriority':ErrPriority,
-                'ErrCode':ErrCode,
-                'ErrDesc':ErrDesc,
+                'cons_date':cons_date,
                 'ActionTime':datetime.date(ActionTime).strftime("%b %d %Y"),
-                'AccountManager' : AccountManager ,
-	            'FinanceGroup' : FinanceGroup,
-	            'CustomerName' : CustomerName,
-	            'BusinessCountry' : BusinessCountry,
-                'LoginName':LoginName
+                'ErrDesc':ErrDesc,
+                'invoice_no':invoice_no,
+                'invoice_date':invoice_date,
+                'con_note':con_note,
+                'from_loc':from_loc,
+                'colsubzone':colsubzone,
+                'to':to,
+                'delsubzone':delsubzone,
+                'option_code':option_code,
+                'work_code':work_code,
+                'freight_charges':freight_charges,
+                'other_charges':other_charges,
+                'fuel_surch':fuel_surch,
+                'total_nett':total_nett,
+                'gst':gst,
+                'gross':gross,
+                'items':items,
+                'quantity':quantity,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'entered_by':entered_by,
+                'status':status,
+                'cus_ref':cus_ref,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'unit':unit,
+                'del_ref':del_ref,
+                'AccountManager':AccountManager,
+                'FinanceGroup':FinanceGroup,
+                'CustomerName':CustomerName,
+                'BusinessCountry':BusinessCountry,
+                'LoginName':LoginName,
+
+
+            }
+        )
+    cursor.close()
+    return respons
+
+
+def get_held_connote_for_download(connection,login):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getHeldConnoteForDownload] @LoginName=?"
+    data=(login['LoginName'])
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query,data)
+    respons=[]
+    for (HeldType,HeldBy,HeldAt,InvoiceWeek,Reason,Supplier_ref,Jno,Customer,Cons_date,Carrier,Connote,from_loc,Colsubzone,To,Delsubzone,Option_code,Work_code,Freight_charges,Other_charges,Fuel_surch,Total_nett,Cus_ref,Buy_Freight_Charges,Buy_Other_Charges,Buy_Fuel_Surch,Buy_TotalNett,Sub_Reason,gross,
+    items,space,lift,weight,pallet,hours,cubic,del_com,col_post,del_post,chg_kg,del_ref,unit,Col_loc,Del_loc,ErrCode,ErrPriority,ShortErrDesc,HoldRelease,
+    Comment,Margin,BuyFuelPerc,SellFuelPerc,Dead_WeightBased,Cubic_Items,AP_InternalComment) in cursor:
+     respons.append(
+            {
+                'HeldType':HeldType,
+                'HeldBy':HeldBy,
+                'HeldAt':HeldAt,
+                'InvoiceWeek':InvoiceWeek,
+                'Reason':Reason,
+                'Supplier_ref':Supplier_ref,
+                'Jno': Jno,
+                'Customer':Customer ,
+                'Cons_date':Cons_date,
+                'Carrier':Carrier,
+                'Connote':Connote,
+                'from_loc':from_loc,
+                'Colsubzone':Colsubzone,
+                'To':To,
+                'Delsubzone':Delsubzone,
+                'Option_code':Option_code,
+                'Work_code':Work_code,
+                'Freight_charges':Freight_charges,
+                'Other_charges':Other_charges,
+                'Fuel_surch':Fuel_surch,
+                'Total_nett':Total_nett,
+                'Cus_ref':Cus_ref,
+                'Buy_Freight_Charges':Buy_Freight_Charges,
+                'Buy_Other_Charges':Buy_Other_Charges,
+                'Buy_Fuel_Surch':Buy_Fuel_Surch,
+                'Buy_TotalNett':Buy_TotalNett,
+                'Sub_Reason':Sub_Reason,
+                'gross':gross,
+                'items':items,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'del_ref':del_ref,
+                'unit':unit,
+                'Col_loc':Col_loc,
+                'Del_loc':Del_loc,
+                'ErrCode':ErrCode,
+                'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
+                'HoldRelease':HoldRelease,
+                'Comment':Comment,
+                'Margin':Margin,
+                'BuyFuelPerc':BuyFuelPerc,
+                'SellFuelPerc':SellFuelPerc,
+                'Dead_WeightBased':Dead_WeightBased,
+                'Cubic_Items':Cubic_Items,
+                'AP_InternalComment':AP_InternalComment,
 
             }
         )

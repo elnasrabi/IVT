@@ -28,7 +28,8 @@ import { Redirect } from 'react-router-dom'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import axios from 'axios';
-import useSWR from 'swr'
+import {useSWR} from 'swr'
+import useSWRImmutable from 'swr/immutable'
 const Dashboard = () => {
   const router = useRouter();
  
@@ -45,8 +46,42 @@ const Dashboard = () => {
   const [vTotalGross, SetTotalGross] = useState('0')
   const [vHeldCount, setHeldCount] = useState('0')
   const [FocusedCustomer, setFocusedCustomer] = useState([])
-  
 
+  let loginname=''
+  const isAuthenticated = useIsAuthenticated();
+  
+  // console.log('accessToken UserType nnnnnnnn',localStorage.getItem('UserType'))
+  //console.log('isssssssssAuthenticated',accounts[0])
+  if (isAuthenticated){
+     loginname=accounts[0].username.substring(0, accounts[0].username.indexOf("@"));
+    // console.log('loginname',loginname)
+  }
+
+  const https = require('https');
+  const agent = new https.Agent({  
+    rejectUnauthorized: false
+  });
+  const payload = {
+    // make payload here using values
+    LoginName: loginname // 'mnasir'//loginname
+  }
+
+  const address = `https://localhost:5050/api/dashboard/getTotalMeasure`;
+  const fetcher = async (url) => await axios.post(url,payload).then((res) => res.data);
+  // const { data, error } = useSWR(address, fetcher,{
+  //   revalidateOnFocus: false,
+  //   revalidateIfStale: true,
+  //   revalidateOnMount:false,
+  //   revalidateOnReconnect: false,
+  //   refreshWhenOffline: false,
+  //   refreshWhenHidden: false,
+  //   refreshInterval: 0
+  // });
+  const { data, error }= useSWRImmutable(address, fetcher)
+  let  RuleOptionData=data;
+  if (error) <p>Loading failed...</p>;
+  if (!data) <h1>Loading...</h1>;
+  if (data) localStorage.setItem('TotalMeasure', JSON.stringify(data[0]));
  
   const setSession = (accessToken) => {
     if (typeof window !== 'undefined')
@@ -60,7 +95,7 @@ const Dashboard = () => {
 
 
 
-
+ 
 
 
   useEffect(()=>{
@@ -75,11 +110,11 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     if(!accessToken)
     {
-    axios.post('https://afs-web01:5051/api/admin/getlogin', payload)
+    axios.post('https://localhost:5050/api/admin/getlogin', payload)
     .then(response =>{
        setLoggedUser({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
        setSession({UserType:response.data[0].UserType,AccountManager:response.data[0].AccountManager,IsActive:response.data[0].IsActive})
@@ -87,13 +122,36 @@ const Dashboard = () => {
        localStorage.setItem('AccountManager', response.data[0].AccountManager);
        localStorage.setItem('IsActive', response.data[0].IsActive);
        localStorage.setItem('LoginName', response.data[0].LoginName);
+     
+
           })
     // .then(r =>setSession({UserType:LoggedUser.UserType,AccountManager:LoggedUser.AccountManager}))
-    .catch(error => console.log(error)) 
+    .catch(error => {console.log(error)
+    
+    }) 
     
     
     //console.log('LoggedUser.UserType',LoggedUser)
     }
+
+   
+    // axios.post('https://localhost:5050/api/admin/getlogin', payload)
+    // .then(response =>{
+    //    console.log('response.data[0]',response.data[0])
+     
+    //    if(!response.data[0])
+    //    {
+    //      localStorage.setItem('accessToken','');
+    //      router.push('/403');
+       
+    //    }
+    //       })
+    // .then(r =>setSession({UserType:LoggedUser.UserType,AccountManager:LoggedUser.AccountManager}))
+    // .catch(error => console.log(error)) 
+    
+    
+    console.log('LoggedUser.UserType',LoggedUser)
+  
 
    getTotalMeasureData()
 
@@ -104,6 +162,13 @@ const Dashboard = () => {
    getLastIVTRUNInvoiceWeekData()
     
    getFocusedCustomerData()
+   
+   if(!accessToken)
+   {
+    router.push('/403');
+   }
+  
+  
   
   },[])
 
@@ -118,14 +183,16 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let totalmeasure=localStorage.getItem('TotalMeasure')
+
+   
 
     if (typeof window !== 'undefined' && !totalmeasure) 
     {
       
-      axios.post('https://afs-web01:5051/api/dashboard/getTotalMeasure', payload)
+      axios.post('https://localhost:5050/api/dashboard/getTotalMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -163,12 +230,12 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Top10=localStorage.getItem('Top10excpetion')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getTop10Exception', payload)
+      axios.post('https://localhost:5050/api/dashboard/getTop10Exception', payload)
       .then(response =>{
   
         if(response.data)
@@ -203,12 +270,12 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let FocusedCustomer=localStorage.getItem('FocusedCustomer')
     if (typeof window !== 'undefined' && !FocusedCustomer) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getFocusedCustomer', payload)
+      axios.post('https://localhost:5050/api/dashboard/getFocusedCustomer', payload)
       .then(response =>{
   
         if(response.data)
@@ -241,12 +308,12 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Common=localStorage.getItem('CommonMeasure')
     if (typeof window !== 'undefined' && !Common) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getCommonMeasure', payload)
+      axios.post('https://localhost:5050/api/dashboard/getCommonMeasure', payload)
       .then(response =>{
   
         if(response.data)
@@ -281,12 +348,12 @@ const Dashboard = () => {
     }
     const payload = {
       // make payload here using values
-      LoginName: loginname // 'fhenderson'//loginname
+      LoginName: loginname // 'mnasir'//loginname
     }
     let Top10=localStorage.getItem('LastIVTInvoiceWeek')
     if (typeof window !== 'undefined' && !Top10) 
     {
-      axios.post('https://afs-web01:5051/api/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
+      axios.post('https://localhost:5050/api/dashboard/getLastLIVTRunCountInvoiceWeek', payload)
       .then(response =>{
   
         if(response.data)
@@ -341,8 +408,7 @@ const Dashboard = () => {
 
 
 
-  const isAuthenticated = useIsAuthenticated();
-  
+ 
   return(
   <div>
      <spann>{ProtectedComponent()}</spann>

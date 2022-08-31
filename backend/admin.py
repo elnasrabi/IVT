@@ -23,14 +23,47 @@ def get_prefixes(connection):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query)
     respons=[]
-    for (Id,Customercode, Carrier, Prefix,DeliveryComment,CustomerReference) in cursor:
+    for (Id,Customercode, Carrier, Prefix,DeliveryComment,CustomerReference ,Old_Connote_Month,GM_Below,GM_Above,GM_Movement,
+    FuelDiff_Above,FuelDiff_Below,Fuel_Freight_Ratio,TotalSell_Threshold,Cubic_Threshold,Weight_Threshold,Pallet_Threshold,
+    ChgWeight_Weight_Diff,International_Check,DEL_COM_Format,CusRef_Digits,GM_Month,No_Jobs_Prefixed,Moveit_Dups_Check,Moveit_Customer_Check,Custom_Rule_1,Custom_Rule_2,
+    Custom_Rule_3,Custom_Rule_4,Custom_Rule_5,Custom_Rule_6,Custom_Rule_7,Custom_Rule_8,Custom_Rule_9,Custom_Rule_10) in cursor:
         respons.append(
             {   'Id':Id,
                 'Customercode':Customercode,
                 'Carrier':Carrier,
                 'Prefix':Prefix,
                 'DeliveryComment':DeliveryComment,
-                'CustomerReference':CustomerReference
+                'CustomerReference':CustomerReference,
+                'Old_Connote_Month':Old_Connote_Month,
+                'GM_Below':GM_Below,
+                'GM_Above':GM_Above,
+                'GM_Movement':GM_Movement,
+                'FuelDiff_Above':FuelDiff_Above,
+                'FuelDiff_Below':FuelDiff_Below,
+                'Fuel_Freight_Ratio':Fuel_Freight_Ratio,
+                'TotalSell_Threshold':TotalSell_Threshold,
+                'Cubic_Threshold':Cubic_Threshold,
+                'Weight_Threshold':Weight_Threshold,
+                'Pallet_Threshold':Pallet_Threshold,
+                'ChgWeight_Weight_Diff':ChgWeight_Weight_Diff,
+                'International_Check':International_Check,
+                'DEL_COM_Format':DEL_COM_Format,
+                'CusRef_Digits':CusRef_Digits,
+                'GM_Month':GM_Month,
+                'No_Jobs_Prefixed':No_Jobs_Prefixed,
+                'Moveit_Dups_Check':Moveit_Dups_Check,
+                'Moveit_Customer_Check':Moveit_Customer_Check,
+                'Custom_Rule_1':Custom_Rule_1,
+                'Custom_Rule_2':Custom_Rule_2,
+                'Custom_Rule_3':Custom_Rule_3,
+                'Custom_Rule_4':Custom_Rule_4,
+                'Custom_Rule_5':Custom_Rule_5,
+                'Custom_Rule_6':Custom_Rule_6,
+                'Custom_Rule_7':Custom_Rule_7,
+                'Custom_Rule_8':Custom_Rule_8,
+                'Custom_Rule_9':Custom_Rule_9,
+                'Custom_Rule_10':Custom_Rule_10,
+
                
             }
         )
@@ -40,9 +73,33 @@ def get_prefixes(connection):
 
 def updatePrefix(connection,prefix):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?, @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
-  
-    data=(prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    # s1="EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?, @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,"
+    # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Above=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+    # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    # query = s1 +s2+s3
+    
+    # d1=prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference']
+    # d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Above'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+    # d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    # data=(d1+d2+d3)
+
+    s1="EXEC [WebIVT].[sp_UpdatePrefix] @Id = ?,  @Prefix = ?,@Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,@GM_Movement=?,@TotalSell_Threshold=?,@Cubic_Threshold=?,@Weight_Threshold=?,@Pallet_Threshold=?,@ChgWeight_Weight_Diff=?,@International_Check=?,@DEL_COM_Format=?,@CusRef_Digits=?,@GM_Month=?,@No_Jobs_Prefixed=?,@Moveit_Dups_Check=?,@Moveit_Customer_Check=?"
+   # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+   # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    query = s1 #+s2+s3
+
+    
+    d1=prefix['Id'],prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'],prefix['GM_Above'],prefix['GM_Below'],
+    d2=prefix['GM_Movement'],prefix['TotalSell_Threshold'],prefix['Cubic_Threshold'],prefix['Weight_Threshold'],prefix['Pallet_Threshold'],
+    d3=prefix['ChgWeight_Weight_Diff'],prefix['International_Check'],prefix['DEL_COM_Format'],prefix['CusRef_Digits'],prefix['GM_Month'],prefix['No_Jobs_Prefixed'],prefix['Moveit_Dups_Check'],prefix['Moveit_Customer_Check']
+    #d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+   #d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    data=(d1+d2+d3)
+
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -51,7 +108,7 @@ def updatePrefix(connection,prefix):
     #     resultcode=MessageCode
     cursor.close()
 
-    return 'Prefix has updated successfully.'
+    return 'Customer Settings have updated successfully.'
 
 def deletePrefix(connection,prefix):
     cursor=connection.cursor()
@@ -70,8 +127,21 @@ def deletePrefix(connection,prefix):
 
 def newPrefix(connection,prefix):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
-    data=(prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    # query = "EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?, @Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?"
+    # data=(prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'])
+    s1="EXEC [WebIVT].[sp_NewPrefix] @Prefix = ?,@Customercode = ?,@Carrier=? ,@DeliveryComment=?,@CustomerReference=?,@GM_Above=?,@GM_Below=?,@GM_Movement=?,@TotalSell_Threshold=?,@Cubic_Threshold=?,@Weight_Threshold=?,@Pallet_Threshold=?,@ChgWeight_Weight_Diff=?,@International_Check=?,@DEL_COM_Format=?,@CusRef_Digits=?,@GM_Month=?,@No_Jobs_Prefixed=?,@Moveit_Dups_Check=?,@Moveit_Customer_Check=?"
+   # s2="@Old_Connote_Month=?,@GM_Below=?,@GM_Movement=?,@FuelDiff_Above=?,@FuelDiff_Below=?,@Fuel_Freight_Ratio=?,@TotalSell_Threshold=?,@Weight_Threshold=?,"
+   # s3="@Custom_Rule_1=?,@Custom_Rule_2=?,@Custom_Rule_3=?,@Custom_Rule_4=?,@Custom_Rule_5=?,@Custom_Rule_6=?,@Custom_Rule_7=?,@Custom_Rule_8=?,@Custom_Rule_9=?,@Custom_Rule_10=?"
+    query = s1 #+s2+s3
+    
+    d1=prefix['Prefix'],prefix['Customercode'],prefix['Carrier'],prefix['DeliveryComment'],prefix['CustomerReference'],prefix['GM_Above'],prefix['GM_Below'],
+    d2=prefix['GM_Movement'],prefix['TotalSell_Threshold'],prefix['Cubic_Threshold'],prefix['Weight_Threshold'],prefix['Pallet_Threshold'],
+    d3=prefix['ChgWeight_Weight_Diff'],prefix['International_Check'],prefix['DEL_COM_Format'],prefix['CusRef_Digits'],prefix['GM_Month'],prefix['No_Jobs_Prefixed'],prefix['Moveit_Dups_Check'],prefix['Moveit_Customer_Check']
+    #d2=prefix['Old_Connote_Month'],prefix['GM_Below'],prefix['GM_Movement'],prefix['FuelDiff_Above'],prefix['FuelDiff_Below'],prefix['Fuel_Freight_Ratio'],prefix['TotalSell_Threshold'],prefix['Weight_Threshold']
+   #d3=prefix['Custom_Rule_1'],prefix['Custom_Rule_2'],prefix['Custom_Rule_3'],prefix['Custom_Rule_4'],prefix['Custom_Rule_5'],prefix['Custom_Rule_6'],prefix['Custom_Rule_7'],prefix['Custom_Rule_8'],prefix['Custom_Rule_8'],prefix['Custom_Rule_10']
+    
+
+    data=(d1+d2+d3)
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -79,7 +149,7 @@ def newPrefix(connection,prefix):
     # for (MessageCode) in cursor:
     #     resultcode=MessageCode
     cursor.close()
-    return 'Prefix has created successfully.'
+    return 'Customer Setting has created successfully.'
 #endregion 
 
 
@@ -236,6 +306,7 @@ def get_Fuels(connection):
       ,Customer
       ,Carrier
       ,RefFuelSurch
+      ,BuyDiscount
       ,UpdatedDate
        ) in cursor:
         respons.append(
@@ -243,6 +314,7 @@ def get_Fuels(connection):
                 'Customer':Customer,
                 'Carrier':Carrier,
                 'RefFuelSurch':RefFuelSurch,
+                'BuyDiscount':BuyDiscount,
                 'UpdatedDate':UpdatedDate.strftime("%Y/%m/%d")
                
             }
@@ -253,9 +325,9 @@ def get_Fuels(connection):
 
 def updateFuel(connection,Fuel):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_UpdateFuel] @Id = ?, @Customer = ?, @Carrier = ?,@RefFuelSurch=? "
+    query = "EXEC [WebIVT].[sp_UpdateFuel] @Id = ?, @Customer = ?, @Carrier = ?,@RefFuelSurch=? ,@BuyDiscount=? "
   
-    data=(Fuel['Id'],Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'])
+    data=(Fuel['Id'],Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'],Fuel['BuyDiscount'])
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -281,9 +353,9 @@ def deleteFuel(connection,Fuel):
 
 def newFuel(connection,Fuel):
     cursor=connection.cursor()
-    query = "EXEC [WebIVT].[sp_NewFuel]  @Customer = ?, @Carrier = ?,@RefFuelSurch=? "
+    query = "EXEC [WebIVT].[sp_NewFuel]  @Customer = ?, @Carrier = ?,@RefFuelSurch=? ,@BuyDiscount=? "
   
-    data=(Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'])
+    data=(Fuel['Customer'],Fuel['Carrier'],Fuel['RefFuelSurch'],Fuel['BuyDiscount'])
        # Prepare the stored procedure execution script and parameter values
     cursor.execute(query,data)
     connection.commit()
@@ -294,6 +366,161 @@ def newFuel(connection,Fuel):
     return 'Fuel has created successfully.'
 #endregion 
 
+
+#region RuleOption
+def get_RuleOptions(connection):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getRuleOption]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,RuleCode
+      ,OptionDesc
+      ,OptionValue
+      ,OptionValue_Min
+      ,OptionValue_Max
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'RuleCode':RuleCode,
+                'OptionDesc':OptionDesc,
+                'OptionValue':OptionValue,
+                'OptionValue_Min':OptionValue_Min,
+                 'OptionValue_Max':OptionValue_Max,
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateRuleOption] @Id = ?, @RuleCode = ?, @OptionDesc = ?,@OptionValue=? ,@OptionValue_Min=? ,@OptionValue_Max=?"
+  
+    data=(RuleOption['Id'],RuleOption['RuleCode'],RuleOption['OptionDesc'],RuleOption['OptionValue'],RuleOption['OptionValue_Min'],RuleOption['OptionValue_Max'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has updated successfully.'
+
+def deleteRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteRuleOption] @Id = ?"
+  
+    data=(RuleOption['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has deleted successfully.'
+
+def newRuleOption(connection,RuleOption):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_NewRuleOption]  @RuleCode = ?, @OptionDesc = ?,@OptionValue=? ,@OptionValue_Min=? ,@OptionValue_Max=?"
+  
+    data=(RuleOption['RuleCode'],RuleOption['OptionDesc'],RuleOption['OptionValue'],RuleOption['OptionValue_Min'],RuleOption['OptionValue_Max'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule Option has created successfully.'
+#endregion 
+
+
+#region Consolodition
+def get_Consoloditions(connection):
+
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getConsolodition]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,Customer
+      ,Check_Connote
+      ,Check_Reciever
+      ,Check_Suburb
+      ,Check_ConDate
+      ,Check_FreightCharge
+      ,Check_Carrier
+      
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'Customer':Customer,
+                'Check_Connote':Check_Connote,
+                'Check_Reciever':Check_Reciever,
+                'Check_Suburb':Check_Suburb,
+                'Check_ConDate':Check_ConDate,
+                'Check_FreightCharge':Check_FreightCharge,
+                'Check_Carrier':Check_Carrier,
+
+               
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateConsolodition(connection,Consolodition):
+    try:
+        cursor=connection.cursor()
+        query = "EXEC [WebIVT].[sp_UpdateConsolidation] @Id = ?, @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+    
+        data=(Consolodition['Id'],Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
+        # Prepare the stored procedure execution script and parameter values
+        cursor.execute(query,data)
+        connection.commit()
+        # resultcode=0
+        # for (MessageCode) in cursor:
+        #     resultcode=MessageCode
+        cursor.close()
+        return 'Consolidation has updated successfully.'
+    except Exception as e: print(e)
+
+   
+
+def deleteConsolodition(connection,Consolodition):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteConsolidation] @Id = ?"
+  
+    data=(Consolodition['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Consolidation has deleted successfully.'
+
+def newConsolodition(connection,Consolodition):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_NewConsolidation]  @Customer = ?, @Check_Connote = ?,@Check_Reciever=? ,@Check_Suburb=? ,@Check_ConDate=?,@Check_FreightCharge=?,@Check_Carrier=?"
+  
+    data=(Consolodition['Customer'],Consolodition['Check_Connote'],Consolodition['Check_Reciever'],Consolodition['Check_Suburb'],Consolodition['Check_ConDate'],Consolodition['Check_FreightCharge'],Consolodition['Check_Carrier'])
+       # Prepare the stored procedure execution script and parameter values
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Consolidation has created successfully.'
+#endregion 
 
 
 #region tolerance
@@ -524,18 +751,81 @@ def newAMPortfolio(connection,AMPortfolio):
    return 'AM Portfolio has created successfully.'
 #endregion 
 
+#region Rule
+def get_Rules(connection):
 
+    cursor = connection.cursor()
+    query = "EXEC [WebIVT].[sp_getRules]"
+    #storedProc = "exec database..stored_procedure 'param1','param2'"
+    cursor.execute(query)
+    respons=[]
+    for (Id
+      ,ErrCode
+      ,ErrDesc
+      ,ShortErrDesc
+      ,OnOff
+      ,Mandatory
+      ,VCode
+      ,Customer
+      ,Carrier
+
+       ) in cursor:
+        respons.append(
+            {   'Id':Id,
+                'ErrCode':ErrCode,
+                'ErrDesc':ErrDesc,
+                'ShortErrDesc':ShortErrDesc,
+                'OnOff':OnOff,
+                'Mandatory':Mandatory,
+                'VCode':VCode,
+                'Customer':Customer,
+                'Carrier':Carrier,
+            }
+        )
+
+    cursor.close()
+    return respons
+
+def updateRule(connection,Rule):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_UpdateRule] @Id = ?, @ErrCode = ?, @ErrDesc = ?,@ShortErrDesc=? ,@OnOff=?,@Mandatory=?,@VCode=?,@Customer=?,@Carrier=? "
+  
+    data=(Rule['Id'],Rule['ErrCode'],Rule['ErrDesc'],Rule['ShortErrDesc'],Rule['OnOff'],Rule['Mandatory'],Rule['VCode'],Rule['Customer'],Rule['Carrier'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule has updated successfully.'
+
+def deleteRule(connection,Rule):
+    cursor=connection.cursor()
+    query = "EXEC [WebIVT].[sp_DeleteRule] @Id = ?"
+  
+    data=(Rule['Id'])
+       # Prepare the stored procedure execution script and parameter values
+    cursor.execute(query,data)
+    connection.commit()
+    # resultcode=0
+    # for (MessageCode) in cursor:
+    #     resultcode=MessageCode
+    cursor.close()
+    return 'Rule has deleted successfully.'
+
+#endregion
 
 #region authentication
-def getloginLocal():
+# def getloginLocal():
 
-    loginname=os.getlogin()
-    user_info = win32net.NetUserGetInfo(win32net.NetGetAnyDCName(), win32api.GetUserName(), 2)
-    full_name = user_info["full_name"]
-    displayname=full_name
-    response={'loginname':loginname,'displayname':displayname}
+#     loginname=os.getlogin()
+#     user_info = win32net.NetUserGetInfo(win32net.NetGetAnyDCName(), win32api.GetUserName(), 2)
+#     full_name = user_info["full_name"]
+#     displayname=full_name
+#     response={'loginname':loginname,'displayname':displayname}
     
-    return response
+#     return response
 
 def get_login(connection,login):
 
@@ -615,7 +905,7 @@ def runIVT(connection,task):
     # for (MessageCode) in cursor:
     #     resultcode=MessageCode
     cursor.close()
-    return 'IVT Engine tasks have finished successfully.'
+    return 'IVT Engine tasks have finished successfully - ML Model results will be available shortly.'
 
     
     

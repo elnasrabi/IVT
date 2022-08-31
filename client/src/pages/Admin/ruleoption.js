@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { FuelListResults } from '../../components/rules/fuel-list-results';
+import { RuleOptionListResults } from '../../components/rules/ruleoption-list-results';
 
 
 import { DashboardLayout } from '../../components/dashboard-layout';
@@ -13,7 +13,7 @@ import useSWRImmutable from 'swr/immutable'
 
 
 
-function Fuels(){ 
+function RuleOptions(){ 
  
    
     const https = require('https');
@@ -21,7 +21,7 @@ function Fuels(){
       rejectUnauthorized: false
     });
 
-  const address = `https://localhost:5050/api/rules/getFuels`;
+  const address = `https://localhost:5050/api/rules/getRuleOptions`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   // const { data, error } = useSWR(address, fetcher,{
   //   revalidateOnFocus: false,
@@ -33,10 +33,10 @@ function Fuels(){
   //   refreshInterval: 0
   // });
   const { data, error }= useSWRImmutable(address, fetcher)
-  let  FuelData=data;
+  let  RuleOptionData=data;
   if (error) <p>Loading failed...</p>;
   if (!data) <h1>Loading...</h1>;
-  if (data) FuelData=data;
+  if (data) RuleOptionData=data;
 
 //   useEffect(()=>{
 
@@ -49,9 +49,9 @@ function Fuels(){
 //    const agent = new https.Agent({  
 //      rejectUnauthorized: false
 //    });
-//    const result =  axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
+//    const result =  axios.get('https://localhost:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //    const data = result.data;
-//    FuelData=data
+//    RuleOptionData=data
 // } catch (error) {
 //    console.log(error);
 // }
@@ -64,7 +64,7 @@ return(
   <>
     <Head>
       <title>
-        Fuels | IVT
+        RuleOptions | IVT
       </title>
     </Head>
     <Box
@@ -75,16 +75,16 @@ return(
       }}
     >
       <Container maxWidth={false}>
-        {/* <FuelListToolbar /> */}
+        {/* <RuleOptionListToolbar /> */}
         <Box sx={{ mt: 1 }}>
-          <FuelListResults Fuels={data}/>
+          <RuleOptionListResults RuleOptions={data}/>
         </Box>
       
       </Container>
     </Box>
   </> )
 };
-Fuels.getLayout = (page) => (
+RuleOptions.getLayout = (page) => (
   
   <div>
   {page}
@@ -107,18 +107,18 @@ Fuels.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://localhost:5050/api/rules/getFuels',{ httpsAgent: agent });
+//     const result = await axios.get('https://localhost:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {
-//           FuelData: data
+//           RuleOptionData: data
 //         }
 //     }
 // } catch (error) {
 //     console.log(error);
 //     return {
 //       props: {
-//         FuelData: []
+//         RuleOptionData: []
 //       }
 //     }
 // }
@@ -129,4 +129,4 @@ Fuels.getLayout = (page) => (
 
 // }
 
-export default Fuels
+export default RuleOptions

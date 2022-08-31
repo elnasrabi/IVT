@@ -38,7 +38,7 @@ import Link from 'next/link'
 
 
 
-export const PrefixeListResults = ({ Prefixes, ...rest }) => {
+export const RuleListResults = ({ Rules, ...rest }) => {
 
 
   const [selectedRow, setSelectedRow] = useState();
@@ -46,7 +46,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
   const [alert, setAlert] = useState(0);
   const [alertContent, setAlertContent] = useState('');
 
-  const [data, setData] = useState(Prefixes);
+  const [data, setData] = useState(Rules);
 
   function getNewDataBulkEdit(changes, copyData) {
     // key matches the column data id
@@ -64,9 +64,34 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
     return copyData;
   }
 
-  function newPrefix(prefix){
+  // function newRule(Rules){
 
-    const res =  axios.post('https://localhost:5050/api/rules/newPrefix', prefix).then(response => {
+  //   const res =  axios.post('https://localhost:5050/api/rules/newRule', Rules).then(response => {
+      
+  //   console.log('response.data.success',response.data);
+  //     if(response.data.Msg)
+  //       {
+  //         setAlertContent(response.data.Msg);
+  //         setAlert(1);
+  //       }
+  //     else
+  //       {
+  //         setAlertContent( error.message);
+  //         setAlert(2);
+  //       }
+  //    }).catch(error=>{
+  //     setAlertContent('Error in Creating the Rule - '+ error.message);
+  //     setAlert(2);
+  //    })
+  //   //setstate({ Message: response.data }
+  //   //setMsg(response.data.Msg)
+    
+  //   }
+
+
+  function updateSingleRule(Rule){
+
+    const res =  axios.post('https://localhost:5050/api/rules/updateRule', Rule).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -80,7 +105,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
           setAlert(2);
         }
      }).catch(error=>{
-      setAlertContent('Error in Creating the Prefix - '+ error.message);
+      setAlertContent('Error in Updating the Rule - '+ error.message);
       setAlert(2);
      })
     //setstate({ Message: response.data }
@@ -88,34 +113,9 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
     
     }
 
+    function deleteSingleRule(Rule){
 
-  function updateSinglePrefix(prefix){
-
-    const res =  axios.post('https://localhost:5050/api/rules/updatePrefix', prefix).then(response => {
-      
-    console.log('response.data.success',response.data);
-      if(response.data.Msg)
-        {
-          setAlertContent(response.data.Msg);
-          setAlert(1);
-        }
-      else
-        {
-          setAlertContent( error.message);
-          setAlert(2);
-        }
-     }).catch(error=>{
-      setAlertContent('Error in Updating the Prefix - '+ error.message);
-      setAlert(2);
-     })
-    //setstate({ Message: response.data }
-    //setMsg(response.data.Msg)
-    
-    }
-
-    function deleteSinglePrefix(prefix){
-
-      const res =  axios.post('https://localhost:5050/api/rules/deletePrefix', prefix).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteRule', Rule).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -129,7 +129,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
             setAlert(2);
           }
        }).catch(error=>{
-        setAlertContent('Error in deleteing the Prefix - '+ error.message);
+        setAlertContent('Error in deleteing the Rule - '+ error.message);
         setAlert(2);
        })
       //setstate({ Message: response.data }
@@ -155,49 +155,23 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
       </NextLink>
         {(alert==1) ? <Alert severity='success'>{alertContent}</Alert> : (alert==2)?<Alert severity='error'>{alertContent}</Alert> : <></> }
       <MaterialTable
-        title="prefixes"
+        title="Rules"
         icons={tableIcons}
         
         // icons={{ Filter: () => <FiltersMenu /> }}
         columns={[
           { title: "Id", field: "Id" , editable: 'never',hidden:true},
-          { title: "Customer", field: "Customercode" },  //editable: 'never'
-          { title: "Prefix", field: "Prefix",initialEditValue:0 },
-          { title: "Carrier", field: "Carrier",initialEditValue:0 },
-          { title: "Del Com", field: "DeliveryComment",lookup: { true: '1', false: '0' } ,initialEditValue:0} ,
-          { title: "Cust Ref", field: "CustomerReference",lookup: { true: '1', false: '0' },initialEditValue:0},
-          //{ title: "Old Month", field: "Old_Connote_Month",initialEditValue:0,hidden:true },
-          { title: "GM <", field: "GM_Below",initialEditValue:0},
-          { title: "GM >", field: "GM_Above",initialEditValue:0 },
-          { title: "GM MV", field: "GM_Movement",initialEditValue:0 },
-          // { title: "Fuel >", field: "FuelDiff_Above",initialEditValue:0,hidden:true },
-          // { title: "Fuel <", field: "FuelDiff_Below",initialEditValue:0,hidden:true },
-          // { title: "Fuel Freight", field: "Fuel_Freight_Ratio",initialEditValue:0,hidden:true },
-          { title: "TotalSell", field: "TotalSell_Threshold",initialEditValue:0 },
-          { title: "Cubic", field: "Cubic_Threshold",initialEditValue:0 },
-          { title: "Weight", field: "Weight_Threshold",initialEditValue:0},
-          { title: "Pallet", field: "Pallet_Threshold",initialEditValue:0},
-          { title: "ChgWeight Diff", field: "ChgWeight_Weight_Diff",initialEditValue:0},
-          { title: "International", field: "International_Check",initialEditValue:0},
-          { title: "DELCOM Format", field: "DEL_COM_Format",initialEditValue:0},
-          { title: "CusRef Digits", field: "CusRef_Digits",initialEditValue:0},
-          { title: "GM Months", field: "GM_Month",initialEditValue:0},
-          { title: "#Jobs Prefixed", field: "No_Jobs_Prefixed",initialEditValue:0},
-          { title: "Moveit Dups", field: "Moveit_Dups_Check",initialEditValue:0},
-          { title: "Moveit Customer", field: "Moveit_Customer_Check",initialEditValue:0},
-          // { title: "Custom_Rule_1", field: "Custom_Rule_1",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_2", field: "Custom_Rule_2",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_3", field: "Custom_Rule_3",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_4", field: "Custom_Rule_4",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_5", field: "Custom_Rule_5",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_6", field: "Custom_Rule_6",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_7", field: "Custom_Rule_7",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_8", field: "Custom_Rule_8",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_9", field: "Custom_Rule_9",initialEditValue:0,hidden:true },
-          // { title: "Custom_Rule_10", field: "Custom_Rule_10",initialEditValue:0,hidden:true },
-      
+          { title: "ErrCode", field: "ErrCode" },  //editable: 'never'
+          { title: "ErrDesc", field: "ErrDesc"  },
+          { title: "ShortErrDesc", field: "ShortErrDesc"},
+          { title: "Customer", field: "Customer" },
+          { title: "Mandatory", field: "Mandatory",type:"boolean" },
+          // { title: "VCode", field: "VCode" },
+          // { title: "Customer", field: "Customer" },
+          // { title: "Carrier", field: "Carrier" },
+         
         ]}
-        data={Prefixes}
+        data={ Rules}
         onRowClick={(evt, selectedRow) => setSelectedRow(selectedRow.tableData.id)}
         onSelectionChange={(row)=>setSelectedRows(row)}
         options={{
@@ -242,46 +216,44 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
         onBulkUpdate: (changes) => {
           return new Promise((resolve, reject) => {
             const rows=Object.values(changes);
-            console.log('...Prefixes',...Prefixes)
-            let updatedrows = [...Prefixes];
+            let updatedrows = [...Rules];
               //setData(getNewDataBulkEdit(changes, copyData));
               let index;
-              rows.map(prefix=>{
-                //console.log('prefix.oldData.Id',prefix.oldData.tableData.id)
-                index=prefix.oldData.tableData.id
-               // console.log('prefix.newData',prefix.newData)
-                updatedrows[index]=prefix.newData
+              rows.map(Rule=>{
+                console.log('Rule.oldData.Id',Rule.oldData.tableData.id)
+                index=Rule.oldData.tableData.id
+                console.log('Rule.newData',Rule.newData)
+                updatedrows[index]=Rule.newData
 
               })
-             // console.log('updatedrows',updatedrows)
+              console.log('updatedrows',updatedrows)
             setTimeout(() => {
               for(var i=0;i<rows.length;i++){
-                updateSinglePrefix(rows[i].newData) 
+                updateSingleRule(rows[i].newData) 
                }
             
              setData(updatedrows)
-             Prefixes=data;
+             Rules=data;
               resolve();
             }, 2000);
           })
         },
         onRowAddCancelled: (rowData) => console.log("Row adding cancelled"),
         onRowUpdateCancelled: (rowData) => console.log("Row editing cancelled"),
-        onRowAdd: (newData) => {
-          return new Promise((resolve, reject) => {
-            setTimeout(() => {
-              //newData.id = "uuid-" + Math.random() * 10000000;
-              newPrefix(newData);
-              setData([...Prefixes, newData]);
-              Prefixes=data;
-              resolve();
-            }, 1000);
-          });
-        },
+        // onRowAdd: (newData) => {
+        //   return new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //       //newData.id = "uuid-" + Math.random() * 10000000;
+        //       newRule(newData);
+        //       setData([...Rules, newData]);
+        //       resolve();
+        //     }, 1000);
+        //   });
+        // },
         onRowUpdate: (newData, oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataCopy = [...Prefixes];
+              const dataCopy = [...Rules];
               // Find the index of the updated row - we have to use old data since
               // new data is not part of state yet
               const index2 = dataCopy.indexOf(oldData)
@@ -289,21 +261,15 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
               dataCopy[index2] = newData;
               // Update our state
               setData(dataCopy);
-              Prefixes=data;
-              console.log('...Prefixes',data)
-              if(Prefixes)
-              {
-                const dataUpdate = [...Prefixes];
-                // In dataUpdate, find target
-                const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
-                const index = dataUpdate.indexOf(target);
-                dataUpdate[index] = newData;
-               // setData([...dataUpdate]);
-               
-              }
+              Rules=data;
 
-              updateSinglePrefix(newData);
-           
+              const dataUpdate = [...Rules];
+              // In dataUpdate, find target
+              const target = dataUpdate.find((el) => el.id === oldData.tableData.id);
+              const index = dataUpdate.indexOf(target);
+              dataUpdate[index] = newData;
+             // setData([...dataUpdate]);
+              updateSingleRule(newData);
               resolve();
             }, 1000);
           });
@@ -311,20 +277,20 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
         onRowDelete: (oldData) => {
           return new Promise((resolve, reject) => {
             setTimeout(() => {
-              const dataDelete = [...Prefixes];
+              const dataDelete = [...Rules];
               const target = dataDelete.find((el) => el.Id === oldData.Id);
               const index = dataDelete.indexOf(target);
               console.log('index',index)
               dataDelete.splice(index, 1);
-              // let _data = [...Prefixes];
+              // let _data = [...Rules];
               // dataDelete.forEach(rd => {
               //   _data = _data.filter(t => t.tableData.id !== rd.tableData.Id);
               // });
               // setData(_data);
               
-              deleteSinglePrefix(oldData);
+              deleteSingleRule(oldData);
               setData([...dataDelete]);
-              Prefixes=data;
+              Rules=data;
               resolve();
             }, 1000);
           });
@@ -339,6 +305,6 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
   );
 };
 
-PrefixeListResults.propTypes = {
-  prefixes: PropTypes.array.isRequired
+RuleListResults.propTypes = {
+  Rules: PropTypes.array.isRequired
 };

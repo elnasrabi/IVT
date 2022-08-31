@@ -66,7 +66,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
   function newTolerance(Tolerances){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newTolerance', Tolerances).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newTolerance', Tolerances).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
   function updateSingleTolerance(Tolerance){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateTolerance', Tolerance).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateTolerance', Tolerance).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const ToleranceListResults = ({ Tolerances, ...rest }) => {
 
     function deleteSingleTolerance(Tolerance){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteTolerance', Tolerance).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteTolerance', Tolerance).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
