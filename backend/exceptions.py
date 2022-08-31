@@ -95,7 +95,7 @@ def get_all_quality_exceptions_for_download(connection,login):
     cursor.execute(query,data)
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
+    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,Sub_Reason,ActionTime,AccountManager,
     FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
@@ -142,6 +142,7 @@ def get_all_quality_exceptions_for_download(connection,login):
                 'ShortErrDesc':ShortErrDesc,
                 'ErrCode':ErrCode,
                 'ErrDesc':ErrDesc,
+                'Sub_Reason':Sub_Reason,
                 'ActionTime':ActionTime,
                 'AccountManager' : AccountManager ,
 	            'FinanceGroup' : FinanceGroup,
@@ -325,8 +326,9 @@ def get_held_connote_for_download(connection,login):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query,data)
     respons=[]
-    for (HeldType,HeldBy,HeldAt,InvoiceWeek,Reason,Supplier_ref,Jno,Customer,Cons_date,Carrier,Connote,from_loc,Colsubzone,To,Delsubzone,Option_code,Work_code,Freight_charges,Other_charges,Fuel_surch,
-    Total_nett,Cus_ref,Buy_Freight_Charges,Buy_Other_Charges,Buy_Fuel_Surch,Buy_TotalNett) in cursor:
+    for (HeldType,HeldBy,HeldAt,InvoiceWeek,Reason,Supplier_ref,Jno,Customer,Cons_date,Carrier,Connote,from_loc,Colsubzone,To,Delsubzone,Option_code,Work_code,Freight_charges,Other_charges,Fuel_surch,Total_nett,Cus_ref,Buy_Freight_Charges,Buy_Other_Charges,Buy_Fuel_Surch,Buy_TotalNett,Sub_Reason,gross,
+    items,space,lift,weight,pallet,hours,cubic,del_com,col_post,del_post,chg_kg,del_ref,unit,Col_loc,Del_loc,ErrCode,ErrPriority,ShortErrDesc,HoldRelease,
+    Comment,Margin,BuyFuelPerc,SellFuelPerc,Dead_WeightBased,Cubic_Items,AP_InternalComment) in cursor:
      respons.append(
             {
                 'HeldType':HeldType,
@@ -355,6 +357,35 @@ def get_held_connote_for_download(connection,login):
                 'Buy_Other_Charges':Buy_Other_Charges,
                 'Buy_Fuel_Surch':Buy_Fuel_Surch,
                 'Buy_TotalNett':Buy_TotalNett,
+                'Sub_Reason':Sub_Reason,
+                'gross':gross,
+                'items':items,
+                'space':space,
+                'lift':lift,
+                'weight':weight,
+                'pallet':pallet,
+                'hours':hours,
+                'cubic':cubic,
+                'del_com':del_com,
+                'col_post':col_post,
+                'del_post':del_post,
+                'chg_kg':chg_kg,
+                'del_ref':del_ref,
+                'unit':unit,
+                'Col_loc':Col_loc,
+                'Del_loc':Del_loc,
+                'ErrCode':ErrCode,
+                'ErrPriority':ErrPriority,
+                'ShortErrDesc':ShortErrDesc,
+                'HoldRelease':HoldRelease,
+                'Comment':Comment,
+                'Margin':Margin,
+                'BuyFuelPerc':BuyFuelPerc,
+                'SellFuelPerc':SellFuelPerc,
+                'Dead_WeightBased':Dead_WeightBased,
+                'Cubic_Items':Cubic_Items,
+                'AP_InternalComment':AP_InternalComment,
+
             }
         )
     cursor.close()
