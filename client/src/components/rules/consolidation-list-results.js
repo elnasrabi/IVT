@@ -66,7 +66,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
   function newConsolodition(Consoloditions){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newConsolodition', Consoloditions).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newConsolodition', Consoloditions).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
   function updateSingleConsolodition(Consolodition){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateConsolodition', Consolodition).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updateConsolodition', Consolodition).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const ConsoloditionListResults = ({ Consoloditions, ...rest }) => {
 
     function deleteSingleConsolodition(Consolodition){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteConsolodition', Consolodition).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deleteConsolodition', Consolodition).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

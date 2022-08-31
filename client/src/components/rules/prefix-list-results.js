@@ -66,7 +66,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function newPrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newPrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/newPrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
   function updateSinglePrefix(prefix){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updatePrefix', prefix).then(response => {
+    const res =  axios.post('https://localhost:5050/api/rules/updatePrefix', prefix).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
 
     function deleteSinglePrefix(prefix){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deletePrefix', prefix).then(response => {
+      const res =  axios.post('https://localhost:5050/api/rules/deletePrefix', prefix).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)
@@ -173,9 +173,18 @@ export const PrefixeListResults = ({ Prefixes, ...rest }) => {
           // { title: "Fuel >", field: "FuelDiff_Above",initialEditValue:0,hidden:true },
           // { title: "Fuel <", field: "FuelDiff_Below",initialEditValue:0,hidden:true },
           // { title: "Fuel Freight", field: "Fuel_Freight_Ratio",initialEditValue:0,hidden:true },
-          // { title: "TotalSell", field: "TotalSell_Threshold",initialEditValue:0,hidden:true },
-          // { title: "Cubic", field: "Cubic_Threshold",initialEditValue:0,hidden:true },
-          // { title: "Weight", field: "Weight_Threshold",initialEditValue:0,hidden:true },
+          { title: "TotalSell", field: "TotalSell_Threshold",initialEditValue:0 },
+          { title: "Cubic", field: "Cubic_Threshold",initialEditValue:0 },
+          { title: "Weight", field: "Weight_Threshold",initialEditValue:0},
+          { title: "Pallet", field: "Pallet_Threshold",initialEditValue:0},
+          { title: "ChgWeight Diff", field: "ChgWeight_Weight_Diff",initialEditValue:0},
+          { title: "International", field: "International_Check",initialEditValue:0},
+          { title: "DELCOM Format", field: "DEL_COM_Format",initialEditValue:0},
+          { title: "CusRef Digits", field: "CusRef_Digits",initialEditValue:0},
+          { title: "GM Months", field: "GM_Month",initialEditValue:0},
+          { title: "#Jobs Prefixed", field: "No_Jobs_Prefixed",initialEditValue:0},
+          { title: "Moveit Dups", field: "Moveit_Dups_Check",initialEditValue:0},
+          { title: "Moveit Customer", field: "Moveit_Customer_Check",initialEditValue:0},
           // { title: "Custom_Rule_1", field: "Custom_Rule_1",initialEditValue:0,hidden:true },
           // { title: "Custom_Rule_2", field: "Custom_Rule_2",initialEditValue:0,hidden:true },
           // { title: "Custom_Rule_3", field: "Custom_Rule_3",initialEditValue:0,hidden:true },

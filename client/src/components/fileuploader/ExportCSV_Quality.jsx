@@ -20,9 +20,12 @@ const MyCsvLink = (props) => {
     const[isloading,setIsLoading]=useState(false);
 
     const headers = [
+    
+        { label: "ErrPriority", key: "ErrPriority" },
         { label: "ErrCode", key: "ErrCode" },
         { label: "AccountManager", key: "AccountManager" },
         { label: "Exception", key: "ErrDesc" },
+        { label: "Sub Reason", key: "Sub_Reason" },
         { label: "CurrentWeek", key: "CurrentWeek" },
         { label: "Jno", key: "jno" },
         { label: "CustomerName", key: "CustomerName" },
@@ -83,7 +86,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://afs-web01:5051/api/exception/getQualityExceptionForDownload', payload).then(response => {
+     axios.post('https://localhost:5050/api/exception/getQualityExceptionForDownload', payload).then(response => {
         
         
         setData( response.data )
