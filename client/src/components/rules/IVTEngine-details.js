@@ -68,8 +68,12 @@ export const IVTEngineDetails = (props) => {
         
         setAlertContent('IVT Engine Tasks Started...');
         setAlert(3);
+        const https = require('https');
+        const agent = new https.Agent({  
+          rejectUnauthorized: false
+        });
 
-           const res =  axios.post('https://afs-web01:5051/api/rules/runIVT',{ task: task } ).then(response => {
+           const res =  axios.post('https://127.0.0.1:5050/api/rules/runIVT',{ httpsAgent: agent , task: task } ).then(response => {
              
             
              if(response.data.Msg)
@@ -77,7 +81,7 @@ export const IVTEngineDetails = (props) => {
                  setAlertContent(response.data.Msg);
                  setAlert(1);
                  resetDashboard()
-                 axios.get('https://afs-web01:5051/api/ML/getMLIFExceptions')
+                 axios.get('https://127.0.0.1:5050/api/ML/getMLIFExceptions',{ httpsAgent: agent })
                }
              else
                {

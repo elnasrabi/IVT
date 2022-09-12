@@ -168,9 +168,7 @@ def get_all_historical_exceptions(connection,reqs):
     #storedProc = "exec database..stored_procedure 'param1','param2'"
     cursor.execute(query,data)
     respons=[]
-    for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
-    status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,
-    FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+    for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,ActionTime,AccountManager,FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
         respons.append(
             {
                 'supplier_ref':supplier_ref,

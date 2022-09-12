@@ -66,7 +66,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
   function newRoute(Route){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/newRoute', Route).then(response => {
+    const res =  axios.post('https://127.0.0.1:5050/api/rules/newRoute', Route).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
   function updateSingleRoute(Route){
 
-    const res =  axios.post('https://afs-web01:5051/api/rules/updateRoute', Route).then(response => {
+    const res =  axios.post('https://127.0.0.1:5050/api/rules/updateRoute', Route).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const RouteListResults = ({ Routes, ...rest }) => {
 
     function deleteSingleRoute(Route){
 
-      const res =  axios.post('https://afs-web01:5051/api/rules/deleteRoute', Route).then(response => {
+      const res =  axios.post('https://127.0.0.1:5050/api/rules/deleteRoute', Route).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

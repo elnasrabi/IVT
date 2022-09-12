@@ -1,4 +1,5 @@
 
+from threading import Thread
 from flask import Flask, request, jsonify
 
 
@@ -671,7 +672,7 @@ def get_loginlocal():
 #endregion 
 
 #region IVT ENGINE
-@app.route('/api/rules/runIVT', methods=['POST'])
+@app.route('/api/rules/runIVT', methods=['get','POST'])
 def run_IVT():
     request_payload = request.get_json()
     msg = admin.runIVT(connection, request_payload)
@@ -686,10 +687,12 @@ def run_IVT():
 @app.route('/api/ML/getMLIFExceptions', methods=['GET'])
 def get_ML_IF_Exceptions():
    # request_payload = request.get_json()
-    msg = ML.get_ML_IF_exceptions()
+    msg = 'NA'
+    thread = Thread(target=ML.get_ML_IF_exceptions())
     response = jsonify({
         'Msg': msg
     })
+    thread.start()
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

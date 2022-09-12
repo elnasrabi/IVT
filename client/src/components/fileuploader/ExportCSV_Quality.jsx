@@ -86,7 +86,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://afs-web01:5051/api/exception/getQualityExceptionForDownload', payload).then(response => {
+     axios.post('https://127.0.0.1:5050/api/exception/getQualityExceptionForDownload', payload).then(response => {
         
         
         setData( response.data )

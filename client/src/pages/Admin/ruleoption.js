@@ -21,7 +21,7 @@ function RuleOptions(){
       rejectUnauthorized: false
     });
 
-  const address = `https://afs-web01:5051/api/rules/getRuleOptions`;
+  const address = `https://127.0.0.1:5050/api/rules/getRuleOptions`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   // const { data, error } = useSWR(address, fetcher,{
   //   revalidateOnFocus: false,
@@ -49,7 +49,7 @@ function RuleOptions(){
 //    const agent = new https.Agent({  
 //      rejectUnauthorized: false
 //    });
-//    const result =  axios.get('https://afs-web01:5051/api/rules/getRuleOptions',{ httpsAgent: agent });
+//    const result =  axios.get('https://127.0.0.1:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //    const data = result.data;
 //    RuleOptionData=data
 // } catch (error) {
@@ -107,7 +107,7 @@ RuleOptions.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://afs-web01:5051/api/rules/getRuleOptions',{ httpsAgent: agent });
+//     const result = await axios.get('https://127.0.0.1:5050/api/rules/getRuleOptions',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {
