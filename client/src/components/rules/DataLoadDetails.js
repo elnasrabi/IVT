@@ -59,7 +59,7 @@ export const DataLoadDetails = (props) => {
         
         
            
-           const res =  axios.post('https://127.0.0.1:5050/api/admin/IVTDataLoad',{ Type: load.Type,InvoiceWeek:load.InvoiceWeek } ).then(response => {
+           const res =  axios.post('https://afs-web01:5051/api/admin/IVTDataLoad',{ Type: load.Type,InvoiceWeek:load.InvoiceWeek } ).then(response => {
              
             
              if(response.data.Msg)

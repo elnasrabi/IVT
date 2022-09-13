@@ -710,5 +710,6 @@ def get_ML_Current_exception():
 
 if __name__ == "__main__":
     print("Starting Python Flask Server")
-    app.run(port=5050 , ssl_context=('C:\cert\CA\localhost\cert.pem', 'C:\cert\CA\localhost\key.pem'))
+    CORS(__name__ )
+    app.run(port=5051 , ssl_context=('C:\cert\CA\localhost\cert.pem', 'C:\cert\CA\localhost\key.pem'))
     

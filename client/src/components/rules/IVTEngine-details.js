@@ -73,7 +73,7 @@ export const IVTEngineDetails = (props) => {
           rejectUnauthorized: false
         });
 
-           const res =  axios.post('https://127.0.0.1:5050/api/rules/runIVT',{ httpsAgent: agent , task: task } ).then(response => {
+           const res =  axios.post('https://afs-web01:5051/api/rules/runIVT',{ httpsAgent: agent , task: task } ).then(response => {
              
             
              if(response.data.Msg)
@@ -81,7 +81,7 @@ export const IVTEngineDetails = (props) => {
                  setAlertContent(response.data.Msg);
                  setAlert(1);
                  resetDashboard()
-                 axios.get('https://127.0.0.1:5050/api/ML/getMLIFExceptions',{ httpsAgent: agent })
+                 axios.get('https://afs-web01:5051/api/ML/getMLIFExceptions',{ httpsAgent: agent })
                }
              else
                {
@@ -95,7 +95,7 @@ export const IVTEngineDetails = (props) => {
            //setstate({ Message: response.data }
            //setMsg(response.data.Msg)
         resolve();
-      }, 95000);
+      }, 75000);
       // Run the ML Model in background
      
     });

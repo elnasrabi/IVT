@@ -22,17 +22,20 @@ const MyCsvLink = (props) => {
     const headers = [
         { label: "ErrPriority", key: "ErrPriority" },
         { label: "ErrCode", key: "ErrCode" },
+        { label: "AM", key: "HeldBy" },
+        { label: "InvoiceWeek", key: "InvoiceWeek" },
         { label: "Hold/Release", key: "HoldRelease" },
         { label: "Comment", key: "Comment" },
-        { label: "InvoiceWeek", key: "InvoiceWeek" },
+        { label: "FinanceGroup", key: "FinanceGroup" },
+        { label: "CustomerName", key: "CustomerName" },
+        { label: "CustomerCode", key: "Customer" },
+        { label: "Carrier", key: "Carrier" },
+        { label: "Connote", key: "Connote" },
+        { label: "Cons_date", key: "Cons_date" },
         { label: "ShortErrDesc", key: "ShortErrDesc" },
         { label: "Reason", key: "Reason" },
         { label: "Sub Reason", key: "Sub_Reason" },
         { label: "Jno", key: "Jno" },
-        { label: "Customer", key: "Customer" },
-        { label: "Cons_date", key: "Cons_date" },
-        { label: "Carrier", key: "Carrier" },
-        { label: "Connote", key: "Connote" },
         { label: "from_loc", key: "from_loc" },
         { label: "Colsubzone", key: "Colsubzone" },
         { label: "To", key: "To" },
@@ -71,7 +74,6 @@ const MyCsvLink = (props) => {
         { label: "Dead_WeightBased", key: "Dead_WeightBased" },
         { label: "AP_InternalComment", key: "AP_InternalComment" },
         { label: "Held Type", key: "HeldType" },
-        { label: "AM", key: "HeldBy" },
         { label: "Held At", key: "HeldAt" }
       ];
       var d =  new Date,
@@ -96,7 +98,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://127.0.0.1:5050/api/exception/getHeldConnotefordownload', payload).then(response => {
+     axios.post('https://afs-web01:5051/api/exception/getHeldConnotefordownload', payload).then(response => {
         
         
         setData( response.data )

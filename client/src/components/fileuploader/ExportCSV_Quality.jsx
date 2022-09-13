@@ -23,15 +23,20 @@ const MyCsvLink = (props) => {
     
         { label: "ErrPriority", key: "ErrPriority" },
         { label: "ErrCode", key: "ErrCode" },
-        { label: "AccountManager", key: "AccountManager" },
-        { label: "Exception", key: "ErrDesc" },
-        { label: "Sub Reason", key: "Sub_Reason" },
-        { label: "CurrentWeek", key: "CurrentWeek" },
-        { label: "Jno", key: "jno" },
+        { label: "AM", key: "AccountManager" },
+        { label: "InvoiceWeek", key: "CurrentWeek" },
+        { label: "Hold/Release", key: "HoldRelease" },
+        { label: "Comment", key: "Comment" },
+        { label: "FinanceGroup", key: "FinanceGroup" },
         { label: "CustomerName", key: "CustomerName" },
-        { label: "Cons_date", key: "cons_date" },
-        { label: "Carrier", key: "carrier" },
-        { label: "con_note", key: "con_note" },
+        { label: "CustomerCode", key: "customer" },
+        { label: "Carrier", key: "Carrier" },
+        { label: "Connote", key: "con_note" },
+        { label: "Cons_date", key: "Cons_date" },
+        { label: "ShortErrDesc", key: "ShortErrDesc" },
+        { label: "Reason", key: "ErrDesc" },
+        { label: "Sub Reason", key: "Sub_Reason" },
+        { label: "Jno", key: "jno" },
         { label: "from_loc", key: "from_loc" },
         { label: "Colsubzone", key: "colsubzone" },
         { label: "To", key: "to_loc" },
@@ -58,10 +63,12 @@ const MyCsvLink = (props) => {
         { label: "del_post", key: "del_post" },
         { label: "chg_kg", key: "chg_kg" },
         { label: "weight", key: "weight" },
-        { label: "RecordedDate", key: "RecordedDate" },
-        { label: "ShortErrDesc", key: "ShortErrDesc" },
-        { label: "FinanceGroup", key: "FinanceGroup" },
-        { label: "BusinessCountry", key: "BusinessCountry" },
+        { label: "Margin%", key: "Margin" },
+        { label: "BuyFuel%", key: "BuyFuelPerc" },
+        { label: "SellFuel%", key: "SellFuelPerc" },
+        { label: "Cubic_Items", key: "Cubic_Items" },
+        { label: "Dead_WeightBased", key: "Dead_WeightBased" },
+        { label: "AP_InternalComment", key: "AP_InternalComment" },
         { label: "ActionTime", key: "ActionTime" }
       ];
       var d =  new Date,
@@ -86,7 +93,7 @@ const MyCsvLink = (props) => {
     
      setIsLoading(true);
    
-     axios.post('https://127.0.0.1:5050/api/exception/getQualityExceptionForDownload', payload).then(response => {
+     axios.post('https://afs-web01:5051/api/exception/getQualityExceptionForDownload', payload).then(response => {
         
         
         setData( response.data )

@@ -66,7 +66,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
 
   function newFuel(Fuel){
 
-    const res =  axios.post('https://127.0.0.1:5050/api/rules/newFuel', Fuel).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/newFuel', Fuel).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -91,7 +91,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
 
   function updateSingleFuel(Fuel){
 
-    const res =  axios.post('https://127.0.0.1:5050/api/rules/updateFuel', Fuel).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/rules/updateFuel', Fuel).then(response => {
       
     console.log('response.data.success',response.data);
       if(response.data.Msg)
@@ -115,7 +115,7 @@ export const FuelListResults = ({ Fuels, ...rest }) => {
 
     function deleteSingleFuel(Fuel){
 
-      const res =  axios.post('https://127.0.0.1:5050/api/rules/deleteFuel', Fuel).then(response => {
+      const res =  axios.post('https://afs-web01:5051/api/rules/deleteFuel', Fuel).then(response => {
         
       console.log('response.data.success',response.data);
         if(response.data.Msg)

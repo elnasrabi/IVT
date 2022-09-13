@@ -21,7 +21,7 @@ function Tolerances(){
       rejectUnauthorized: false
     });
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  const address = `https://127.0.0.1:5050/api/rules/getTolerances`;
+  const address = `https://afs-web01:5051/api/rules/getTolerances`;
   const fetcher = async (url) => await axios.get(url,{ httpsAgent: agent }).then((res) => res.data);
   // const { data, error } = useSWR(address, fetcher,{
   //   revalidateOnFocus: false,
@@ -50,7 +50,7 @@ function Tolerances(){
 //    const agent = new https.Agent({  
 //      rejectUnauthorized: false
 //    });
-//    const result =  axios.get('https://127.0.0.1:5050/api/rules/getTolerances',{ httpsAgent: agent });
+//    const result =  axios.get('https://afs-web01:5051/api/rules/getTolerances',{ httpsAgent: agent });
 //    const data = result.data;
 //    ToleranceData=data
 // } catch (error) {
@@ -110,7 +110,7 @@ Tolerances.getLayout = (page) => (
 //       rejectUnauthorized: false
 //     });
 
-//     const result = await axios.get('https://127.0.0.1:5050/api/rules/getTolerances',{ httpsAgent: agent });
+//     const result = await axios.get('https://afs-web01:5051/api/rules/getTolerances',{ httpsAgent: agent });
 //     const data = result.data;
 //     return {
 //         props: {

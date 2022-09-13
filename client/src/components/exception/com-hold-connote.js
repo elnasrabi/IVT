@@ -60,7 +60,7 @@ connote={}
       Carrier:connote.carrier
     }
     try {
-      const response = await axios.post('https://127.0.0.1:5050/api/exception/heldConnote', payload).then(response => {
+      const response = await axios.post('https://afs-web01:5051/api/exception/heldConnote', payload).then(response => {
         console.log('response.data.success',response.data);
 
         if(response.data.Msg)
@@ -91,7 +91,7 @@ connote={}
 
 
  
-    const res =  axios.post('https://127.0.0.1:5050/api/exception/heldConnote', connote).then(response => {
+    const res =  axios.post('https://afs-web01:5051/api/exception/heldConnote', connote).then(response => {
       
     console.log('response.data.success',response.data);
 

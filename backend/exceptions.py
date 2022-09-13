@@ -74,7 +74,9 @@ def get_all_current_exceptions(connection,login):
 	            'FinanceGroup' : FinanceGroup,
 	            'CustomerName' : CustomerName,
 	            'BusinessCountry' : BusinessCountry,
-                'LoginName':LoginName
+                'LoginName':LoginName,
+                
+                
 
             }
         )
@@ -96,7 +98,7 @@ def get_all_quality_exceptions_for_download(connection,login):
     respons=[]
     for (supplier_ref, jno, customer,cons_date,carrier,invoice_no,invoice_date,con_note,from_loc,colsubzone,to_loc,delsubzone,option_code,work_code,freight_charges,other_charges,fuel_surch,total_nett,gst,gross,items,quantity,space,lift,weight,pallet,hours,cubic,del_com,entered_by,
     status,cus_ref,col_post,del_post,chg_kg,unit,del_ref,CurrentWeek,RecordedDate,ErrPriority,ErrCode,ShortErrDesc,ErrDesc,Sub_Reason,ActionTime,AccountManager,
-    FinanceGroup,CustomerName,BusinessCountry,LoginName) in cursor:
+    FinanceGroup,CustomerName,BusinessCountry,LoginName,Margin,BuyFuelPerc,SellFuelPerc,Dead_WeightBased,Cubic_Items,AP_InternalComment,HoldRelease,Comment) in cursor:
         respons.append(
             {
                 'supplier_ref':supplier_ref,
@@ -148,7 +150,16 @@ def get_all_quality_exceptions_for_download(connection,login):
 	            'FinanceGroup' : FinanceGroup,
 	            'CustomerName' : CustomerName,
 	            'BusinessCountry' : BusinessCountry,
-                'LoginName':LoginName
+                'LoginName':LoginName,
+                'Margin':Margin,
+                'BuyFuelPerc':BuyFuelPerc,
+                'SellFuelPerc':SellFuelPerc,
+                'Dead_WeightBased':Dead_WeightBased,
+                'Cubic_Items':Cubic_Items,
+                'AP_InternalComment':AP_InternalComment,
+                'HoldRelease':HoldRelease,
+                'Comment':Comment
+               
 
             }
         )
@@ -326,7 +337,7 @@ def get_held_connote_for_download(connection,login):
     respons=[]
     for (HeldType,HeldBy,HeldAt,InvoiceWeek,Reason,Supplier_ref,Jno,Customer,Cons_date,Carrier,Connote,from_loc,Colsubzone,To,Delsubzone,Option_code,Work_code,Freight_charges,Other_charges,Fuel_surch,Total_nett,Cus_ref,Buy_Freight_Charges,Buy_Other_Charges,Buy_Fuel_Surch,Buy_TotalNett,Sub_Reason,gross,
     items,space,lift,weight,pallet,hours,cubic,del_com,col_post,del_post,chg_kg,del_ref,unit,Col_loc,Del_loc,ErrCode,ErrPriority,ShortErrDesc,HoldRelease,
-    Comment,Margin,BuyFuelPerc,SellFuelPerc,Dead_WeightBased,Cubic_Items,AP_InternalComment) in cursor:
+    Comment,Margin,BuyFuelPerc,SellFuelPerc,Dead_WeightBased,Cubic_Items,AP_InternalComment,CustomerName,FinanceGroup) in cursor:
      respons.append(
             {
                 'HeldType':HeldType,
@@ -383,6 +394,8 @@ def get_held_connote_for_download(connection,login):
                 'Dead_WeightBased':Dead_WeightBased,
                 'Cubic_Items':Cubic_Items,
                 'AP_InternalComment':AP_InternalComment,
+                'CustomerName':CustomerName,
+                'FinanceGroup':FinanceGroup
 
             }
         )
